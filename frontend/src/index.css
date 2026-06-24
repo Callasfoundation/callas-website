@@ -1,33 +1,22 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700;800&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply font-sans text-gray-800 antialiased bg-white;
+  html {
+    scroll-behavior: smooth;
   }
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold tracking-tight text-callas-blue;
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
   }
 }
 
-@layer components {
-  .btn-get-help {
-    @apply bg-callas-red text-white font-bold py-3 px-6 rounded-full shadow-lg 
-           hover:bg-callas-redDark transition-all duration-300 
-           flex items-center justify-center gap-2;
-  }
+/* Custom global utilities for Callas layout consistency */
+.bg-gradient-callas {
+  background: linear-gradient(135deg, #0D47A1 0%, #1976D2 100%);
+}
 
-  .btn-donate {
-    @apply bg-callas-blue text-white font-semibold py-3 px-6 rounded-lg shadow-md 
-           hover:bg-callas-blueLight transition-all duration-300 
-           transform hover:-translate-y-1 flex items-center justify-center gap-2;
-  }
-  
-  .btn-outline {
-    @apply border-2 border-callas-blue text-callas-blue font-semibold py-2 px-6 rounded-lg 
-           hover:bg-callas-blue hover:text-white transition-all duration-300;
-  }
+.text-shadow-sm {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }

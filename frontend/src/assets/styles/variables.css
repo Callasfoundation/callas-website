@@ -1,0 +1,22 @@
+:root {
+  /* Brand Colors */
+  --callas-red: #D32F2F;
+  --callas-blue: #1976D2;
+  --callas-dark-blue: #0D47A1;
+  --callas-light-blue: #E3F2FD;
+  
+  /* Neutral Palette */
+  --neutral-dark: #212121;
+  --neutral-grey: #757575;
+  --neutral-light: #F5F5F5;
+  --white: #FFFFFF;
+
+  /* Layout Dimensions */
+  --navbar-height: 80px;
+  --max-width: 1280px;
+
+  /* Animation Timings */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
