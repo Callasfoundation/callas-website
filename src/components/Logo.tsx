@@ -1,6 +1,12 @@
-import logoAsset from "@/assets/callas-logo.png.asset.json";
+import logoAsset from "@/assets/callas-logo.png";
 
-export function Logo({ className = "h-10 w-10", showWordmark = true }: { className?: string; showWordmark?: boolean }) {
+export function Logo({
+  className = "h-10 w-10",
+  showWordmark = true,
+}: {
+  className?: string;
+  showWordmark?: boolean;
+}) {
   return (
     <div className="flex items-center gap-3">
       <img
