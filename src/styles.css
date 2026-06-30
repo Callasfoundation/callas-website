@@ -1,16 +1,22 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "@fontsource/fraunces/400.css";
+@import "@fontsource/fraunces/500.css";
+@import "@fontsource/fraunces/600.css";
+@import "@fontsource/fraunces/700.css";
+@import "@fontsource/fraunces/900.css";
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/800.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --radius-2xl: calc(var(--radius) + 8px);
-  --radius-3xl: calc(var(--radius) + 12px);
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -32,93 +38,122 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --color-brand-blue: var(--brand-blue);
-  --color-brand-blue-soft: var(--brand-blue-soft);
-  --color-brand-red: var(--brand-red);
-  --color-brand-red-soft: var(--brand-red-soft);
-  --color-ink: var(--ink);
-  --color-canvas: var(--canvas);
+  --color-callas-red: var(--callas-red);
+  --color-callas-red-dark: var(--callas-red-dark);
+  --color-callas-blue: var(--callas-blue);
+  --color-callas-blue-dark: var(--callas-blue-dark);
+  --color-callas-ink: var(--callas-ink);
+  --color-callas-canvas: var(--callas-canvas);
+  --color-callas-line: var(--callas-line);
 
-  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-
-  --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 8px 24px -12px rgb(15 23 42 / 0.08);
-  --shadow-lift: 0 10px 40px -12px rgb(43 89 195 / 0.22);
-  --shadow-ring-red: 0 0 0 6px rgb(217 26 26 / 0.12);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.5rem;
 
-  /* Brand */
-  --brand-blue: oklch(0.515 0.187 263);        /* #2B59C3 */
-  --brand-blue-soft: oklch(0.94 0.04 263);
-  --brand-red: oklch(0.555 0.225 27);          /* #D91A1A */
-  --brand-red-soft: oklch(0.95 0.04 27);
-  --ink: oklch(0.16 0.02 264);                 /* near #111827 */
-  --canvas: oklch(0.985 0.005 247);            /* #F8FAFC */
+  /* Callas brand tokens */
+  --callas-red: oklch(0.572 0.231 27.5);        /* #D91A1A */
+  --callas-red-dark: oklch(0.49 0.21 27.5);
+  --callas-blue: oklch(0.495 0.18 264);         /* #2B59C3 */
+  --callas-blue-dark: oklch(0.40 0.17 264);
+  --callas-ink: oklch(0.16 0.018 264);          /* near #111827 */
+  --callas-canvas: oklch(0.985 0.005 248);      /* #F8FAFC */
+  --callas-line: oklch(0.92 0.008 248);
 
+  /* Semantic mapping */
   --background: oklch(1 0 0);
-  --foreground: oklch(0.16 0.02 264);
+  --foreground: var(--callas-ink);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.16 0.02 264);
+  --card-foreground: var(--callas-ink);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.16 0.02 264);
-  --primary: oklch(0.515 0.187 263);
+  --popover-foreground: var(--callas-ink);
+  --primary: var(--callas-red);
   --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.96 0.01 264);
-  --secondary-foreground: oklch(0.16 0.02 264);
-  --muted: oklch(0.97 0.005 247);
+  --secondary: var(--callas-blue);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: var(--callas-canvas);
   --muted-foreground: oklch(0.45 0.02 264);
-  --accent: oklch(0.94 0.04 263);
-  --accent-foreground: oklch(0.16 0.02 264);
-  --destructive: oklch(0.555 0.225 27);
+  --accent: var(--callas-canvas);
+  --accent-foreground: var(--callas-ink);
+  --destructive: var(--callas-red);
   --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.92 0.008 247);
-  --input: oklch(0.92 0.008 247);
-  --ring: oklch(0.515 0.187 263);
+  --border: var(--callas-line);
+  --input: var(--callas-line);
+  --ring: var(--callas-blue);
+}
+
+.dark {
+  --background: var(--callas-ink);
+  --foreground: oklch(0.98 0.005 248);
+  --card: oklch(0.2 0.02 264);
+  --card-foreground: oklch(0.98 0.005 248);
+  --popover: oklch(0.2 0.02 264);
+  --popover-foreground: oklch(0.98 0.005 248);
+  --primary: var(--callas-red);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--callas-blue);
+  --secondary-foreground: oklch(1 0 0);
+  --muted: oklch(0.25 0.02 264);
+  --muted-foreground: oklch(0.7 0.02 264);
+  --accent: oklch(0.25 0.02 264);
+  --accent-foreground: oklch(0.98 0.005 248);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 16%);
+  --ring: var(--callas-blue);
 }
 
 @layer base {
-  * { border-color: var(--color-border); }
-  html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
-  body {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.02em; }
-  ::selection { background: var(--brand-blue); color: white; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
 }
 
 @utility container-x {
   width: 100%;
   margin-inline: auto;
-  max-width: 80rem;
   padding-inline: 1.25rem;
-  @media (min-width: 768px) { padding-inline: 2rem; }
-  @media (min-width: 1280px) { padding-inline: 3rem; }
+  max-width: 80rem;
+  @media (min-width: 1024px) { padding-inline: 2.5rem; }
+}
+
+@utility ring-pulse {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 9999px;
+    border: 2px solid var(--callas-red);
+    animation: callas-pulse 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+}
+
+@keyframes callas-pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+@utility diag-clip {
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
 }
 
 @utility text-balance {
   text-wrap: balance;
-}
-
-@utility pulse-red {
-  box-shadow: 0 0 0 0 rgb(217 26 26 / 0.55);
-  animation: pulseRed 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-@keyframes pulseRed {
-  0%   { box-shadow: 0 0 0 0 rgb(217 26 26 / 0.55); }
-  70%  { box-shadow: 0 0 0 14px rgb(217 26 26 / 0); }
-  100% { box-shadow: 0 0 0 0 rgb(217 26 26 / 0); }
-}
-
-@utility grid-fade {
-  background-image:
-    linear-gradient(to right, rgb(15 23 42 / 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(15 23 42 / 0.04) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
 }

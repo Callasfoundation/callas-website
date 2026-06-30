@@ -1,154 +1,119 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "motion/react";
-import { Calendar, MapPin, Users, ArrowRight } from "lucide-react";
-import { PageShell, SectionHeading } from "@/components/PageShell";
-import hero from "@/assets/hero-women.jpg";
+import { SiteLayout } from "@/components/SiteLayout";
+import { PageHero } from "@/components/PageHero";
+import { CTASection } from "@/components/CTASection";
+import { ImpactCounter } from "@/components/ImpactCounter";
+import aboutImg from "@/assets/about-circle.jpg";
+import communityImg from "@/assets/community-wide.jpg";
+import { CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About — Callas Foundation" },
-      { name: "description", content: "Founded in Mufakose in 2018, Callas Foundation is a survivor-led organisation working across Harare to end gender-based violence." },
+      { name: "description", content: "Callas Foundation is a Cape Flats community-rooted organisation responding to gender-based violence with dignity, justice, and care since 2014." },
+      { property: "og:title", content: "About Callas Foundation" },
+      { property: "og:description", content: "A community-rooted GBV response organisation built by, and for, the Cape Flats." },
     ],
   }),
-  component: About,
+  component: AboutPage,
 });
 
-const TIMELINE = [
-  { year: "2018", title: "First listening circle", body: "Twelve women met every Saturday under a jacaranda tree in Mufakose. The Foundation was registered nine months later." },
-  { year: "2019", title: "PVO certification", body: "Granted Private Voluntary Organisation status (PVO 23/2019) and opened our first dedicated intake office." },
-  { year: "2021", title: "Community kitchens launched", body: "Three permanent kitchens opened across high-risk wards, serving 600 meals daily within six months." },
-  { year: "2023", title: "BBB Boys Programme expansion", body: "Mentorship programme scaled to 14 schools after a two-year pilot showed a 41% drop in playground conflict." },
-  { year: "2025", title: "Regional advocacy seat", body: "Joined the SADC Civil Society GBV Reference Group, taking ward-level evidence to policy tables." },
+const VALUES = [
+  { title: "Dignity first", body: "Every survivor, every child, every neighbour is met with respect — no questions, no judgement, no conditions." },
+  { title: "Community-rooted", body: "Our staff, board, and volunteers live in the communities we serve. We are not visitors here." },
+  { title: "Survivor-led", body: "Survivors shape our programmes, our advocacy, and our governance. Their voices set the agenda." },
+  { title: "Radically transparent", body: "Audited financials, programme outcomes, and board minutes are published openly every year." },
 ];
 
-const TRUSTEES = [
-  { name: "Dr. Nyarai Chigwedere", role: "Chair · Clinical Psychologist", focus: "Trauma frameworks" },
-  { name: "Adv. Tatenda Moyo",     role: "Vice Chair · Family Law",      focus: "Access to justice" },
-  { name: "Mr. Brighton Sibanda",  role: "Treasurer · CA(Z)",            focus: "Financial stewardship" },
-  { name: "Mrs. Ruvimbo Phiri",    role: "Trustee · Educator",           focus: "Youth programmes" },
-  { name: "Mr. Kudakwashe Mpofu",  role: "Trustee · Community Leader",    focus: "Men's engagement" },
-  { name: "Ms. Farai Ndlovu",      role: "Trustee · Survivor Advocate",   focus: "Lived-experience council" },
+const TEAM = [
+  { name: "Nontuthuzelo Mbele", role: "Executive Director" },
+  { name: "Aaliyah Davids", role: "Head of Access to Justice" },
+  { name: "Sipho Khumalo", role: "BBB Boys Programme Lead" },
+  { name: "Carmen Williams", role: "Community Kitchen Manager" },
+  { name: "Fatima Adams", role: "Psychosocial Services Lead" },
+  { name: "Jonathan Petersen", role: "Men's Engagement Facilitator" },
 ];
 
-function About() {
+function AboutPage() {
   return (
-    <PageShell>
-      <section className="relative overflow-hidden border-b border-slate-200/60">
-        <div className="absolute inset-0">
-          <img src={hero} alt="" className="h-full w-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/40" />
-        </div>
-        <div className="container-x relative py-24 text-white md:py-32">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">Our story</p>
-          <h1 className="mt-4 max-w-3xl text-balance font-display text-5xl font-bold leading-[1.05] md:text-7xl">
-            Born under a jacaranda. Built into a movement.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-white/80">
-            Callas Foundation began with twelve women refusing to be silent. Today it is a continuum
-            of care reaching nine wards, three schools' districts, and one national policy table.
-          </p>
-        </div>
-      </section>
+    <SiteLayout>
+      <PageHero
+        eyebrow="About Callas Foundation"
+        title={<>Rooted in the Cape Flats. <span className="text-white/80">Built for change.</span></>}
+        subtitle="Callas Foundation was founded in 2014 by community organisers, paralegals, and mothers who refused to accept gender-based violence as normal."
+        variant="blue"
+      />
 
-      <section className="border-b border-slate-200/60 bg-white">
-        <div className="container-x grid gap-16 py-20 md:py-28 lg:grid-cols-2 lg:items-start">
-          <SectionHeading
-            eyebrow="Mission"
-            title="To restore dignity, protection and restoration for every woman, child and family touched by violence."
-          />
-          <div className="space-y-6 text-base leading-relaxed text-muted-foreground">
-            <p>
-              We refuse the false choice between immediate safety and long-term structural change.
-              Our programmes braid the two — answering a midnight call while drafting a by-law for
-              the next council meeting.
+      <section className="bg-white">
+        <div className="container-x grid gap-12 py-20 lg:grid-cols-2 lg:py-28">
+          <div>
+            <img src={aboutImg} alt="" width={1400} height={1000} loading="lazy" className="rounded-2xl" />
+          </div>
+          <div className="space-y-5">
+            <div className="text-xs font-bold uppercase tracking-[0.22em] text-callas-red">Our Story</div>
+            <h2 className="font-display text-4xl font-bold leading-tight">Twelve years of helping in our way.</h2>
+            <p className="text-base leading-relaxed text-callas-ink/80">
+              What started as a soup pot on a Manenberg stoep has grown into seven frontline programmes serving 14 communities across the Cape Flats. Through every season — from the violent winter of 2016 to the lockdowns of 2020 to today — Callas has stayed where it began: in the streets, kitchens, courtrooms and classrooms of our own neighbourhoods.
             </p>
-            <p>
-              Our work is owned by the people closest to it. Every site lead is recruited from the
-              community they serve, every curriculum is co-designed with survivors, and every annual
-              report is audited and published openly.
+            <p className="text-base leading-relaxed text-callas-ink/80">
+              We refuse the language of saviours. We are neighbours, paralegals, counsellors, fathers, mothers, and survivors organising with each other for a future that doesn’t need us — but in the meantime, we are here every single day.
             </p>
-            <div className="grid grid-cols-3 gap-4 pt-2">
-              {[
-                { icon: Calendar, k: "Est.", v: "2018" },
-                { icon: MapPin, k: "Wards", v: "9" },
-                { icon: Users, k: "Staff & volunteers", v: "210+" },
-              ].map((s) => (
-                <div key={s.k} className="rounded-2xl border border-slate-200/80 bg-canvas p-4">
-                  <s.icon className="h-4 w-4 text-brand-blue" />
-                  <p className="mt-3 font-display text-2xl font-bold text-ink">{s.v}</p>
-                  <p className="text-xs uppercase tracking-wider text-muted-foreground">{s.k}</p>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200/60 bg-canvas">
-        <div className="container-x py-20 md:py-28">
-          <SectionHeading eyebrow="Timeline" title="Seven years, traced honestly" />
-          <div className="relative mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-            {TIMELINE.map((t, i) => (
-              <motion.div
-                key={t.year}
-                initial={{ opacity: 0, y: 25 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="rounded-2xl border border-slate-200/80 bg-white p-6"
-              >
-                <p className="font-display text-3xl font-bold text-brand-blue">{t.year}</p>
-                <p className="mt-2 font-semibold text-ink">{t.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.body}</p>
-              </motion.div>
+      <section className="bg-callas-canvas">
+        <div className="container-x py-20 lg:py-28">
+          <div className="max-w-2xl">
+            <div className="text-xs font-bold uppercase tracking-[0.22em] text-callas-red">Our Values</div>
+            <h2 className="mt-3 font-display text-4xl font-bold leading-[1.05] sm:text-5xl">Four commitments we don’t bend on.</h2>
+          </div>
+          <div className="mt-12 grid gap-4 md:grid-cols-2">
+            {VALUES.map((v) => (
+              <div key={v.title} className="rounded-xl border-l-4 border-callas-red bg-white p-7">
+                <div className="inline-flex items-center gap-2 text-callas-red"><CheckCircle2 className="h-5 w-5" /><span className="font-display text-xl font-bold text-callas-ink">{v.title}</span></div>
+                <p className="mt-3 text-sm leading-relaxed text-callas-ink/80">{v.body}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-b border-slate-200/60 bg-white">
-        <div className="container-x py-20 md:py-28">
-          <SectionHeading
-            eyebrow="Governance"
-            title="The board accountable for our integrity"
-            description="Our trustees serve unpaid three-year terms, declare interests publicly and meet quarterly."
-          />
-          <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {TRUSTEES.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.06 }}
-                className="group rounded-2xl border border-slate-200/80 bg-canvas p-6 transition-all hover:-translate-y-1 hover:border-brand-blue/30 hover:bg-white hover:shadow-card"
-              >
-                <div className="grid h-14 w-14 place-items-center rounded-full bg-brand-blue/10 font-display text-lg font-bold text-brand-blue">
-                  {t.name.split(" ").slice(-1)[0][0]}
+      <ImpactCounter variant="light" />
+
+      <section className="bg-white">
+        <div className="container-x py-20 lg:py-28">
+          <div className="max-w-2xl">
+            <div className="text-xs font-bold uppercase tracking-[0.22em] text-callas-red">Our People</div>
+            <h2 className="mt-3 font-display text-4xl font-bold leading-[1.05] sm:text-5xl">The team holding the line.</h2>
+          </div>
+          <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {TEAM.map((p) => (
+              <div key={p.name} className="rounded-xl bg-callas-canvas p-6">
+                <div className="grid h-14 w-14 place-items-center rounded-full bg-callas-blue font-display text-lg font-bold text-white">
+                  {p.name.split(" ").map((n) => n[0]).join("").slice(0, 2)}
                 </div>
-                <p className="mt-5 font-semibold text-ink">{t.name}</p>
-                <p className="text-xs uppercase tracking-wider text-muted-foreground">{t.role}</p>
-                <p className="mt-3 text-sm text-muted-foreground">Focus: {t.focus}</p>
-              </motion.div>
+                <div className="mt-4 font-display text-lg font-bold">{p.name}</div>
+                <div className="text-sm text-callas-ink/70">{p.role}</div>
+              </div>
             ))}
+          </div>
+          <div className="mt-10">
+            <Link to="/governance" className="text-sm font-bold text-callas-blue hover:underline">See full governance & board →</Link>
           </div>
         </div>
       </section>
 
-      <section className="bg-canvas">
-        <div className="container-x py-16">
-          <div className="flex flex-col items-start justify-between gap-6 rounded-3xl bg-ink p-10 text-white md:flex-row md:items-center md:p-14">
-            <div>
-              <h3 className="font-display text-3xl font-bold md:text-4xl">Read the full 2024 annual report</h3>
-              <p className="mt-2 max-w-xl text-white/70">Audited financials, ward-level outcomes and a letter from the Chair.</p>
-            </div>
-            <Link to="/support" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink hover:bg-white/90">
-              Open the report <ArrowRight className="h-4 w-4" />
-            </Link>
-          </div>
+      <section className="relative isolate overflow-hidden bg-callas-ink text-white">
+        <img src={communityImg} alt="" width={1600} height={900} loading="lazy" className="absolute inset-0 h-full w-full object-cover opacity-30" />
+        <div className="container-x relative py-20 text-center lg:py-28">
+          <h2 className="mx-auto max-w-3xl font-display text-4xl font-bold leading-[1.05] sm:text-5xl">“This is our community. We refuse to let violence have the last word.”</h2>
+          <div className="mt-6 text-sm font-bold uppercase tracking-[0.22em] text-callas-red">— Callas Foundation Board, 2026</div>
         </div>
       </section>
-    </PageShell>
+
+      <CTASection />
+    </SiteLayout>
   );
 }

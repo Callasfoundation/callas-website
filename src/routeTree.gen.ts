@@ -10,29 +10,52 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as VolunteerRouteImport } from './routes/volunteer'
-import { Route as SupportRouteImport } from './routes/support'
+import { Route as SupportOurWorkRouteImport } from './routes/support-our-work'
+import { Route as ShopRouteImport } from './routes/shop'
+import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as ProgrammesRouteImport } from './routes/programmes'
+import { Route as NewsRouteImport } from './routes/news'
+import { Route as MediaAdvocacyRouteImport } from './routes/media-advocacy'
+import { Route as GovernanceRouteImport } from './routes/governance'
+import { Route as GetInvolvedRouteImport } from './routes/get-involved'
 import { Route as GetHelpRouteImport } from './routes/get-help'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as DonateRouteImport } from './routes/donate'
+import { Route as CorporatePartnershipRouteImport } from './routes/corporate-partnership'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProgrammesIndexRouteImport } from './routes/programmes.index'
-import { Route as ProgrammesPsychosocialSupportRouteImport } from './routes/programmes.psychosocial-support'
-import { Route as ProgrammesMensEngagementRouteImport } from './routes/programmes.mens-engagement'
-import { Route as ProgrammesHumanRightsClubsRouteImport } from './routes/programmes.human-rights-clubs'
-import { Route as ProgrammesFirstRespondersRouteImport } from './routes/programmes.first-responders'
-import { Route as ProgrammesCommunityKitchenRouteImport } from './routes/programmes.community-kitchen'
-import { Route as ProgrammesBbbBoysRouteImport } from './routes/programmes.bbb-boys'
-import { Route as ProgrammesAccessToJusticeRouteImport } from './routes/programmes.access-to-justice'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as ProgrammesSlugRouteImport } from './routes/programmes.$slug'
+import { Route as NewsSlugRouteImport } from './routes/news.$slug'
+import { Route as AdminTeamRouteImport } from './routes/admin.team'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminPostsRouteImport } from './routes/admin.posts'
+import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
+import { Route as AdminEventsRouteImport } from './routes/admin.events'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
 const VolunteerRoute = VolunteerRouteImport.update({
   id: '/volunteer',
   path: '/volunteer',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
+const SupportOurWorkRoute = SupportOurWorkRouteImport.update({
+  id: '/support-our-work',
+  path: '/support-our-work',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProgrammesRoute = ProgrammesRouteImport.update({
@@ -40,14 +63,54 @@ const ProgrammesRoute = ProgrammesRouteImport.update({
   path: '/programmes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NewsRoute = NewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MediaAdvocacyRoute = MediaAdvocacyRouteImport.update({
+  id: '/media-advocacy',
+  path: '/media-advocacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovernanceRoute = GovernanceRouteImport.update({
+  id: '/governance',
+  path: '/governance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GetInvolvedRoute = GetInvolvedRouteImport.update({
+  id: '/get-involved',
+  path: '/get-involved',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GetHelpRoute = GetHelpRouteImport.update({
   id: '/get-help',
   path: '/get-help',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DonateRoute = DonateRouteImport.update({
   id: '/donate',
   path: '/donate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CorporatePartnershipRoute = CorporatePartnershipRouteImport.update({
+  id: '/corporate-partnership',
+  path: '/corporate-partnership',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -65,97 +128,144 @@ const ProgrammesIndexRoute = ProgrammesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ProgrammesRoute,
 } as any)
-const ProgrammesPsychosocialSupportRoute =
-  ProgrammesPsychosocialSupportRouteImport.update({
-    id: '/psychosocial-support',
-    path: '/psychosocial-support',
-    getParentRoute: () => ProgrammesRoute,
-  } as any)
-const ProgrammesMensEngagementRoute =
-  ProgrammesMensEngagementRouteImport.update({
-    id: '/mens-engagement',
-    path: '/mens-engagement',
-    getParentRoute: () => ProgrammesRoute,
-  } as any)
-const ProgrammesHumanRightsClubsRoute =
-  ProgrammesHumanRightsClubsRouteImport.update({
-    id: '/human-rights-clubs',
-    path: '/human-rights-clubs',
-    getParentRoute: () => ProgrammesRoute,
-  } as any)
-const ProgrammesFirstRespondersRoute =
-  ProgrammesFirstRespondersRouteImport.update({
-    id: '/first-responders',
-    path: '/first-responders',
-    getParentRoute: () => ProgrammesRoute,
-  } as any)
-const ProgrammesCommunityKitchenRoute =
-  ProgrammesCommunityKitchenRouteImport.update({
-    id: '/community-kitchen',
-    path: '/community-kitchen',
-    getParentRoute: () => ProgrammesRoute,
-  } as any)
-const ProgrammesBbbBoysRoute = ProgrammesBbbBoysRouteImport.update({
-  id: '/bbb-boys',
-  path: '/bbb-boys',
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
+} as any)
+const ProgrammesSlugRoute = ProgrammesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
   getParentRoute: () => ProgrammesRoute,
 } as any)
-const ProgrammesAccessToJusticeRoute =
-  ProgrammesAccessToJusticeRouteImport.update({
-    id: '/access-to-justice',
-    path: '/access-to-justice',
-    getParentRoute: () => ProgrammesRoute,
-  } as any)
+const NewsSlugRoute = NewsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => NewsRoute,
+} as any)
+const AdminTeamRoute = AdminTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminPostsRoute = AdminPostsRouteImport.update({
+  id: '/posts',
+  path: '/posts',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminMessagesRoute = AdminMessagesRouteImport.update({
+  id: '/messages',
+  path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminGalleryRoute = AdminGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminEventsRoute = AdminEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/corporate-partnership': typeof CorporatePartnershipRoute
   '/donate': typeof DonateRoute
+  '/events': typeof EventsRoute
   '/get-help': typeof GetHelpRoute
+  '/get-involved': typeof GetInvolvedRoute
+  '/governance': typeof GovernanceRoute
+  '/media-advocacy': typeof MediaAdvocacyRoute
+  '/news': typeof NewsRouteWithChildren
   '/programmes': typeof ProgrammesRouteWithChildren
-  '/support': typeof SupportRoute
+  '/resources': typeof ResourcesRoute
+  '/shop': typeof ShopRoute
+  '/support-our-work': typeof SupportOurWorkRoute
   '/volunteer': typeof VolunteerRoute
-  '/programmes/access-to-justice': typeof ProgrammesAccessToJusticeRoute
-  '/programmes/bbb-boys': typeof ProgrammesBbbBoysRoute
-  '/programmes/community-kitchen': typeof ProgrammesCommunityKitchenRoute
-  '/programmes/first-responders': typeof ProgrammesFirstRespondersRoute
-  '/programmes/human-rights-clubs': typeof ProgrammesHumanRightsClubsRoute
-  '/programmes/mens-engagement': typeof ProgrammesMensEngagementRoute
-  '/programmes/psychosocial-support': typeof ProgrammesPsychosocialSupportRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
+  '/news/$slug': typeof NewsSlugRoute
+  '/programmes/$slug': typeof ProgrammesSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/programmes/': typeof ProgrammesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
+  '/corporate-partnership': typeof CorporatePartnershipRoute
   '/donate': typeof DonateRoute
+  '/events': typeof EventsRoute
   '/get-help': typeof GetHelpRoute
-  '/support': typeof SupportRoute
+  '/get-involved': typeof GetInvolvedRoute
+  '/governance': typeof GovernanceRoute
+  '/media-advocacy': typeof MediaAdvocacyRoute
+  '/news': typeof NewsRouteWithChildren
+  '/resources': typeof ResourcesRoute
+  '/shop': typeof ShopRoute
+  '/support-our-work': typeof SupportOurWorkRoute
   '/volunteer': typeof VolunteerRoute
-  '/programmes/access-to-justice': typeof ProgrammesAccessToJusticeRoute
-  '/programmes/bbb-boys': typeof ProgrammesBbbBoysRoute
-  '/programmes/community-kitchen': typeof ProgrammesCommunityKitchenRoute
-  '/programmes/first-responders': typeof ProgrammesFirstRespondersRoute
-  '/programmes/human-rights-clubs': typeof ProgrammesHumanRightsClubsRoute
-  '/programmes/mens-engagement': typeof ProgrammesMensEngagementRoute
-  '/programmes/psychosocial-support': typeof ProgrammesPsychosocialSupportRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
+  '/news/$slug': typeof NewsSlugRoute
+  '/programmes/$slug': typeof ProgrammesSlugRoute
+  '/admin': typeof AdminIndexRoute
   '/programmes': typeof ProgrammesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/contact': typeof ContactRoute
+  '/corporate-partnership': typeof CorporatePartnershipRoute
   '/donate': typeof DonateRoute
+  '/events': typeof EventsRoute
   '/get-help': typeof GetHelpRoute
+  '/get-involved': typeof GetInvolvedRoute
+  '/governance': typeof GovernanceRoute
+  '/media-advocacy': typeof MediaAdvocacyRoute
+  '/news': typeof NewsRouteWithChildren
   '/programmes': typeof ProgrammesRouteWithChildren
-  '/support': typeof SupportRoute
+  '/resources': typeof ResourcesRoute
+  '/shop': typeof ShopRoute
+  '/support-our-work': typeof SupportOurWorkRoute
   '/volunteer': typeof VolunteerRoute
-  '/programmes/access-to-justice': typeof ProgrammesAccessToJusticeRoute
-  '/programmes/bbb-boys': typeof ProgrammesBbbBoysRoute
-  '/programmes/community-kitchen': typeof ProgrammesCommunityKitchenRoute
-  '/programmes/first-responders': typeof ProgrammesFirstRespondersRoute
-  '/programmes/human-rights-clubs': typeof ProgrammesHumanRightsClubsRoute
-  '/programmes/mens-engagement': typeof ProgrammesMensEngagementRoute
-  '/programmes/psychosocial-support': typeof ProgrammesPsychosocialSupportRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/admin/events': typeof AdminEventsRoute
+  '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/messages': typeof AdminMessagesRoute
+  '/admin/posts': typeof AdminPostsRoute
+  '/admin/settings': typeof AdminSettingsRoute
+  '/admin/team': typeof AdminTeamRoute
+  '/news/$slug': typeof NewsSlugRoute
+  '/programmes/$slug': typeof ProgrammesSlugRoute
+  '/admin/': typeof AdminIndexRoute
   '/programmes/': typeof ProgrammesIndexRoute
 }
 export interface FileRouteTypes {
@@ -163,61 +273,109 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/admin'
+    | '/contact'
+    | '/corporate-partnership'
     | '/donate'
+    | '/events'
     | '/get-help'
+    | '/get-involved'
+    | '/governance'
+    | '/media-advocacy'
+    | '/news'
     | '/programmes'
-    | '/support'
+    | '/resources'
+    | '/shop'
+    | '/support-our-work'
     | '/volunteer'
-    | '/programmes/access-to-justice'
-    | '/programmes/bbb-boys'
-    | '/programmes/community-kitchen'
-    | '/programmes/first-responders'
-    | '/programmes/human-rights-clubs'
-    | '/programmes/mens-engagement'
-    | '/programmes/psychosocial-support'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/gallery'
+    | '/admin/messages'
+    | '/admin/posts'
+    | '/admin/settings'
+    | '/admin/team'
+    | '/news/$slug'
+    | '/programmes/$slug'
+    | '/admin/'
     | '/programmes/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/contact'
+    | '/corporate-partnership'
     | '/donate'
+    | '/events'
     | '/get-help'
-    | '/support'
+    | '/get-involved'
+    | '/governance'
+    | '/media-advocacy'
+    | '/news'
+    | '/resources'
+    | '/shop'
+    | '/support-our-work'
     | '/volunteer'
-    | '/programmes/access-to-justice'
-    | '/programmes/bbb-boys'
-    | '/programmes/community-kitchen'
-    | '/programmes/first-responders'
-    | '/programmes/human-rights-clubs'
-    | '/programmes/mens-engagement'
-    | '/programmes/psychosocial-support'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/gallery'
+    | '/admin/messages'
+    | '/admin/posts'
+    | '/admin/settings'
+    | '/admin/team'
+    | '/news/$slug'
+    | '/programmes/$slug'
+    | '/admin'
     | '/programmes'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
+    | '/contact'
+    | '/corporate-partnership'
     | '/donate'
+    | '/events'
     | '/get-help'
+    | '/get-involved'
+    | '/governance'
+    | '/media-advocacy'
+    | '/news'
     | '/programmes'
-    | '/support'
+    | '/resources'
+    | '/shop'
+    | '/support-our-work'
     | '/volunteer'
-    | '/programmes/access-to-justice'
-    | '/programmes/bbb-boys'
-    | '/programmes/community-kitchen'
-    | '/programmes/first-responders'
-    | '/programmes/human-rights-clubs'
-    | '/programmes/mens-engagement'
-    | '/programmes/psychosocial-support'
+    | '/admin/dashboard'
+    | '/admin/events'
+    | '/admin/gallery'
+    | '/admin/messages'
+    | '/admin/posts'
+    | '/admin/settings'
+    | '/admin/team'
+    | '/news/$slug'
+    | '/programmes/$slug'
+    | '/admin/'
     | '/programmes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  ContactRoute: typeof ContactRoute
+  CorporatePartnershipRoute: typeof CorporatePartnershipRoute
   DonateRoute: typeof DonateRoute
+  EventsRoute: typeof EventsRoute
   GetHelpRoute: typeof GetHelpRoute
+  GetInvolvedRoute: typeof GetInvolvedRoute
+  GovernanceRoute: typeof GovernanceRoute
+  MediaAdvocacyRoute: typeof MediaAdvocacyRoute
+  NewsRoute: typeof NewsRouteWithChildren
   ProgrammesRoute: typeof ProgrammesRouteWithChildren
-  SupportRoute: typeof SupportRoute
+  ResourcesRoute: typeof ResourcesRoute
+  ShopRoute: typeof ShopRoute
+  SupportOurWorkRoute: typeof SupportOurWorkRoute
   VolunteerRoute: typeof VolunteerRoute
 }
 
@@ -230,11 +388,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof VolunteerRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/support': {
-      id: '/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
+    '/support-our-work': {
+      id: '/support-our-work'
+      path: '/support-our-work'
+      fullPath: '/support-our-work'
+      preLoaderRoute: typeof SupportOurWorkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/programmes': {
@@ -244,6 +416,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProgrammesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/news': {
+      id: '/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof NewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/media-advocacy': {
+      id: '/media-advocacy'
+      path: '/media-advocacy'
+      fullPath: '/media-advocacy'
+      preLoaderRoute: typeof MediaAdvocacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/governance': {
+      id: '/governance'
+      path: '/governance'
+      fullPath: '/governance'
+      preLoaderRoute: typeof GovernanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/get-involved': {
+      id: '/get-involved'
+      path: '/get-involved'
+      fullPath: '/get-involved'
+      preLoaderRoute: typeof GetInvolvedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/get-help': {
       id: '/get-help'
       path: '/get-help'
@@ -251,11 +451,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GetHelpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/donate': {
       id: '/donate'
       path: '/donate'
       fullPath: '/donate'
       preLoaderRoute: typeof DonateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/corporate-partnership': {
+      id: '/corporate-partnership'
+      path: '/corporate-partnership'
+      fullPath: '/corporate-partnership'
+      preLoaderRoute: typeof CorporatePartnershipRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -279,77 +507,120 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProgrammesIndexRouteImport
       parentRoute: typeof ProgrammesRoute
     }
-    '/programmes/psychosocial-support': {
-      id: '/programmes/psychosocial-support'
-      path: '/psychosocial-support'
-      fullPath: '/programmes/psychosocial-support'
-      preLoaderRoute: typeof ProgrammesPsychosocialSupportRouteImport
+    '/admin/': {
+      id: '/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/programmes/$slug': {
+      id: '/programmes/$slug'
+      path: '/$slug'
+      fullPath: '/programmes/$slug'
+      preLoaderRoute: typeof ProgrammesSlugRouteImport
       parentRoute: typeof ProgrammesRoute
     }
-    '/programmes/mens-engagement': {
-      id: '/programmes/mens-engagement'
-      path: '/mens-engagement'
-      fullPath: '/programmes/mens-engagement'
-      preLoaderRoute: typeof ProgrammesMensEngagementRouteImport
-      parentRoute: typeof ProgrammesRoute
+    '/news/$slug': {
+      id: '/news/$slug'
+      path: '/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof NewsSlugRouteImport
+      parentRoute: typeof NewsRoute
     }
-    '/programmes/human-rights-clubs': {
-      id: '/programmes/human-rights-clubs'
-      path: '/human-rights-clubs'
-      fullPath: '/programmes/human-rights-clubs'
-      preLoaderRoute: typeof ProgrammesHumanRightsClubsRouteImport
-      parentRoute: typeof ProgrammesRoute
+    '/admin/team': {
+      id: '/admin/team'
+      path: '/team'
+      fullPath: '/admin/team'
+      preLoaderRoute: typeof AdminTeamRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/programmes/first-responders': {
-      id: '/programmes/first-responders'
-      path: '/first-responders'
-      fullPath: '/programmes/first-responders'
-      preLoaderRoute: typeof ProgrammesFirstRespondersRouteImport
-      parentRoute: typeof ProgrammesRoute
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/programmes/community-kitchen': {
-      id: '/programmes/community-kitchen'
-      path: '/community-kitchen'
-      fullPath: '/programmes/community-kitchen'
-      preLoaderRoute: typeof ProgrammesCommunityKitchenRouteImport
-      parentRoute: typeof ProgrammesRoute
+    '/admin/posts': {
+      id: '/admin/posts'
+      path: '/posts'
+      fullPath: '/admin/posts'
+      preLoaderRoute: typeof AdminPostsRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/programmes/bbb-boys': {
-      id: '/programmes/bbb-boys'
-      path: '/bbb-boys'
-      fullPath: '/programmes/bbb-boys'
-      preLoaderRoute: typeof ProgrammesBbbBoysRouteImport
-      parentRoute: typeof ProgrammesRoute
+    '/admin/messages': {
+      id: '/admin/messages'
+      path: '/messages'
+      fullPath: '/admin/messages'
+      preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
     }
-    '/programmes/access-to-justice': {
-      id: '/programmes/access-to-justice'
-      path: '/access-to-justice'
-      fullPath: '/programmes/access-to-justice'
-      preLoaderRoute: typeof ProgrammesAccessToJusticeRouteImport
-      parentRoute: typeof ProgrammesRoute
+    '/admin/gallery': {
+      id: '/admin/gallery'
+      path: '/gallery'
+      fullPath: '/admin/gallery'
+      preLoaderRoute: typeof AdminGalleryRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/events': {
+      id: '/admin/events'
+      path: '/events'
+      fullPath: '/admin/events'
+      preLoaderRoute: typeof AdminEventsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
 
+interface AdminRouteChildren {
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  AdminEventsRoute: typeof AdminEventsRoute
+  AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminPostsRoute: typeof AdminPostsRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
+  AdminTeamRoute: typeof AdminTeamRoute
+  AdminIndexRoute: typeof AdminIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
+  AdminDashboardRoute: AdminDashboardRoute,
+  AdminEventsRoute: AdminEventsRoute,
+  AdminGalleryRoute: AdminGalleryRoute,
+  AdminMessagesRoute: AdminMessagesRoute,
+  AdminPostsRoute: AdminPostsRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
+  AdminTeamRoute: AdminTeamRoute,
+  AdminIndexRoute: AdminIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface NewsRouteChildren {
+  NewsSlugRoute: typeof NewsSlugRoute
+}
+
+const NewsRouteChildren: NewsRouteChildren = {
+  NewsSlugRoute: NewsSlugRoute,
+}
+
+const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
+
 interface ProgrammesRouteChildren {
-  ProgrammesAccessToJusticeRoute: typeof ProgrammesAccessToJusticeRoute
-  ProgrammesBbbBoysRoute: typeof ProgrammesBbbBoysRoute
-  ProgrammesCommunityKitchenRoute: typeof ProgrammesCommunityKitchenRoute
-  ProgrammesFirstRespondersRoute: typeof ProgrammesFirstRespondersRoute
-  ProgrammesHumanRightsClubsRoute: typeof ProgrammesHumanRightsClubsRoute
-  ProgrammesMensEngagementRoute: typeof ProgrammesMensEngagementRoute
-  ProgrammesPsychosocialSupportRoute: typeof ProgrammesPsychosocialSupportRoute
+  ProgrammesSlugRoute: typeof ProgrammesSlugRoute
   ProgrammesIndexRoute: typeof ProgrammesIndexRoute
 }
 
 const ProgrammesRouteChildren: ProgrammesRouteChildren = {
-  ProgrammesAccessToJusticeRoute: ProgrammesAccessToJusticeRoute,
-  ProgrammesBbbBoysRoute: ProgrammesBbbBoysRoute,
-  ProgrammesCommunityKitchenRoute: ProgrammesCommunityKitchenRoute,
-  ProgrammesFirstRespondersRoute: ProgrammesFirstRespondersRoute,
-  ProgrammesHumanRightsClubsRoute: ProgrammesHumanRightsClubsRoute,
-  ProgrammesMensEngagementRoute: ProgrammesMensEngagementRoute,
-  ProgrammesPsychosocialSupportRoute: ProgrammesPsychosocialSupportRoute,
+  ProgrammesSlugRoute: ProgrammesSlugRoute,
   ProgrammesIndexRoute: ProgrammesIndexRoute,
 }
 
@@ -360,10 +631,20 @@ const ProgrammesRouteWithChildren = ProgrammesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRouteWithChildren,
+  ContactRoute: ContactRoute,
+  CorporatePartnershipRoute: CorporatePartnershipRoute,
   DonateRoute: DonateRoute,
+  EventsRoute: EventsRoute,
   GetHelpRoute: GetHelpRoute,
+  GetInvolvedRoute: GetInvolvedRoute,
+  GovernanceRoute: GovernanceRoute,
+  MediaAdvocacyRoute: MediaAdvocacyRoute,
+  NewsRoute: NewsRouteWithChildren,
   ProgrammesRoute: ProgrammesRouteWithChildren,
-  SupportRoute: SupportRoute,
+  ResourcesRoute: ResourcesRoute,
+  ShopRoute: ShopRoute,
+  SupportOurWorkRoute: SupportOurWorkRoute,
   VolunteerRoute: VolunteerRoute,
 }
 export const routeTree = rootRouteImport
