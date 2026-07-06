@@ -9,27 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VolunteerRouteImport } from './routes/volunteer'
-import { Route as SupportOurWorkRouteImport } from './routes/support-our-work'
-import { Route as ShopRouteImport } from './routes/shop'
-import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as ProgrammesRouteImport } from './routes/programmes'
-import { Route as NewsRouteImport } from './routes/news'
-import { Route as MediaAdvocacyRouteImport } from './routes/media-advocacy'
-import { Route as GovernanceRouteImport } from './routes/governance'
-import { Route as GetInvolvedRouteImport } from './routes/get-involved'
-import { Route as GetHelpRouteImport } from './routes/get-help'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as DonateRouteImport } from './routes/donate'
-import { Route as CorporatePartnershipRouteImport } from './routes/corporate-partnership'
-import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProgrammesIndexRouteImport } from './routes/programmes.index'
+import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
-import { Route as ProgrammesSlugRouteImport } from './routes/programmes.$slug'
-import { Route as NewsSlugRouteImport } from './routes/news.$slug'
+import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
@@ -37,111 +20,44 @@ import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
+import { Route as PublicVolunteerRouteImport } from './routes/_public.volunteer'
+import { Route as PublicSupportOurWorkRouteImport } from './routes/_public.support-our-work'
+import { Route as PublicShopRouteImport } from './routes/_public.shop'
+import { Route as PublicResourcesRouteImport } from './routes/_public.resources'
+import { Route as PublicProgrammesRouteImport } from './routes/_public.programmes'
+import { Route as PublicPartnersRouteImport } from './routes/_public.partners'
+import { Route as PublicNewsRouteImport } from './routes/_public.news'
+import { Route as PublicGetHelpRouteImport } from './routes/_public.get-help'
+import { Route as PublicGalleryRouteImport } from './routes/_public.gallery'
+import { Route as PublicFounderRouteImport } from './routes/_public.founder'
+import { Route as PublicEventsRouteImport } from './routes/_public.events'
+import { Route as PublicDonateRouteImport } from './routes/_public.donate'
+import { Route as PublicCookiesRouteImport } from './routes/_public.cookies'
+import { Route as PublicContactRouteImport } from './routes/_public.contact'
+import { Route as PublicAboutRouteImport } from './routes/_public.about'
+import { Route as PublicProgrammesIndexRouteImport } from './routes/_public.programmes.index'
+import { Route as PublicNewsIndexRouteImport } from './routes/_public.news.index'
+import { Route as PublicProgrammesSlugRouteImport } from './routes/_public.programmes.$slug'
+import { Route as PublicNewsSlugRouteImport } from './routes/_public.news.$slug'
 
-const VolunteerRoute = VolunteerRouteImport.update({
-  id: '/volunteer',
-  path: '/volunteer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SupportOurWorkRoute = SupportOurWorkRouteImport.update({
-  id: '/support-our-work',
-  path: '/support-our-work',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ShopRoute = ShopRouteImport.update({
-  id: '/shop',
-  path: '/shop',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ResourcesRoute = ResourcesRouteImport.update({
-  id: '/resources',
-  path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProgrammesRoute = ProgrammesRouteImport.update({
-  id: '/programmes',
-  path: '/programmes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NewsRoute = NewsRouteImport.update({
-  id: '/news',
-  path: '/news',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MediaAdvocacyRoute = MediaAdvocacyRouteImport.update({
-  id: '/media-advocacy',
-  path: '/media-advocacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GovernanceRoute = GovernanceRouteImport.update({
-  id: '/governance',
-  path: '/governance',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GetInvolvedRoute = GetInvolvedRouteImport.update({
-  id: '/get-involved',
-  path: '/get-involved',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GetHelpRoute = GetHelpRouteImport.update({
-  id: '/get-help',
-  path: '/get-help',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EventsRoute = EventsRouteImport.update({
-  id: '/events',
-  path: '/events',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DonateRoute = DonateRouteImport.update({
-  id: '/donate',
-  path: '/donate',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CorporatePartnershipRoute = CorporatePartnershipRouteImport.update({
-  id: '/corporate-partnership',
-  path: '/corporate-partnership',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+const PublicRoute = PublicRouteImport.update({
+  id: '/_public',
   getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProgrammesIndexRoute = ProgrammesIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => ProgrammesRoute,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
-const ProgrammesSlugRoute = ProgrammesSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => ProgrammesRoute,
-} as any)
-const NewsSlugRoute = NewsSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => NewsRoute,
+const PublicIndexRoute = PublicIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicRoute,
 } as any)
 const AdminTeamRoute = AdminTeamRouteImport.update({
   id: '/team',
@@ -178,25 +94,120 @@ const AdminDashboardRoute = AdminDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AdminRoute,
 } as any)
+const PublicVolunteerRoute = PublicVolunteerRouteImport.update({
+  id: '/volunteer',
+  path: '/volunteer',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicSupportOurWorkRoute = PublicSupportOurWorkRouteImport.update({
+  id: '/support-our-work',
+  path: '/support-our-work',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicShopRoute = PublicShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicResourcesRoute = PublicResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicProgrammesRoute = PublicProgrammesRouteImport.update({
+  id: '/programmes',
+  path: '/programmes',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicPartnersRoute = PublicPartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicNewsRoute = PublicNewsRouteImport.update({
+  id: '/news',
+  path: '/news',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicGetHelpRoute = PublicGetHelpRouteImport.update({
+  id: '/get-help',
+  path: '/get-help',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicGalleryRoute = PublicGalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicFounderRoute = PublicFounderRouteImport.update({
+  id: '/founder',
+  path: '/founder',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicEventsRoute = PublicEventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicDonateRoute = PublicDonateRouteImport.update({
+  id: '/donate',
+  path: '/donate',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicCookiesRoute = PublicCookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicContactRoute = PublicContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicAboutRoute = PublicAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PublicRoute,
+} as any)
+const PublicProgrammesIndexRoute = PublicProgrammesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicProgrammesRoute,
+} as any)
+const PublicNewsIndexRoute = PublicNewsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PublicNewsRoute,
+} as any)
+const PublicProgrammesSlugRoute = PublicProgrammesSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PublicProgrammesRoute,
+} as any)
+const PublicNewsSlugRoute = PublicNewsSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => PublicNewsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/': typeof PublicIndexRoute
   '/admin': typeof AdminRouteWithChildren
-  '/contact': typeof ContactRoute
-  '/corporate-partnership': typeof CorporatePartnershipRoute
-  '/donate': typeof DonateRoute
-  '/events': typeof EventsRoute
-  '/get-help': typeof GetHelpRoute
-  '/get-involved': typeof GetInvolvedRoute
-  '/governance': typeof GovernanceRoute
-  '/media-advocacy': typeof MediaAdvocacyRoute
-  '/news': typeof NewsRouteWithChildren
-  '/programmes': typeof ProgrammesRouteWithChildren
-  '/resources': typeof ResourcesRoute
-  '/shop': typeof ShopRoute
-  '/support-our-work': typeof SupportOurWorkRoute
-  '/volunteer': typeof VolunteerRoute
+  '/about': typeof PublicAboutRoute
+  '/contact': typeof PublicContactRoute
+  '/cookies': typeof PublicCookiesRoute
+  '/donate': typeof PublicDonateRoute
+  '/events': typeof PublicEventsRoute
+  '/founder': typeof PublicFounderRoute
+  '/gallery': typeof PublicGalleryRoute
+  '/get-help': typeof PublicGetHelpRoute
+  '/news': typeof PublicNewsRouteWithChildren
+  '/partners': typeof PublicPartnersRoute
+  '/programmes': typeof PublicProgrammesRouteWithChildren
+  '/resources': typeof PublicResourcesRoute
+  '/shop': typeof PublicShopRoute
+  '/support-our-work': typeof PublicSupportOurWorkRoute
+  '/volunteer': typeof PublicVolunteerRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
@@ -204,27 +215,26 @@ export interface FileRoutesByFullPath {
   '/admin/posts': typeof AdminPostsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
-  '/news/$slug': typeof NewsSlugRoute
-  '/programmes/$slug': typeof ProgrammesSlugRoute
   '/admin/': typeof AdminIndexRoute
-  '/programmes/': typeof ProgrammesIndexRoute
+  '/news/$slug': typeof PublicNewsSlugRoute
+  '/programmes/$slug': typeof PublicProgrammesSlugRoute
+  '/news/': typeof PublicNewsIndexRoute
+  '/programmes/': typeof PublicProgrammesIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/corporate-partnership': typeof CorporatePartnershipRoute
-  '/donate': typeof DonateRoute
-  '/events': typeof EventsRoute
-  '/get-help': typeof GetHelpRoute
-  '/get-involved': typeof GetInvolvedRoute
-  '/governance': typeof GovernanceRoute
-  '/media-advocacy': typeof MediaAdvocacyRoute
-  '/news': typeof NewsRouteWithChildren
-  '/resources': typeof ResourcesRoute
-  '/shop': typeof ShopRoute
-  '/support-our-work': typeof SupportOurWorkRoute
-  '/volunteer': typeof VolunteerRoute
+  '/about': typeof PublicAboutRoute
+  '/contact': typeof PublicContactRoute
+  '/cookies': typeof PublicCookiesRoute
+  '/donate': typeof PublicDonateRoute
+  '/events': typeof PublicEventsRoute
+  '/founder': typeof PublicFounderRoute
+  '/gallery': typeof PublicGalleryRoute
+  '/get-help': typeof PublicGetHelpRoute
+  '/partners': typeof PublicPartnersRoute
+  '/resources': typeof PublicResourcesRoute
+  '/shop': typeof PublicShopRoute
+  '/support-our-work': typeof PublicSupportOurWorkRoute
+  '/volunteer': typeof PublicVolunteerRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
@@ -232,30 +242,32 @@ export interface FileRoutesByTo {
   '/admin/posts': typeof AdminPostsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
-  '/news/$slug': typeof NewsSlugRoute
-  '/programmes/$slug': typeof ProgrammesSlugRoute
+  '/': typeof PublicIndexRoute
   '/admin': typeof AdminIndexRoute
-  '/programmes': typeof ProgrammesIndexRoute
+  '/news/$slug': typeof PublicNewsSlugRoute
+  '/programmes/$slug': typeof PublicProgrammesSlugRoute
+  '/news': typeof PublicNewsIndexRoute
+  '/programmes': typeof PublicProgrammesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
+  '/_public': typeof PublicRouteWithChildren
   '/admin': typeof AdminRouteWithChildren
-  '/contact': typeof ContactRoute
-  '/corporate-partnership': typeof CorporatePartnershipRoute
-  '/donate': typeof DonateRoute
-  '/events': typeof EventsRoute
-  '/get-help': typeof GetHelpRoute
-  '/get-involved': typeof GetInvolvedRoute
-  '/governance': typeof GovernanceRoute
-  '/media-advocacy': typeof MediaAdvocacyRoute
-  '/news': typeof NewsRouteWithChildren
-  '/programmes': typeof ProgrammesRouteWithChildren
-  '/resources': typeof ResourcesRoute
-  '/shop': typeof ShopRoute
-  '/support-our-work': typeof SupportOurWorkRoute
-  '/volunteer': typeof VolunteerRoute
+  '/_public/about': typeof PublicAboutRoute
+  '/_public/contact': typeof PublicContactRoute
+  '/_public/cookies': typeof PublicCookiesRoute
+  '/_public/donate': typeof PublicDonateRoute
+  '/_public/events': typeof PublicEventsRoute
+  '/_public/founder': typeof PublicFounderRoute
+  '/_public/gallery': typeof PublicGalleryRoute
+  '/_public/get-help': typeof PublicGetHelpRoute
+  '/_public/news': typeof PublicNewsRouteWithChildren
+  '/_public/partners': typeof PublicPartnersRoute
+  '/_public/programmes': typeof PublicProgrammesRouteWithChildren
+  '/_public/resources': typeof PublicResourcesRoute
+  '/_public/shop': typeof PublicShopRoute
+  '/_public/support-our-work': typeof PublicSupportOurWorkRoute
+  '/_public/volunteer': typeof PublicVolunteerRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
@@ -263,26 +275,28 @@ export interface FileRoutesById {
   '/admin/posts': typeof AdminPostsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
-  '/news/$slug': typeof NewsSlugRoute
-  '/programmes/$slug': typeof ProgrammesSlugRoute
+  '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
-  '/programmes/': typeof ProgrammesIndexRoute
+  '/_public/news/$slug': typeof PublicNewsSlugRoute
+  '/_public/programmes/$slug': typeof PublicProgrammesSlugRoute
+  '/_public/news/': typeof PublicNewsIndexRoute
+  '/_public/programmes/': typeof PublicProgrammesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about'
     | '/admin'
+    | '/about'
     | '/contact'
-    | '/corporate-partnership'
+    | '/cookies'
     | '/donate'
     | '/events'
+    | '/founder'
+    | '/gallery'
     | '/get-help'
-    | '/get-involved'
-    | '/governance'
-    | '/media-advocacy'
     | '/news'
+    | '/partners'
     | '/programmes'
     | '/resources'
     | '/shop'
@@ -295,23 +309,22 @@ export interface FileRouteTypes {
     | '/admin/posts'
     | '/admin/settings'
     | '/admin/team'
+    | '/admin/'
     | '/news/$slug'
     | '/programmes/$slug'
-    | '/admin/'
+    | '/news/'
     | '/programmes/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
     | '/about'
     | '/contact'
-    | '/corporate-partnership'
+    | '/cookies'
     | '/donate'
     | '/events'
+    | '/founder'
+    | '/gallery'
     | '/get-help'
-    | '/get-involved'
-    | '/governance'
-    | '/media-advocacy'
-    | '/news'
+    | '/partners'
     | '/resources'
     | '/shop'
     | '/support-our-work'
@@ -323,29 +336,31 @@ export interface FileRouteTypes {
     | '/admin/posts'
     | '/admin/settings'
     | '/admin/team'
+    | '/'
+    | '/admin'
     | '/news/$slug'
     | '/programmes/$slug'
-    | '/admin'
+    | '/news'
     | '/programmes'
   id:
     | '__root__'
-    | '/'
-    | '/about'
+    | '/_public'
     | '/admin'
-    | '/contact'
-    | '/corporate-partnership'
-    | '/donate'
-    | '/events'
-    | '/get-help'
-    | '/get-involved'
-    | '/governance'
-    | '/media-advocacy'
-    | '/news'
-    | '/programmes'
-    | '/resources'
-    | '/shop'
-    | '/support-our-work'
-    | '/volunteer'
+    | '/_public/about'
+    | '/_public/contact'
+    | '/_public/cookies'
+    | '/_public/donate'
+    | '/_public/events'
+    | '/_public/founder'
+    | '/_public/gallery'
+    | '/_public/get-help'
+    | '/_public/news'
+    | '/_public/partners'
+    | '/_public/programmes'
+    | '/_public/resources'
+    | '/_public/shop'
+    | '/_public/support-our-work'
+    | '/_public/volunteer'
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
@@ -353,132 +368,21 @@ export interface FileRouteTypes {
     | '/admin/posts'
     | '/admin/settings'
     | '/admin/team'
-    | '/news/$slug'
-    | '/programmes/$slug'
+    | '/_public/'
     | '/admin/'
-    | '/programmes/'
+    | '/_public/news/$slug'
+    | '/_public/programmes/$slug'
+    | '/_public/news/'
+    | '/_public/programmes/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
+  PublicRoute: typeof PublicRouteWithChildren
   AdminRoute: typeof AdminRouteWithChildren
-  ContactRoute: typeof ContactRoute
-  CorporatePartnershipRoute: typeof CorporatePartnershipRoute
-  DonateRoute: typeof DonateRoute
-  EventsRoute: typeof EventsRoute
-  GetHelpRoute: typeof GetHelpRoute
-  GetInvolvedRoute: typeof GetInvolvedRoute
-  GovernanceRoute: typeof GovernanceRoute
-  MediaAdvocacyRoute: typeof MediaAdvocacyRoute
-  NewsRoute: typeof NewsRouteWithChildren
-  ProgrammesRoute: typeof ProgrammesRouteWithChildren
-  ResourcesRoute: typeof ResourcesRoute
-  ShopRoute: typeof ShopRoute
-  SupportOurWorkRoute: typeof SupportOurWorkRoute
-  VolunteerRoute: typeof VolunteerRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/volunteer': {
-      id: '/volunteer'
-      path: '/volunteer'
-      fullPath: '/volunteer'
-      preLoaderRoute: typeof VolunteerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/support-our-work': {
-      id: '/support-our-work'
-      path: '/support-our-work'
-      fullPath: '/support-our-work'
-      preLoaderRoute: typeof SupportOurWorkRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/shop': {
-      id: '/shop'
-      path: '/shop'
-      fullPath: '/shop'
-      preLoaderRoute: typeof ShopRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/resources': {
-      id: '/resources'
-      path: '/resources'
-      fullPath: '/resources'
-      preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/programmes': {
-      id: '/programmes'
-      path: '/programmes'
-      fullPath: '/programmes'
-      preLoaderRoute: typeof ProgrammesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/news': {
-      id: '/news'
-      path: '/news'
-      fullPath: '/news'
-      preLoaderRoute: typeof NewsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/media-advocacy': {
-      id: '/media-advocacy'
-      path: '/media-advocacy'
-      fullPath: '/media-advocacy'
-      preLoaderRoute: typeof MediaAdvocacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/governance': {
-      id: '/governance'
-      path: '/governance'
-      fullPath: '/governance'
-      preLoaderRoute: typeof GovernanceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/get-involved': {
-      id: '/get-involved'
-      path: '/get-involved'
-      fullPath: '/get-involved'
-      preLoaderRoute: typeof GetInvolvedRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/get-help': {
-      id: '/get-help'
-      path: '/get-help'
-      fullPath: '/get-help'
-      preLoaderRoute: typeof GetHelpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/donate': {
-      id: '/donate'
-      path: '/donate'
-      fullPath: '/donate'
-      preLoaderRoute: typeof DonateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/corporate-partnership': {
-      id: '/corporate-partnership'
-      path: '/corporate-partnership'
-      fullPath: '/corporate-partnership'
-      preLoaderRoute: typeof CorporatePartnershipRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/admin': {
       id: '/admin'
       path: '/admin'
@@ -486,26 +390,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
-      path: '/'
+    '/_public': {
+      id: '/_public'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof PublicRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/programmes/': {
-      id: '/programmes/'
-      path: '/'
-      fullPath: '/programmes/'
-      preLoaderRoute: typeof ProgrammesIndexRouteImport
-      parentRoute: typeof ProgrammesRoute
     }
     '/admin/': {
       id: '/admin/'
@@ -514,19 +404,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
-    '/programmes/$slug': {
-      id: '/programmes/$slug'
-      path: '/$slug'
-      fullPath: '/programmes/$slug'
-      preLoaderRoute: typeof ProgrammesSlugRouteImport
-      parentRoute: typeof ProgrammesRoute
-    }
-    '/news/$slug': {
-      id: '/news/$slug'
-      path: '/$slug'
-      fullPath: '/news/$slug'
-      preLoaderRoute: typeof NewsSlugRouteImport
-      parentRoute: typeof NewsRoute
+    '/_public/': {
+      id: '/_public/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof PublicIndexRouteImport
+      parentRoute: typeof PublicRoute
     }
     '/admin/team': {
       id: '/admin/team'
@@ -577,8 +460,209 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDashboardRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/_public/volunteer': {
+      id: '/_public/volunteer'
+      path: '/volunteer'
+      fullPath: '/volunteer'
+      preLoaderRoute: typeof PublicVolunteerRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/support-our-work': {
+      id: '/_public/support-our-work'
+      path: '/support-our-work'
+      fullPath: '/support-our-work'
+      preLoaderRoute: typeof PublicSupportOurWorkRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/shop': {
+      id: '/_public/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof PublicShopRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/resources': {
+      id: '/_public/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof PublicResourcesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/programmes': {
+      id: '/_public/programmes'
+      path: '/programmes'
+      fullPath: '/programmes'
+      preLoaderRoute: typeof PublicProgrammesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/partners': {
+      id: '/_public/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PublicPartnersRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/news': {
+      id: '/_public/news'
+      path: '/news'
+      fullPath: '/news'
+      preLoaderRoute: typeof PublicNewsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/get-help': {
+      id: '/_public/get-help'
+      path: '/get-help'
+      fullPath: '/get-help'
+      preLoaderRoute: typeof PublicGetHelpRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/gallery': {
+      id: '/_public/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof PublicGalleryRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/founder': {
+      id: '/_public/founder'
+      path: '/founder'
+      fullPath: '/founder'
+      preLoaderRoute: typeof PublicFounderRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/events': {
+      id: '/_public/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof PublicEventsRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/donate': {
+      id: '/_public/donate'
+      path: '/donate'
+      fullPath: '/donate'
+      preLoaderRoute: typeof PublicDonateRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/cookies': {
+      id: '/_public/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof PublicCookiesRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/contact': {
+      id: '/_public/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof PublicContactRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/about': {
+      id: '/_public/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof PublicAboutRouteImport
+      parentRoute: typeof PublicRoute
+    }
+    '/_public/programmes/': {
+      id: '/_public/programmes/'
+      path: '/'
+      fullPath: '/programmes/'
+      preLoaderRoute: typeof PublicProgrammesIndexRouteImport
+      parentRoute: typeof PublicProgrammesRoute
+    }
+    '/_public/news/': {
+      id: '/_public/news/'
+      path: '/'
+      fullPath: '/news/'
+      preLoaderRoute: typeof PublicNewsIndexRouteImport
+      parentRoute: typeof PublicNewsRoute
+    }
+    '/_public/programmes/$slug': {
+      id: '/_public/programmes/$slug'
+      path: '/$slug'
+      fullPath: '/programmes/$slug'
+      preLoaderRoute: typeof PublicProgrammesSlugRouteImport
+      parentRoute: typeof PublicProgrammesRoute
+    }
+    '/_public/news/$slug': {
+      id: '/_public/news/$slug'
+      path: '/$slug'
+      fullPath: '/news/$slug'
+      preLoaderRoute: typeof PublicNewsSlugRouteImport
+      parentRoute: typeof PublicNewsRoute
+    }
   }
 }
+
+interface PublicNewsRouteChildren {
+  PublicNewsSlugRoute: typeof PublicNewsSlugRoute
+  PublicNewsIndexRoute: typeof PublicNewsIndexRoute
+}
+
+const PublicNewsRouteChildren: PublicNewsRouteChildren = {
+  PublicNewsSlugRoute: PublicNewsSlugRoute,
+  PublicNewsIndexRoute: PublicNewsIndexRoute,
+}
+
+const PublicNewsRouteWithChildren = PublicNewsRoute._addFileChildren(
+  PublicNewsRouteChildren,
+)
+
+interface PublicProgrammesRouteChildren {
+  PublicProgrammesSlugRoute: typeof PublicProgrammesSlugRoute
+  PublicProgrammesIndexRoute: typeof PublicProgrammesIndexRoute
+}
+
+const PublicProgrammesRouteChildren: PublicProgrammesRouteChildren = {
+  PublicProgrammesSlugRoute: PublicProgrammesSlugRoute,
+  PublicProgrammesIndexRoute: PublicProgrammesIndexRoute,
+}
+
+const PublicProgrammesRouteWithChildren =
+  PublicProgrammesRoute._addFileChildren(PublicProgrammesRouteChildren)
+
+interface PublicRouteChildren {
+  PublicAboutRoute: typeof PublicAboutRoute
+  PublicContactRoute: typeof PublicContactRoute
+  PublicCookiesRoute: typeof PublicCookiesRoute
+  PublicDonateRoute: typeof PublicDonateRoute
+  PublicEventsRoute: typeof PublicEventsRoute
+  PublicFounderRoute: typeof PublicFounderRoute
+  PublicGalleryRoute: typeof PublicGalleryRoute
+  PublicGetHelpRoute: typeof PublicGetHelpRoute
+  PublicNewsRoute: typeof PublicNewsRouteWithChildren
+  PublicPartnersRoute: typeof PublicPartnersRoute
+  PublicProgrammesRoute: typeof PublicProgrammesRouteWithChildren
+  PublicResourcesRoute: typeof PublicResourcesRoute
+  PublicShopRoute: typeof PublicShopRoute
+  PublicSupportOurWorkRoute: typeof PublicSupportOurWorkRoute
+  PublicVolunteerRoute: typeof PublicVolunteerRoute
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteChildren: PublicRouteChildren = {
+  PublicAboutRoute: PublicAboutRoute,
+  PublicContactRoute: PublicContactRoute,
+  PublicCookiesRoute: PublicCookiesRoute,
+  PublicDonateRoute: PublicDonateRoute,
+  PublicEventsRoute: PublicEventsRoute,
+  PublicFounderRoute: PublicFounderRoute,
+  PublicGalleryRoute: PublicGalleryRoute,
+  PublicGetHelpRoute: PublicGetHelpRoute,
+  PublicNewsRoute: PublicNewsRouteWithChildren,
+  PublicPartnersRoute: PublicPartnersRoute,
+  PublicProgrammesRoute: PublicProgrammesRouteWithChildren,
+  PublicResourcesRoute: PublicResourcesRoute,
+  PublicShopRoute: PublicShopRoute,
+  PublicSupportOurWorkRoute: PublicSupportOurWorkRoute,
+  PublicVolunteerRoute: PublicVolunteerRoute,
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteWithChildren =
+  PublicRoute._addFileChildren(PublicRouteChildren)
 
 interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
@@ -604,48 +688,9 @@ const AdminRouteChildren: AdminRouteChildren = {
 
 const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
-interface NewsRouteChildren {
-  NewsSlugRoute: typeof NewsSlugRoute
-}
-
-const NewsRouteChildren: NewsRouteChildren = {
-  NewsSlugRoute: NewsSlugRoute,
-}
-
-const NewsRouteWithChildren = NewsRoute._addFileChildren(NewsRouteChildren)
-
-interface ProgrammesRouteChildren {
-  ProgrammesSlugRoute: typeof ProgrammesSlugRoute
-  ProgrammesIndexRoute: typeof ProgrammesIndexRoute
-}
-
-const ProgrammesRouteChildren: ProgrammesRouteChildren = {
-  ProgrammesSlugRoute: ProgrammesSlugRoute,
-  ProgrammesIndexRoute: ProgrammesIndexRoute,
-}
-
-const ProgrammesRouteWithChildren = ProgrammesRoute._addFileChildren(
-  ProgrammesRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutRoute: AboutRoute,
+  PublicRoute: PublicRouteWithChildren,
   AdminRoute: AdminRouteWithChildren,
-  ContactRoute: ContactRoute,
-  CorporatePartnershipRoute: CorporatePartnershipRoute,
-  DonateRoute: DonateRoute,
-  EventsRoute: EventsRoute,
-  GetHelpRoute: GetHelpRoute,
-  GetInvolvedRoute: GetInvolvedRoute,
-  GovernanceRoute: GovernanceRoute,
-  MediaAdvocacyRoute: MediaAdvocacyRoute,
-  NewsRoute: NewsRouteWithChildren,
-  ProgrammesRoute: ProgrammesRouteWithChildren,
-  ResourcesRoute: ResourcesRoute,
-  ShopRoute: ShopRoute,
-  SupportOurWorkRoute: SupportOurWorkRoute,
-  VolunteerRoute: VolunteerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

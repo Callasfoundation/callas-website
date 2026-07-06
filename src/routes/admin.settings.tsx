@@ -1,90 +1,72 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Trash2, RotateCcw, Save } from "lucide-react";
-import { useImpact, useResources, SEED } from "@/lib/store";
+import { useState } from "react";
+import { KeyRound, Save } from "lucide-react";
+import { api, auth } from "@/lib/api";
 
 export const Route = createFileRoute("/admin/settings")({
-  component: SettingsAdmin,
+  head: () => ({ meta: [{ title: "Settings — Callas Admin" }, { name: "robots", content: "noindex,nofollow" }] }),
+  component: SettingsPage,
 });
 
-function SettingsAdmin() {
-  const [impact, setImpact] = useImpact();
-  const [resources, setResources] = useResources();
+function SettingsPage() {
+  const user = auth.user();
+  const [current, setCurrent] = useState("");
+  const [next, setNext] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [msg, setMsg] = useState<{ kind: "ok" | "err"; text: string } | null>(null);
+  const [busy, setBusy] = useState(false);
 
-  const updImpact = (i: number, patch: Partial<(typeof impact)[number]>) => {
-    const next = [...impact];
-    next[i] = { ...next[i], ...patch };
-    setImpact(next);
-  };
-  const updRes = (i: number, patch: Partial<(typeof resources)[number]>) => {
-    const next = [...resources];
-    next[i] = { ...next[i], ...patch };
-    setResources(next);
-  };
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setMsg(null);
+    if (next.length < 8) return setMsg({ kind: "err", text: "New password must be at least 8 characters." });
+    if (next !== confirm) return setMsg({ kind: "err", text: "New passwords don't match." });
+    setBusy(true);
+    try {
+      await api.changePassword(current, next);
+      setMsg({ kind: "ok", text: "Password updated." });
+      setCurrent(""); setNext(""); setConfirm("");
+    } catch (e) {
+      setMsg({ kind: "err", text: e instanceof Error ? e.message : "Could not update password." });
+    } finally { setBusy(false); }
+  }
 
   return (
-    <div className="space-y-10">
-      <header>
-        <div className="text-xs font-bold uppercase tracking-[0.22em] text-callas-red">Configuration</div>
-        <h1 className="mt-1 font-display text-3xl font-bold tracking-tight">Settings</h1>
-        <p className="mt-1 text-sm text-callas-ink/65">Tune the rolling impact counters and resources library.</p>
-      </header>
+    <div className="max-w-2xl space-y-8">
+      <div>
+        <h1 className="font-display text-3xl font-bold text-ink">Settings</h1>
+        <p className="text-muted-foreground">Manage your Callas Foundation admin account.</p>
+      </div>
 
-      <section className="rounded-2xl border border-callas-line bg-white p-6">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <h2 className="font-display text-lg font-bold">Rolling impact numbers</h2>
-          <div className="flex gap-2">
-            <button onClick={() => setImpact(SEED.impact)} className="inline-flex items-center gap-1.5 rounded-full border border-callas-line px-3 py-1.5 text-xs font-bold hover:border-callas-red hover:text-callas-red">
-              <RotateCcw className="h-3 w-3" /> Reset
-            </button>
-            <button onClick={() => setImpact([...impact, { label: "New metric", value: 0, suffix: "" }])} className="inline-flex items-center gap-1.5 rounded-full bg-callas-blue px-3 py-1.5 text-xs font-bold text-white">
-              <Plus className="h-3 w-3" /> Add
-            </button>
+      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="font-display text-lg font-bold text-ink">Account</div>
+        <dl className="mt-4 grid grid-cols-3 gap-3 text-sm">
+          <dt className="text-muted-foreground">Name</dt><dd className="col-span-2 font-medium text-ink">{user?.name ?? "—"}</dd>
+          <dt className="text-muted-foreground">Email</dt><dd className="col-span-2 font-medium text-ink">{user?.email ?? "—"}</dd>
+        </dl>
+      </div>
+
+      <form onSubmit={submit} className="rounded-2xl border border-slate-200 bg-white p-6 space-y-4">
+        <div className="flex items-center gap-2 font-display text-lg font-bold text-ink"><KeyRound className="h-4 w-4 text-brand-blue" /> Change password</div>
+        <div>
+          <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Current password</label>
+          <input type="password" required value={current} onChange={(e) => setCurrent(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">New password</label>
+            <input type="password" required minLength={8} value={next} onChange={(e) => setNext(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
+          </div>
+          <div>
+            <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Confirm new password</label>
+            <input type="password" required minLength={8} value={confirm} onChange={(e) => setConfirm(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
           </div>
         </div>
-        <div className="mt-4 space-y-2">
-          {impact.map((s, i) => (
-            <div key={i} className="grid gap-2 sm:grid-cols-[2fr_1fr_100px_auto]">
-              <input value={s.label} onChange={(e) => updImpact(i, { label: e.target.value })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm" />
-              <input type="number" value={s.value} onChange={(e) => updImpact(i, { value: parseInt(e.target.value) || 0 })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm" />
-              <input value={s.suffix ?? ""} placeholder="suffix" onChange={(e) => updImpact(i, { suffix: e.target.value })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm" />
-              <button onClick={() => setImpact(impact.filter((_, j) => j !== i))} className="grid h-10 w-10 place-items-center rounded-md bg-callas-red text-white">
-                <Trash2 className="h-4 w-4" />
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="rounded-2xl border border-callas-line bg-white p-6">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <h2 className="font-display text-lg font-bold">Resources library</h2>
-          <div className="flex gap-2">
-            <button onClick={() => setResources(SEED.resources)} className="inline-flex items-center gap-1.5 rounded-full border border-callas-line px-3 py-1.5 text-xs font-bold hover:border-callas-red hover:text-callas-red">
-              <RotateCcw className="h-3 w-3" /> Reset
-            </button>
-            <button onClick={() => setResources([...resources, { id: "r" + Date.now(), title: "New resource", type: "PDF", description: "", url: "#" }])} className="inline-flex items-center gap-1.5 rounded-full bg-callas-blue px-3 py-1.5 text-xs font-bold text-white">
-              <Plus className="h-3 w-3" /> Add
-            </button>
-          </div>
-        </div>
-        <div className="mt-4 space-y-3">
-          {resources.map((r, i) => (
-            <div key={r.id} className="grid gap-2 rounded-lg border border-callas-line/70 p-3 sm:grid-cols-2">
-              <input value={r.title} onChange={(e) => updRes(i, { title: e.target.value })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm sm:col-span-2" placeholder="Title" />
-              <input value={r.type} onChange={(e) => updRes(i, { type: e.target.value })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm" placeholder="Type" />
-              <input value={r.url} onChange={(e) => updRes(i, { url: e.target.value })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm" placeholder="URL" />
-              <textarea rows={2} value={r.description} onChange={(e) => updRes(i, { description: e.target.value })} className="rounded-md border border-callas-line bg-white px-3 py-2 text-sm sm:col-span-2" placeholder="Description" />
-              <button onClick={() => setResources(resources.filter((_, j) => j !== i))} className="inline-flex items-center gap-1 text-xs font-bold text-callas-red sm:col-span-2">
-                <Trash2 className="h-3 w-3" /> Delete
-              </button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <p className="inline-flex items-center gap-1.5 text-xs text-callas-ink/55">
-        <Save className="h-3 w-3" /> Changes save instantly to local storage and reflect on the public site.
-      </p>
+        {msg && <div className={`rounded-lg px-4 py-2 text-sm ${msg.kind === "ok" ? "bg-green-50 text-green-700" : "bg-brand-red/10 text-brand-red"}`}>{msg.text}</div>}
+        <button disabled={busy} className="inline-flex items-center gap-1.5 rounded-full bg-brand-red hover:bg-brand-red-dark text-white px-5 py-2.5 text-sm font-semibold disabled:opacity-60">
+          <Save className="h-4 w-4" /> {busy ? "Saving…" : "Update password"}
+        </button>
+      </form>
     </div>
   );
 }
