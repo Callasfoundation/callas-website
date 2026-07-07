@@ -3,8 +3,8 @@ import { ArrowRight, Phone, ShieldAlert } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import { news } from "@/data/content";
 import { site } from "@/data/site";
-import banner from "@/assets/photos/no-gbv-banner.asset.json";
-import missionPhoto from "@/assets/photos/unnamed-2.asset.json";
+import banner from "@/assets/images/home/no-gbv-banner.jpg";
+import missionPhoto from "@/assets/images/home/mission-photo.jpg";
 
 export const Route = createFileRoute("/_public/")({
   head: () => ({
@@ -34,7 +34,7 @@ function Hero() {
   return (
     <section className="relative bg-ink text-white overflow-hidden">
       <img
-        src={banner.url}
+        src={banner}
         alt="Callas Foundation community wearing No GBV shirts"
         className="absolute inset-0 h-full w-full object-cover opacity-40"
       />
@@ -67,7 +67,7 @@ function Mission() {
     <section className="bg-canvas border-y border-slate-200">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 grid gap-10 lg:grid-cols-2 items-center">
         <Reveal>
-          <img src={missionPhoto.url} alt="Callas Foundation team on the ground" className="w-full aspect-4/3 object-cover rounded-2xl shadow-lg" />
+          <img src={missionPhoto} alt="Callas Foundation team on the ground" className="w-full aspect-4/3 object-cover rounded-2xl shadow-lg" />
         </Reveal>
         <Reveal delay={0.1}>
           <div className="text-xs uppercase tracking-[0.22em] text-brand-red font-semibold">Our Mission</div>

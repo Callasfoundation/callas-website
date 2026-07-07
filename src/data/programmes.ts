@@ -1,6 +1,12 @@
 import type { LucideIcon } from "lucide-react";
 import { Scale, HeartHandshake, ShieldAlert, Users, UtensilsCrossed, GraduationCap, UserCheck } from "lucide-react";
-
+import accessToJustice from "@/assets/images/programs/access-to-justice.png";
+import psychosocialSupport from "@/assets/images/programs/psychosocial-support.jpeg";
+import gbvFirstResponders from "@/assets/images/programs/gbv-first-responders.jpeg";
+import bbbBoys from "@/assets/images/programs/bbb-boys.jpeg";
+import communityKitchen from "@/assets/images/programs/community-kitchen.jpg";
+import humanRightsClubs from "@/assets/images/programs/human-rights-clubs.jpeg";
+import mensEngagement from "@/assets/images/programs/mens-engagement.jpg";
 export type Programme = {
   slug: string;
   title: string;
@@ -14,7 +20,6 @@ export type Programme = {
   stats: { label: string; value: string }[];
 };
 
-const img = (q: string) => `https://images.unsplash.com/${q}?auto=format&fit=crop&w=1600&q=80`;
 
 export const programmes: Programme[] = [
   {
@@ -23,7 +28,7 @@ export const programmes: Programme[] = [
     short: "Court accompaniment, protection orders and legal literacy for survivors.",
     icon: Scale,
     color: "blue",
-    image: img("photo-1589994965851-a8f479c573a9"),
+    image: accessToJustice,
     intro:
       "Navigating the criminal justice system is often the second trauma survivors face. Our advocates walk beside them from the first police statement through to sentencing.",
     highlights: [
@@ -50,7 +55,7 @@ export const programmes: Programme[] = [
     short: "Trauma-informed counselling, safety planning and peer healing circles.",
     icon: HeartHandshake,
     color: "red",
-    image: img("photo-1573497019940-1c28c88b4f3e"),
+    image: psychosocialSupport,
     intro:
       "Healing is not linear. Our trauma-informed practitioners hold space for survivors and their families through structured counselling and peer-led circles.",
     highlights: [
@@ -77,7 +82,7 @@ export const programmes: Programme[] = [
     short: "Five-day intensive training for neighbourhood watches and community leaders.",
     icon: ShieldAlert,
     color: "blue",
-    image: img("photo-1521737604893-d14cc237f11d"),
+    image: gbvFirstResponders,
     intro:
       "When something happens on a Cape Flats street corner, the first person on the scene is rarely a professional. We equip community members to respond safely and correctly.",
     highlights: [
@@ -104,7 +109,7 @@ export const programmes: Programme[] = [
     short: "Building, Bonding, Beyond — mentorship for boys aged 9 to 16.",
     icon: Users,
     color: "ink",
-    image: img("photo-1503676260728-1c00da094a0b"),
+    image: bbbBoys,
     intro:
       "Building, Bonding, Beyond equips boys with the language and skills to resist gang culture, substance abuse and toxic masculinity — long before they harden into adulthood.",
     highlights: [
@@ -131,7 +136,7 @@ export const programmes: Programme[] = [
     short: "Over 500 hot, wholesome meals served daily — and a doorway to safety.",
     icon: UtensilsCrossed,
     color: "red",
-    image: img("photo-1547573854-74d2a71d0826"),
+    image: communityKitchen,
     intro:
       "Hunger and violence share a doorstep. The Callas Community Kitchen serves more than 500 dignified meals every day — and doubles as a soft entry point for survivors and vulnerable families to reach every other Callas service.",
     highlights: [
@@ -158,7 +163,7 @@ export const programmes: Programme[] = [
     short: "In-school clubs teaching learners to name, claim and defend their rights.",
     icon: GraduationCap,
     color: "blue",
-    image: img("photo-1509062522246-3755977927d7"),
+    image: humanRightsClubs,
     intro:
       "Human Rights Clubs are peer-led spaces inside partner schools where learners — especially girls — learn to recognise and challenge bullying, coercion and gender-based discrimination.",
     highlights: [
@@ -185,7 +190,7 @@ export const programmes: Programme[] = [
     short: "Accountability circles that recruit men as allies against violence.",
     icon: UserCheck,
     color: "ink",
-    image: img("photo-1552664730-d307ca884978"),
+    image: mensEngagement,
     intro:
       "Under the leadership of MenEngage South Africa, our men's forums confront patriarchal norms head-on and rebuild what accountable, non-violent manhood looks like on the Cape Flats.",
     highlights: [

@@ -191,13 +191,21 @@ app.add_middleware(
 def on_startup() -> None:
     SQLModel.metadata.create_all(engine)
     with Session(engine) as db:
-        exists = db.exec(select(AdminUser).where(AdminUser.email == SEED_ADMIN_EMAIL)).first()
+        exists = db.exec(
+            select(AdminUser).where(AdminUser.email == SEED_ADMIN_EMAIL)
+        ).first()
+
         if not exists:
-            db.add(AdminUser(
-                email=SEED_ADMIN_EMAIL,
-                username=SEED_ADMIN_USERNAME,
-                password_hash=pwd.hash(SEED_ADMIN_PASSWORD),
-            ))
+            print("ADMIN_PASSWORD =", repr(SEED_ADMIN_PASSWORD))
+            print("Length =", len(SEED_ADMIN_PASSWORD))
+
+            db.add(
+                AdminUser(
+                    email=SEED_ADMIN_EMAIL,
+                    username=SEED_ADMIN_USERNAME,
+                    password_hash=pwd.hash(SEED_ADMIN_PASSWORD),
+                )
+            )
             db.commit()
             print(f"[callas] seeded admin: {SEED_ADMIN_EMAIL}")
 

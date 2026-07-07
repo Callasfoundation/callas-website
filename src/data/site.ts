@@ -13,10 +13,10 @@ export const site = {
     gbv: "0800 428 428",
   },
   socials: [
-    { name: "Facebook", href: "https://www.facebook.com/callasfoundation", icon: "facebook" },
-    { name: "Instagram", href: "https://www.instagram.com/callasfoundation", icon: "instagram" },
-    { name: "X", href: "https://x.com/callasfoundation", icon: "twitter" },
-    { name: "LinkedIn", href: "https://www.linkedin.com/company/callasfoundation", icon: "linkedin" },
+    { name: "Facebook", href: "https://www.facebook.com/share/1Eb8ETVdBU/", icon: "facebook" },
+    { name: "Instagram", href: "https://www.instagram.com/callas_foundation?igsh=MWdlNjFkZnZmeHJ2ZA==", icon: "instagram" },
+    { name: "X", href: "https://x.com/Foundati1Callas", icon: "twitter" },
+    { name: "LinkedIn", href: "https://www.linkedin.com/in/callas-foundation-1b2634330/", icon: "linkedin" },
     { name: "WhatsApp", href: "https://wa.me/27725395113", icon: "whatsapp" },
   ],
 };

@@ -4,7 +4,7 @@ import { Reveal } from "@/components/motion";
 import { ExternalLink, Landmark, Heart } from "lucide-react";
 import { site } from "@/data/site";
 import { uploadedPhotos } from "@/data/content";
-import qr from "@/assets/photos/donation-qr.asset.json";
+import qr from "@/assets/images/qr/donation-qr.png";
 
 export const Route = createFileRoute("/_public/donate")({
   head: () => ({
@@ -69,7 +69,7 @@ function DonatePage() {
                 <p className="mt-2 text-sm text-muted-foreground">Scan the QR code with your phone camera to open our secure donation link.</p>
                 <p className="mt-3 text-xs text-muted-foreground">NPO {site.npo} · Section 18A tax certificate on request via <a href={`mailto:${site.emailGeneral}`} className="text-brand-blue hover:underline">{site.emailGeneral}</a>.</p>
               </div>
-              <img src={qr.url} alt="Donation QR code" className="h-40 w-40 rounded-lg border border-slate-200 bg-white p-2 mx-auto" />
+              <img src={qr} alt="Donation QR code" className="h-40 w-40 rounded-lg border border-slate-200 bg-white p-2 mx-auto" />
             </div>
           </Reveal>
         </div>
