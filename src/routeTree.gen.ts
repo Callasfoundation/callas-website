@@ -17,6 +17,7 @@ import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminImpactRouteImport } from './routes/admin.impact'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
@@ -77,6 +78,11 @@ const AdminPostsRoute = AdminPostsRouteImport.update({
 const AdminMessagesRoute = AdminMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminImpactRoute = AdminImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminGalleryRoute = AdminGalleryRouteImport.update({
@@ -211,6 +217,7 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/impact': typeof AdminImpactRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -238,6 +245,7 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/impact': typeof AdminImpactRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -271,6 +279,7 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/impact': typeof AdminImpactRoute
   '/admin/messages': typeof AdminMessagesRoute
   '/admin/posts': typeof AdminPostsRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -305,6 +314,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/impact'
     | '/admin/messages'
     | '/admin/posts'
     | '/admin/settings'
@@ -332,6 +342,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/impact'
     | '/admin/messages'
     | '/admin/posts'
     | '/admin/settings'
@@ -364,6 +375,7 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/impact'
     | '/admin/messages'
     | '/admin/posts'
     | '/admin/settings'
@@ -437,6 +449,13 @@ declare module '@tanstack/react-router' {
       path: '/messages'
       fullPath: '/admin/messages'
       preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/impact': {
+      id: '/admin/impact'
+      path: '/impact'
+      fullPath: '/admin/impact'
+      preLoaderRoute: typeof AdminImpactRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/gallery': {
@@ -668,6 +687,7 @@ interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminEventsRoute: typeof AdminEventsRoute
   AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminImpactRoute: typeof AdminImpactRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
   AdminPostsRoute: typeof AdminPostsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -679,6 +699,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminEventsRoute: AdminEventsRoute,
   AdminGalleryRoute: AdminGalleryRoute,
+  AdminImpactRoute: AdminImpactRoute,
   AdminMessagesRoute: AdminMessagesRoute,
   AdminPostsRoute: AdminPostsRoute,
   AdminSettingsRoute: AdminSettingsRoute,

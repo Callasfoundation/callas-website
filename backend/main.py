@@ -115,12 +115,22 @@ class Message(SQLModel, table=True):
     created_at: str = Field(default_factory=_now)
 
 
+class Impact(SQLModel, table=True):
+    id: str = Field(default_factory=_id, primary_key=True)
+    label: str = ""
+    value: int = 0
+    suffix: str = ""
+    sort: int = 0
+    created_at: str = Field(default_factory=_now)
+
+
 RESOURCE_MAP: dict[str, Type[SQLModel]] = {
     "posts": Post,
     "events": Event,
     "team": Team,
     "gallery": Gallery,
     "messages": Message,
+    "impact": Impact,
 }
 
 
@@ -191,23 +201,26 @@ app.add_middleware(
 def on_startup() -> None:
     SQLModel.metadata.create_all(engine)
     with Session(engine) as db:
-        exists = db.exec(
-            select(AdminUser).where(AdminUser.email == SEED_ADMIN_EMAIL)
-        ).first()
-
+        exists = db.exec(select(AdminUser).where(AdminUser.email == SEED_ADMIN_EMAIL)).first()
         if not exists:
-            print("ADMIN_PASSWORD =", repr(SEED_ADMIN_PASSWORD))
-            print("Length =", len(SEED_ADMIN_PASSWORD))
-
-            db.add(
-                AdminUser(
-                    email=SEED_ADMIN_EMAIL,
-                    username=SEED_ADMIN_USERNAME,
-                    password_hash=pwd.hash(SEED_ADMIN_PASSWORD),
-                )
-            )
+            db.add(AdminUser(
+                email=SEED_ADMIN_EMAIL,
+                username=SEED_ADMIN_USERNAME,
+                password_hash=pwd.hash(SEED_ADMIN_PASSWORD),
+            ))
             db.commit()
             print(f"[callas] seeded admin: {SEED_ADMIN_EMAIL}")
+        has_impact = db.exec(select(Impact)).first()
+        if not has_impact:
+            for i, m in enumerate([
+                ("Lives impacted", 12400, "+"),
+                ("Meals served daily", 500, "+"),
+                ("First responders trained", 240, "+"),
+                ("Years of service", 30, "+"),
+            ]):
+                db.add(Impact(label=m[0], value=m[1], suffix=m[2], sort=i))
+            db.commit()
+            print("[callas] seeded impact metrics")
 
 
 @app.get("/api/health")
@@ -289,7 +302,16 @@ async def create_item(
         _ = current_admin(callas_session)
     Model = _model(resource)
     body = await request.json()
-    obj = Model(**{k: v for k, v in body.items() if k in Model.model_fields})
+    clean = {}
+    for k, v in body.items():
+        if k not in Model.model_fields or k == "id":
+            continue
+        ann = Model.model_fields[k].annotation
+        if ann is int and isinstance(v, str):
+            try: v = int(v or 0)
+            except ValueError: v = 0
+        clean[k] = v
+    obj = Model(**clean)
     with Session(engine) as db:
         db.add(obj)
         db.commit()
@@ -312,6 +334,10 @@ async def update_item(
             raise HTTPException(status_code=404, detail="Not found")
         for k, v in body.items():
             if k in Model.model_fields and k != "id":
+                ann = Model.model_fields[k].annotation
+                if ann is int and isinstance(v, str):
+                    try: v = int(v or 0)
+                    except ValueError: v = 0
                 setattr(row, k, v)
         db.add(row)
         db.commit()

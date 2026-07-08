@@ -157,3 +157,46 @@ function LatestNews() {
     </section>
   );
 }
+
+type ImpactRow = { id?: string; label: string; value: number; suffix?: string; sort?: number };
+
+function Impact() {
+  const fallback: ImpactRow[] = impactMetrics.map((m) => ({ label: m.label, value: m.value, suffix: m.suffix }));
+  const [items, setItems] = useState<ImpactRow[]>(fallback);
+  useEffect(() => {
+    let alive = true;
+    api.list<ImpactRow>("impact")
+      .then((rows) => {
+        if (!alive || !rows || rows.length === 0) return;
+        const sorted = [...rows].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
+        setItems(sorted.map((r) => ({ ...r, value: Number(r.value) || 0 })));
+      })
+      .catch(() => { /* keep fallback */ });
+    return () => { alive = false; };
+  }, []);
+  return (
+    <section className="bg-ink text-white">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
+        <Reveal>
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-xs uppercase tracking-[0.22em] text-brand-red font-semibold">Our Impact</div>
+            <h2 className="mt-3 font-display text-2xl sm:text-3xl font-bold">Lives touched by Callas Foundation.</h2>
+            <p className="mt-3 text-white/70">Every number below is a person, a family, or a community walking a safer road today.</p>
+          </div>
+        </Reveal>
+        <div className={`mt-10 grid gap-6 sm:grid-cols-2 ${items.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+          {items.map((m, i) => (
+            <Reveal key={(m.id ?? m.label) + i} delay={i * 0.06}>
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center">
+                <div className="font-display text-4xl sm:text-5xl font-bold text-brand-red">
+                  <Counter to={m.value} suffix={m.suffix ?? ""} />
+                </div>
+                <div className="mt-2 text-sm uppercase tracking-wider text-white/70">{m.label}</div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

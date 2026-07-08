@@ -12,6 +12,7 @@ const items = [
   { to: "/admin/gallery", label: "Gallery", icon: Image },
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/settings", label: "Settings", icon: Settings },
+  { to: "/admin/impact", label: "Impact", icon: LayoutDashboard },
 ] as const;
 
 export function AdminShell() {
