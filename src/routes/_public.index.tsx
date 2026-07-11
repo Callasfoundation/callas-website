@@ -1,11 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowRight, Phone, ShieldAlert } from "lucide-react";
-import { Reveal } from "@/components/motion";
-import { news } from "@/data/content";
+
+import { Reveal, Counter } from "@/components/motion";
+import { api } from "@/lib/api";
+
+import { news, impactMetrics } from "@/data/content";
 import { site } from "@/data/site";
+
 import banner from "@/assets/images/home/no-gbv-banner.jpg";
 import missionPhoto from "@/assets/images/home/mission-photo.jpg";
-
 export const Route = createFileRoute("/_public/")({
   head: () => ({
     meta: [
@@ -22,6 +26,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <Impact />
       <Mission />
       <StoryVideo />
       <LatestNews />
