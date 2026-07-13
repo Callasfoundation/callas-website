@@ -16,11 +16,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Once Build() runs, the service collection is locked and further registrations throw.
 
 builder.Services.AddControllers();
+
 builder.Services.AddEndpointsApiExplorer();
+
 builder.Services.AddSwaggerGen();
 
+var cs = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+Console.WriteLine($"[{cs}]");
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(cs));
 
 builder.Services.AddCors(options =>
 {
@@ -31,6 +38,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+
 
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<INewsService, NewsService>();
@@ -56,6 +65,7 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 builder.Services.AddScoped<IPartnerService, PartnerService>();
+
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
 builder.Services
@@ -95,7 +105,7 @@ app.MapControllers();
 
 // Dev-only convenience: seed a default admin so you have something to log in
 // with before a real user-management flow exists. Remove once you have one.
-/*
+
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
@@ -109,6 +119,5 @@ if (app.Environment.IsDevelopment())
         db.SaveChanges();
     }
 }
-*/
 
 app.Run();
