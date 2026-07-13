@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Facebook, Instagram, Twitter, Linkedin, MessageCircle, Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/callas-logo.asset.json";
+import logo from "@/assets/images/logo/callas-logo.png";
 import { site } from "@/data/site";
 
 const iconMap = { facebook: Facebook, instagram: Instagram, twitter: Twitter, linkedin: Linkedin, whatsapp: MessageCircle } as const;
@@ -12,7 +12,7 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 grid gap-12 md:grid-cols-2 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
-            <img src={logo.url} alt="Callas Foundation" className="h-14 w-14 object-contain bg-white rounded-full p-1" />
+            <img src={logo} alt="Callas Foundation" className="h-14 w-14 object-contain bg-white rounded-full p-1" />
             <div>
               <div className="font-display text-lg font-bold">Callas Foundation</div>
               <div className="text-[10px] uppercase tracking-[0.22em] text-brand-red">Helping In Our Way</div>

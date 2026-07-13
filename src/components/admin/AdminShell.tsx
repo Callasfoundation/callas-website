@@ -2,7 +2,7 @@ import { Link, useNavigate, useRouterState, Outlet } from "@tanstack/react-route
 import { LayoutDashboard, FileText, Calendar, Users, Image, Mail, Settings, LogOut, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { api } from "@/lib/api";
-import logo from "@/assets/callas-logo.asset.json";
+import logo from "@/assets/images/logo/callas-logo.png";
 
 const items = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -12,6 +12,7 @@ const items = [
   { to: "/admin/gallery", label: "Gallery", icon: Image },
   { to: "/admin/messages", label: "Messages", icon: Mail },
   { to: "/admin/settings", label: "Settings", icon: Settings },
+  { to: "/admin/impact", label: "Impact", icon: LayoutDashboard },
 ] as const;
 
 export function AdminShell() {
@@ -25,7 +26,7 @@ export function AdminShell() {
     <div className="min-h-screen bg-canvas flex">
       <aside className={`${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 fixed lg:sticky top-0 z-40 h-screen w-64 bg-ink text-white flex flex-col transition-transform`}>
         <div className="px-5 py-5 border-b border-white/10 flex items-center gap-3">
-          <img src={logo.url} alt="" className="h-9 w-9 bg-white rounded-full p-0.5" />
+          <img src={logo} alt="" className="h-9 w-9 bg-white rounded-full p-0.5" />
           <div><div className="font-display font-bold">Callas Admin</div><div className="text-[10px] uppercase tracking-widest text-white/60">Portal</div></div>
         </div>
         <nav className="flex-1 p-3 space-y-1">

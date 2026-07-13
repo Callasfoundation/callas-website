@@ -6,7 +6,7 @@
 const BASE_URL =
   (typeof import.meta !== "undefined" &&
     (import.meta as unknown as { env?: Record<string, string> }).env?.VITE_API_URL) ||
-  "http://localhost:8000";
+  "http://localhost:5296";
 const FLAG_KEY = "callas_admin_session";
 
 export const auth = {

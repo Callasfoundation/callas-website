@@ -1,11 +1,18 @@
-import u1 from "@/assets/photos/unnamed.asset.json";
-import u2 from "@/assets/photos/unnamed-2.asset.json";
-import u3 from "@/assets/photos/unnamed-3.asset.json";
-import u4 from "@/assets/photos/unnamed-4.asset.json";
-import u5 from "@/assets/photos/unnamed-5.asset.json";
-import u6 from "@/assets/photos/unnamed-6.asset.json";
+import gallery1 from "@/assets/images/gallery/gallery-1.jpeg";
+import gallery2 from "@/assets/images/gallery/gallery-2.jpeg";
+import gallery3 from "@/assets/images/gallery/gallery-3.jpeg";
+import gallery4 from "@/assets/images/gallery/gallery-4.jpeg";
+import gallery5 from "@/assets/images/gallery/gallery-5.jpg";
+import gallery6 from "@/assets/images/gallery/gallery-6.jpg";
 
-export const uploadedPhotos = [u1.url, u2.url, u3.url, u4.url, u5.url, u6.url];
+export const uploadedPhotos = [
+  gallery1,
+  gallery2,
+  gallery3,
+  gallery4,
+  gallery5,
+  gallery6,
+];
 
 export type NewsItem = {
   slug: string; title: string; excerpt: string; body: string;

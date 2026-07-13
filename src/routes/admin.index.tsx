@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Lock, LogIn } from "lucide-react";
 import { api, auth } from "@/lib/api";
 // `auth` is used by the redirect-if-signed-in effect below.
-import logo from "@/assets/callas-logo.asset.json";
+import logo from "@/assets/images/logo/callas-logo.png";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({ meta: [{ title: "Admin — Callas Foundation" }, { name: "robots", content: "noindex,nofollow" }] }),
@@ -37,7 +37,7 @@ function AdminLogin() {
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
       <form onSubmit={submit} className="relative w-full max-w-md rounded-2xl bg-white text-ink p-8 shadow-2xl">
         <div className="flex items-center gap-3">
-          <img src={logo.url} alt="" className="h-12 w-12" />
+          <img src={logo} alt="" className="h-12 w-12" />
           <div>
             <div className="font-display text-xl font-bold">Callas Admin</div>
             <div className="text-xs text-muted-foreground">Secure staff portal</div>
