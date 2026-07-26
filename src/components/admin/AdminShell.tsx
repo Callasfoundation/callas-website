@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState, Outlet } from "@tanstack/react-router";
-import { LayoutDashboard, FileText, Calendar, Users, Image, Mail, Settings, LogOut, Menu, X, Handshake, BookOpen, Layers } from "lucide-react";
+import { LayoutDashboard, FileText, Calendar, Users, Image, Mail, Settings, LogOut, Menu, X, Handshake, BookOpen, Layers, HeartHandshake } from "lucide-react";
 import { useState } from "react";
 import { api } from "@/lib/api";
 import logo from "@/assets/images/logo/callas-logo.png";
@@ -11,6 +11,7 @@ const items = [
   { to: "/admin/team", label: "Team", icon: Users },
   { to: "/admin/gallery", label: "Gallery", icon: Image },
   { to: "/admin/messages", label: "Messages", icon: Mail },
+  { to: "/admin/volunteers", label: "Volunteers", icon: HeartHandshake },
   { to: "/admin/partners", label: "Partners", icon: Handshake },
   { to: "/admin/resources", label: "Resources", icon: BookOpen },
   { to: "/admin/programmes", label: "Programmes", icon: Layers },

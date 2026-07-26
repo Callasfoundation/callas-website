@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { AlertTriangle, LogOut, Phone, MessageSquare, ShieldAlert, MonitorOff } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import { site } from "@/data/site";
+import { api } from "@/lib/api";
 
 export const Route = createFileRoute("/_public/get-help")({
   head: () => ({
@@ -25,7 +26,35 @@ function quickExit() {
 function GetHelpPage() {
   const navigate = useNavigate();
   const [sent, setSent] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [pref, setPref] = useState<"safe" | "text" | "risk">("safe");
+  const [form, setForm] = useState({ name: "", phone: "", email: "", situation: "" });
+
+  const prefLabel = { safe: "Safe to call, anytime", text: "Text only, no voice", risk: "Active risk — urgent" }[pref];
+
+  async function submit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null); setBusy(true);
+    try {
+      await api.create("contact", {
+        name: form.name || "Not given",
+        email: form.email || "no-reply@callasfoundation.org",
+        subject: pref === "risk" ? "URGENT: Active risk — Get Help form" : "Get Help form submission",
+        category: pref === "risk" ? "Get Help — Urgent" : "Get Help",
+        message: [
+          `Contact preference: ${prefLabel}`,
+          form.phone && `Phone: ${form.phone}`,
+          form.situation && `Situation: ${form.situation}`,
+        ].filter(Boolean).join("\n"),
+      });
+      setSent(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong sending this. If you're in immediate danger, please call SAPS or use WhatsApp instead.");
+    } finally {
+      setBusy(false);
+    }
+  }
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") quickExit(); };
@@ -93,19 +122,19 @@ function GetHelpPage() {
                   <button onClick={() => navigate({ to: "/" })} className="mt-6 rounded-full bg-brand-blue text-white px-6 py-3 text-sm font-semibold">Return home</button>
                 </div>
               ) : (
-                <form onSubmit={(e) => { e.preventDefault(); setSent(true); }} className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 space-y-5">
+                <form onSubmit={submit} className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 space-y-5">
                   <div>
                     <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">First name (or a name we can use)</label>
-                    <input required className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
+                    <input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
                   </div>
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
                       <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Contact number</label>
-                      <input type="tel" className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
+                      <input type="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
                     </div>
                     <div>
                       <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Email (optional)</label>
-                      <input type="email" className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
+                      <input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
                     </div>
                   </div>
                   <div>
@@ -128,12 +157,12 @@ function GetHelpPage() {
                   </div>
                   <div>
                     <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">What's happening? (share only what you're comfortable with)</label>
-                    <textarea rows={5} className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
+                    <textarea rows={5} value={form.situation} onChange={(e) => setForm({ ...form, situation: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 focus:outline-none focus:border-brand-blue" />
                   </div>
-                  <button type="submit" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-red hover:bg-brand-red-dark px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-brand-red/30">
-                    Send safely
+                  {error && <div className="rounded-lg bg-brand-red/10 text-brand-red px-4 py-3 text-sm">{error}</div>}
+                  <button type="submit" disabled={busy} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-red hover:bg-brand-red-dark px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-brand-red/30 disabled:opacity-60">
+                    {busy ? "Sending…" : "Send safely"}
                   </button>
-                  <p className="text-xs text-muted-foreground text-center">This is a frontend prototype. In production this form will submit securely to the Callas advocate team.</p>
                 </form>
               )}
             </Reveal>

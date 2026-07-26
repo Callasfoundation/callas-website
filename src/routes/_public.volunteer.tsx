@@ -3,6 +3,9 @@ import { useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/motion";
 import { CheckCircle2 } from "lucide-react";
+import { api } from "@/lib/api";
+
+const SKILLS = ["Kitchen logistics", "Fieldwork rounds", "Legal advocacy", "Counselling", "Admin & data", "Fundraising", "Events", "Youth mentorship"];
 
 export const Route = createFileRoute("/_public/volunteer")({
   head: () => ({ meta: [{ title: "Volunteer — Callas Foundation" }, { name: "description", content: "Volunteer with Callas Foundation on the Cape Flats — kitchen, fieldwork or professional advocacy." }, { property: "og:title", content: "Volunteer — Callas Foundation" }, { property: "og:description", content: "Give your Saturday. Change a week." }] }),
@@ -12,7 +15,48 @@ export const Route = createFileRoute("/_public/volunteer")({
 function VolunteerPage() {
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const steps = ["Your profile", "Skills & interests", "Availability", "Confirm"];
+
+  const [form, setForm] = useState({
+    name: "", email: "", phone: "", suburb: "",
+    skills: [] as string[],
+    availableDays: "Weekday mornings",
+    notes: "",
+  });
+
+  function toggleSkill(s: string) {
+    setForm((f) => ({ ...f, skills: f.skills.includes(s) ? f.skills.filter((x) => x !== s) : [...f.skills, s] }));
+  }
+
+  async function submit() {
+    setError(null); setBusy(true);
+    try {
+      await api.create("volunteers", {
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        track: form.skills.join(", ") || "General",
+        availableDays: form.availableDays,
+        note: [form.suburb && `Suburb: ${form.suburb}`, form.notes].filter(Boolean).join(" — "),
+      });
+      setDone(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong submitting your details. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (step === steps.length - 1) {
+      submit();
+    } else {
+      setStep(step + 1);
+    }
+  }
 
   if (done) return (
     <>
@@ -38,28 +82,33 @@ function VolunteerPage() {
                 </div>
               ))}
             </div>
-            <form onSubmit={(e) => { e.preventDefault(); step === steps.length - 1 ? setDone(true) : setStep(step + 1); }} className="rounded-2xl bg-white border border-slate-200 p-8 space-y-4">
+            <form onSubmit={handleSubmit} className="rounded-2xl bg-white border border-slate-200 p-8 space-y-4">
               <div className="text-xs uppercase tracking-[0.22em] text-brand-blue font-semibold">Step {step + 1} of {steps.length}</div>
               <h2 className="font-display text-2xl font-bold text-ink">{steps[step]}</h2>
               {step === 0 && (<>
-                <input required placeholder="Full name" className="w-full rounded-lg border border-slate-300 px-4 py-3" />
-                <input required type="email" placeholder="Email" className="w-full rounded-lg border border-slate-300 px-4 py-3" />
-                <input required type="tel" placeholder="Phone / WhatsApp" className="w-full rounded-lg border border-slate-300 px-4 py-3" />
-                <input placeholder="Suburb" className="w-full rounded-lg border border-slate-300 px-4 py-3" />
+                <input required placeholder="Full name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} className="w-full rounded-lg border border-slate-300 px-4 py-3" />
+                <input required type="email" placeholder="Email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} className="w-full rounded-lg border border-slate-300 px-4 py-3" />
+                <input required type="tel" placeholder="Phone / WhatsApp" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} className="w-full rounded-lg border border-slate-300 px-4 py-3" />
+                <input placeholder="Suburb" value={form.suburb} onChange={(e) => setForm({ ...form, suburb: e.target.value })} className="w-full rounded-lg border border-slate-300 px-4 py-3" />
               </>)}
               {step === 1 && (<div className="grid gap-3 sm:grid-cols-2">
-                {["Kitchen logistics", "Fieldwork rounds", "Legal advocacy", "Counselling", "Admin & data", "Fundraising", "Events", "Youth mentorship"].map((s) => (
-                  <label key={s} className="flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-3 cursor-pointer hover:border-brand-blue"><input type="checkbox" /> {s}</label>
+                {SKILLS.map((s) => (
+                  <label key={s} className="flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-3 cursor-pointer hover:border-brand-blue">
+                    <input type="checkbox" checked={form.skills.includes(s)} onChange={() => toggleSkill(s)} /> {s}
+                  </label>
                 ))}
               </div>)}
               {step === 2 && (<>
-                <select className="w-full rounded-lg border border-slate-300 px-4 py-3"><option>Weekday mornings</option><option>Weekday afternoons</option><option>Weekends</option><option>Evenings</option></select>
-                <textarea rows={4} placeholder="Any specific dates or constraints?" className="w-full rounded-lg border border-slate-300 px-4 py-3" />
+                <select value={form.availableDays} onChange={(e) => setForm({ ...form, availableDays: e.target.value })} className="w-full rounded-lg border border-slate-300 px-4 py-3">
+                  <option>Weekday mornings</option><option>Weekday afternoons</option><option>Weekends</option><option>Evenings</option>
+                </select>
+                <textarea rows={4} placeholder="Any specific dates or constraints?" value={form.notes} onChange={(e) => setForm({ ...form, notes: e.target.value })} className="w-full rounded-lg border border-slate-300 px-4 py-3" />
               </>)}
               {step === 3 && (<p className="text-muted-foreground">Confirm your details and submit. A programme coordinator will reach out within 5 working days.</p>)}
+              {error && <div className="rounded-lg bg-brand-red/10 text-brand-red px-4 py-2 text-sm">{error}</div>}
               <div className="flex justify-between pt-4">
                 <button type="button" onClick={() => setStep(Math.max(0, step - 1))} disabled={step === 0} className="rounded-full px-5 py-2.5 text-sm font-semibold text-ink hover:bg-slate-100 disabled:opacity-40">Back</button>
-                <button type="submit" className="rounded-full bg-brand-red hover:bg-brand-red-dark text-white px-6 py-2.5 text-sm font-semibold">{step === steps.length - 1 ? "Submit" : "Continue"}</button>
+                <button type="submit" disabled={busy} className="rounded-full bg-brand-red hover:bg-brand-red-dark text-white px-6 py-2.5 text-sm font-semibold disabled:opacity-60">{busy ? "Submitting…" : step === steps.length - 1 ? "Submit" : "Continue"}</button>
               </div>
             </form>
           </Reveal>
