@@ -42,7 +42,7 @@ function SettingsPage() {
         <div className="font-display text-lg font-bold text-ink">Account</div>
         <dl className="mt-4 grid grid-cols-3 gap-3 text-sm">
           <dt className="text-muted-foreground">Name</dt><dd className="col-span-2 font-medium text-ink">{user?.name ?? "—"}</dd>
-          <dt className="text-muted-foreground">Email</dt><dd className="col-span-2 font-medium text-ink">{user?.email ?? "—"}</dd>
+          <dt className="text-muted-foreground">Username</dt><dd className="col-span-2 font-medium text-ink">{user?.email ?? "—"}</dd>
         </dl>
       </div>
 

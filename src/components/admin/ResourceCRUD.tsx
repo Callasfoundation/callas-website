@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { Plus, Pencil, Trash2, Save, X } from "lucide-react";
 import { api } from "@/lib/api";
 
@@ -14,6 +15,7 @@ export function ResourceCRUD({
   fields: Field[];
 }) {
   type Row = Record<string, string> & { id: string };
+  const navigate = useNavigate();
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState<Row | null>(null);
@@ -29,13 +31,31 @@ export function ResourceCRUD({
   useEffect(() => { refresh(); }, [resource]); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function save(payload: Row) {
-    if (payload.id) await api.update(resource, payload.id, payload);
-    else await api.create(resource, payload);
-    setEditing(null); setCreating(false); refresh();
+    try {
+      if (payload.id) await api.update(resource, payload.id, payload);
+      else await api.create(resource, payload);
+      setEditing(null); setCreating(false); refresh();
+    } catch (e) {
+      if (e instanceof Error && e.message === "Unauthorized") {
+        navigate({ to: "/admin" });
+        return;
+      }
+      setError(e instanceof Error ? e.message : "Failed to save");
+    }
   }
+
   async function remove(id: string) {
     if (!confirm("Delete this item?")) return;
-    await api.remove(resource, id); refresh();
+    try {
+      await api.remove(resource, id);
+      refresh();
+    } catch (e) {
+      if (e instanceof Error && e.message === "Unauthorized") {
+        navigate({ to: "/admin" });
+        return;
+      }
+      setError(e instanceof Error ? e.message : "Failed to delete");
+    }
   }
 
   const active = editing ?? (creating ? ({ id: "" } as Row) : null);

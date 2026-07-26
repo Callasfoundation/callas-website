@@ -4,11 +4,11 @@ import { FileText, Calendar, Users, Image as ImageIcon, Mail } from "lucide-reac
 import { api } from "@/lib/api";
 
 const resources = [
-  { key: "posts", label: "Posts", icon: FileText, to: "/admin/posts" },
+  { key: "news", label: "Posts", icon: FileText, to: "/admin/posts" },
   { key: "events", label: "Events", icon: Calendar, to: "/admin/events" },
   { key: "team", label: "Team", icon: Users, to: "/admin/team" },
   { key: "gallery", label: "Gallery", icon: ImageIcon, to: "/admin/gallery" },
-  { key: "messages", label: "Messages", icon: Mail, to: "/admin/messages" },
+  { key: "contact", label: "Messages", icon: Mail, to: "/admin/messages" },
 ] as const;
 
 export const Route = createFileRoute("/admin/dashboard")({

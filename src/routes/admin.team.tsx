@@ -6,7 +6,8 @@ export const Route = createFileRoute("/admin/team")({
   component: () => <ResourceCRUD resource="team" title="Team Members" fields={[
     { key: "name", label: "Name" },
     { key: "role", label: "Role" },
+    { key: "email", label: "Email" },
+    { key: "imageUrl", label: "Photo URL", type: "url" },
     { key: "bio", label: "Bio", type: "textarea" },
-    { key: "image", label: "Photo URL", type: "url" },
   ]} />,
 });
