@@ -2,7 +2,6 @@
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-
 namespace Callas.API.Controllers
 {
     [Route("api/[controller]")]
@@ -10,40 +9,37 @@ namespace Callas.API.Controllers
     public class ResourcesController : ControllerBase
     {
         private readonly IResourceService _resourceService;
-
         public ResourcesController(IResourceService resourceService)
         {
             _resourceService = resourceService;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetResources()
         {
             var resources = await _resourceService.GetAllAsync();
             return Ok(resources);
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetResource(int id)
         {
             var resource = await _resourceService.GetByIdAsync(id);
             return resource is null ? NotFound() : Ok(resource);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateResource(CreateResourceDto dto)
         {
             var created = await _resourceService.CreateAsync(dto);
             return CreatedAtAction(nameof(GetResource), new { id = created.Id }, created);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateResource(int id, UpdateResourceDto dto)
         {
             var updated = await _resourceService.UpdateAsync(id, dto);
             return updated ? NoContent() : NotFound();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteResource(int id)
         {

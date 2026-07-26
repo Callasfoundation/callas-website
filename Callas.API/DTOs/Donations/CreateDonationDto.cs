@@ -16,5 +16,8 @@ namespace Callas.API.DTOs.Donations
 
         [Required, MaxLength(20)]
         public string Frequency { get; set; } = string.Empty;
+
+        [MaxLength(200)]
+        public string ProgrammeSlug { get; set; } = string.Empty;
     }
 }

@@ -17,4 +17,7 @@ public class Event
 
     [MaxLength(500)]
     public string ImageUrl { get; set; } = string.Empty;
+
+    [MaxLength(200)]
+    public string ProgrammeSlug { get; set; } = string.Empty;
 }

@@ -36,6 +36,7 @@ public class EventService : IEventService
             Location = dto.Location,
             Description = dto.Description,
             ImageUrl = dto.ImageUrl,
+            ProgrammeSlug = dto.ProgrammeSlug,
         };
 
         await _eventRepository.AddEventAsync(ev);
@@ -55,6 +56,7 @@ public class EventService : IEventService
         ev.Location = dto.Location;
         ev.Description = dto.Description;
         ev.ImageUrl = dto.ImageUrl;
+        ev.ProgrammeSlug = dto.ProgrammeSlug;
 
         return await _eventRepository.SaveChangesAsync();
     }
@@ -76,5 +78,6 @@ public class EventService : IEventService
         Location = ev.Location,
         Description = ev.Description,
         ImageUrl = ev.ImageUrl,
+        ProgrammeSlug = ev.ProgrammeSlug,
     };
 }

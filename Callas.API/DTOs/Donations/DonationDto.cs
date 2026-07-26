@@ -9,5 +9,6 @@ namespace Callas.API.DTOs.Donations
         public decimal Amount { get; set; }
         public string Frequency { get; set; } = string.Empty;
         public DateTime DonationDate { get; set; }
+        public string ProgrammeSlug { get; set; } = string.Empty;
     }
 }

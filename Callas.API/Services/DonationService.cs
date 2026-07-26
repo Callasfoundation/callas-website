@@ -36,6 +36,7 @@ public class DonationService : IDonationService
             Amount = dto.Amount,
             Frequency = dto.Frequency,
             DonationDate = DateTime.UtcNow,
+            ProgrammeSlug = dto.ProgrammeSlug,
         };
 
         await _donationRepository.AddDonationAsync(donation);
@@ -60,5 +61,6 @@ public class DonationService : IDonationService
         Amount = donation.Amount,
         Frequency = donation.Frequency,
         DonationDate = donation.DonationDate,
+        ProgrammeSlug = donation.ProgrammeSlug,
     };
 }

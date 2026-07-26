@@ -21,5 +21,8 @@ namespace Callas.API.DTOs.Events
 
         [Url]
         public string ImageUrl { get; set; } = string.Empty;
+
+        [MaxLength(200)]
+        public string ProgrammeSlug { get; set; } = string.Empty;
     }
 }

@@ -2,7 +2,6 @@
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-
 namespace Callas.API.Controllers
 {
     [Route("api/[controller]")]
@@ -10,40 +9,37 @@ namespace Callas.API.Controllers
     public class ProgrammesController : ControllerBase
     {
         private readonly IProgrammeService _programmeService;
-
         public ProgrammesController(IProgrammeService programmeService)
         {
             _programmeService = programmeService;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetProgrammes()
         {
             var programmes = await _programmeService.GetAllAsync();
             return Ok(programmes);
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProgramme(int id)
         {
             var programme = await _programmeService.GetByIdAsync(id);
             return programme is null ? NotFound() : Ok(programme);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateProgramme(CreateProgrammeDto dto)
         {
             var created = await _programmeService.CreateAsync(dto);
             return CreatedAtAction(nameof(GetProgramme), new { id = created.Id }, created);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateProgramme(int id, UpdateProgrammeDto dto)
         {
             var updated = await _programmeService.UpdateAsync(id, dto);
             return updated ? NoContent() : NotFound();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProgramme(int id)
         {
