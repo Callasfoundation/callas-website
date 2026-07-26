@@ -1,8 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/motion";
-import { ArrowRight } from "lucide-react";
-import { programmes } from "@/data/programmes";
+import { ArrowRight, Layers } from "lucide-react";
+import { programmes as staticProgrammes } from "@/data/programmes";
+import { api } from "@/lib/api";
+
+type ApiProgramme = { id: number; title: string; slug: string; short: string; imageUrl: string };
 
 export const Route = createFileRoute("/_public/programmes/")({
   head: () => ({
@@ -17,12 +21,22 @@ export const Route = createFileRoute("/_public/programmes/")({
 });
 
 function ProgrammesIndex() {
+  const [extra, setExtra] = useState<ApiProgramme[]>([]);
+  const staticSlugs = new Set(staticProgrammes.map((p) => p.slug));
+
+  useEffect(() => {
+    api.list<ApiProgramme>("programmes")
+      .then((rows) => setExtra(rows.filter((p) => !staticSlugs.has(p.slug))))
+      .catch(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <PageHeader eyebrow="What We Do" title="Seven programmes. One integrated response." description="From court accompaniment to hot meals to boys' mentorship — every pillar reinforces the others." crumbs={[{ label: "Programmes" }]} />
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {programmes.map((p, i) => (
+          {staticProgrammes.map((p, i) => (
             <Reveal key={p.slug} delay={i * 0.05}>
               <Link to="/programmes/$slug" params={{ slug: p.slug }} className="group relative block h-full overflow-hidden rounded-2xl bg-white border border-slate-200 transition-all hover:-translate-y-1 hover:shadow-2xl hover:border-brand-blue/30">
                 <div className="aspect-[16/10] overflow-hidden">
@@ -31,6 +45,30 @@ function ProgrammesIndex() {
                 <div className="p-6">
                   <div className={`inline-grid h-11 w-11 place-items-center rounded-xl -mt-12 relative shadow-lg mb-4 ${p.color === "red" ? "bg-brand-red text-white" : p.color === "blue" ? "bg-brand-blue text-white" : "bg-ink text-white"}`}>
                     <p.icon className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-ink group-hover:text-brand-blue transition-colors">{p.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.short}</p>
+                  <div className="mt-4 inline-flex items-center gap-1 text-xs font-semibold text-brand-red">
+                    Explore <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
+
+          {extra.map((p, i) => (
+            <Reveal key={p.slug} delay={(staticProgrammes.length + i) * 0.05}>
+              <Link to="/programmes/$slug" params={{ slug: p.slug }} className="group relative block h-full overflow-hidden rounded-2xl bg-white border border-slate-200 transition-all hover:-translate-y-1 hover:shadow-2xl hover:border-brand-blue/30">
+                <div className="aspect-[16/10] overflow-hidden bg-canvas">
+                  {p.imageUrl ? (
+                    <img src={p.imageUrl} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  ) : (
+                    <div className="h-full w-full grid place-items-center text-brand-blue/30"><Layers className="h-12 w-12" /></div>
+                  )}
+                </div>
+                <div className="p-6">
+                  <div className="inline-grid h-11 w-11 place-items-center rounded-xl -mt-12 relative shadow-lg mb-4 bg-brand-blue text-white">
+                    <Layers className="h-5 w-5" />
                   </div>
                   <h3 className="font-display text-xl font-bold text-ink group-hover:text-brand-blue transition-colors">{p.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{p.short}</p>

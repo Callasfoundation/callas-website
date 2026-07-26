@@ -15,8 +15,12 @@ import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminResourcesRouteImport } from './routes/admin.resources'
+import { Route as AdminProgrammesRouteImport } from './routes/admin.programmes'
 import { Route as AdminPostsRouteImport } from './routes/admin.posts'
+import { Route as AdminPartnersRouteImport } from './routes/admin.partners'
 import { Route as AdminMessagesRouteImport } from './routes/admin.messages'
+import { Route as AdminImpactRouteImport } from './routes/admin.impact'
 import { Route as AdminGalleryRouteImport } from './routes/admin.gallery'
 import { Route as AdminEventsRouteImport } from './routes/admin.events'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
@@ -69,14 +73,34 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminResourcesRoute = AdminResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProgrammesRoute = AdminProgrammesRouteImport.update({
+  id: '/programmes',
+  path: '/programmes',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminPostsRoute = AdminPostsRouteImport.update({
   id: '/posts',
   path: '/posts',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminPartnersRoute = AdminPartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => AdminRoute,
+} as any)
 const AdminMessagesRoute = AdminMessagesRouteImport.update({
   id: '/messages',
   path: '/messages',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminImpactRoute = AdminImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
   getParentRoute: () => AdminRoute,
 } as any)
 const AdminGalleryRoute = AdminGalleryRouteImport.update({
@@ -211,8 +235,12 @@ export interface FileRoutesByFullPath {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/impact': typeof AdminImpactRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/partners': typeof AdminPartnersRoute
   '/admin/posts': typeof AdminPostsRoute
+  '/admin/programmes': typeof AdminProgrammesRoute
+  '/admin/resources': typeof AdminResourcesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/admin/': typeof AdminIndexRoute
@@ -238,8 +266,12 @@ export interface FileRoutesByTo {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/impact': typeof AdminImpactRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/partners': typeof AdminPartnersRoute
   '/admin/posts': typeof AdminPostsRoute
+  '/admin/programmes': typeof AdminProgrammesRoute
+  '/admin/resources': typeof AdminResourcesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/': typeof PublicIndexRoute
@@ -271,8 +303,12 @@ export interface FileRoutesById {
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/events': typeof AdminEventsRoute
   '/admin/gallery': typeof AdminGalleryRoute
+  '/admin/impact': typeof AdminImpactRoute
   '/admin/messages': typeof AdminMessagesRoute
+  '/admin/partners': typeof AdminPartnersRoute
   '/admin/posts': typeof AdminPostsRoute
+  '/admin/programmes': typeof AdminProgrammesRoute
+  '/admin/resources': typeof AdminResourcesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
   '/_public/': typeof PublicIndexRoute
@@ -305,8 +341,12 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/impact'
     | '/admin/messages'
+    | '/admin/partners'
     | '/admin/posts'
+    | '/admin/programmes'
+    | '/admin/resources'
     | '/admin/settings'
     | '/admin/team'
     | '/admin/'
@@ -332,8 +372,12 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/impact'
     | '/admin/messages'
+    | '/admin/partners'
     | '/admin/posts'
+    | '/admin/programmes'
+    | '/admin/resources'
     | '/admin/settings'
     | '/admin/team'
     | '/'
@@ -364,8 +408,12 @@ export interface FileRouteTypes {
     | '/admin/dashboard'
     | '/admin/events'
     | '/admin/gallery'
+    | '/admin/impact'
     | '/admin/messages'
+    | '/admin/partners'
     | '/admin/posts'
+    | '/admin/programmes'
+    | '/admin/resources'
     | '/admin/settings'
     | '/admin/team'
     | '/_public/'
@@ -425,6 +473,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/resources': {
+      id: '/admin/resources'
+      path: '/resources'
+      fullPath: '/admin/resources'
+      preLoaderRoute: typeof AdminResourcesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/programmes': {
+      id: '/admin/programmes'
+      path: '/programmes'
+      fullPath: '/admin/programmes'
+      preLoaderRoute: typeof AdminProgrammesRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/posts': {
       id: '/admin/posts'
       path: '/posts'
@@ -432,11 +494,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminPostsRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/partners': {
+      id: '/admin/partners'
+      path: '/partners'
+      fullPath: '/admin/partners'
+      preLoaderRoute: typeof AdminPartnersRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/admin/messages': {
       id: '/admin/messages'
       path: '/messages'
       fullPath: '/admin/messages'
       preLoaderRoute: typeof AdminMessagesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/impact': {
+      id: '/admin/impact'
+      path: '/impact'
+      fullPath: '/admin/impact'
+      preLoaderRoute: typeof AdminImpactRouteImport
       parentRoute: typeof AdminRoute
     }
     '/admin/gallery': {
@@ -668,8 +744,12 @@ interface AdminRouteChildren {
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminEventsRoute: typeof AdminEventsRoute
   AdminGalleryRoute: typeof AdminGalleryRoute
+  AdminImpactRoute: typeof AdminImpactRoute
   AdminMessagesRoute: typeof AdminMessagesRoute
+  AdminPartnersRoute: typeof AdminPartnersRoute
   AdminPostsRoute: typeof AdminPostsRoute
+  AdminProgrammesRoute: typeof AdminProgrammesRoute
+  AdminResourcesRoute: typeof AdminResourcesRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTeamRoute: typeof AdminTeamRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -679,8 +759,12 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminDashboardRoute: AdminDashboardRoute,
   AdminEventsRoute: AdminEventsRoute,
   AdminGalleryRoute: AdminGalleryRoute,
+  AdminImpactRoute: AdminImpactRoute,
   AdminMessagesRoute: AdminMessagesRoute,
+  AdminPartnersRoute: AdminPartnersRoute,
   AdminPostsRoute: AdminPostsRoute,
+  AdminProgrammesRoute: AdminProgrammesRoute,
+  AdminResourcesRoute: AdminResourcesRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTeamRoute: AdminTeamRoute,
   AdminIndexRoute: AdminIndexRoute,

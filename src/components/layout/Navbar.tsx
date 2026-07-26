@@ -2,7 +2,7 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { Menu, X, Facebook, Instagram, Twitter, Linkedin, MessageCircle, LifeBuoy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/callas-logo.asset.json";
+import logo from "@/assets/images/logo/callas-logo.png";
 import { navLinks, site } from "@/data/site";
 
 const socialIcon = { facebook: Facebook, instagram: Instagram, twitter: Twitter, linkedin: Linkedin, whatsapp: MessageCircle } as const;
@@ -25,7 +25,7 @@ export function Navbar() {
     <header className={`sticky top-0 z-50 transition-all ${scrolled ? "backdrop-blur-md bg-white/85 border-b border-slate-200/60 shadow-sm" : "bg-white/60 backdrop-blur"}`}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logo.url} alt="Callas Foundation" className="h-12 w-12 object-contain" />
+          <img src={logo} alt="Callas Foundation" className="h-12 w-12 object-contain" />
           <div className="hidden sm:flex flex-col leading-tight">
             <span className="font-display text-lg font-bold text-ink">Callas Foundation</span>
             <span className="text-[10px] tracking-[0.22em] uppercase text-brand-blue">Helping In Our Way</span>

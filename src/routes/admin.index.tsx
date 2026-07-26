@@ -2,8 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { Lock, LogIn } from "lucide-react";
 import { api, auth } from "@/lib/api";
-// `auth` is used by the redirect-if-signed-in effect below.
-import logo from "@/assets/callas-logo.asset.json";
+import logo from "@/assets/images/logo/callas-logo.png";
 
 export const Route = createFileRoute("/admin/")({
   head: () => ({ meta: [{ title: "Admin — Callas Foundation" }, { name: "robots", content: "noindex,nofollow" }] }),
@@ -12,7 +11,7 @@ export const Route = createFileRoute("/admin/")({
 
 function AdminLogin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -24,12 +23,12 @@ function AdminLogin() {
     setError(null);
     setLoading(true);
     try {
-      await api.login(email, password);
+      await api.login(username, password);
       navigate({ to: "/admin/dashboard" });
-    } catch {
-      setError("Invalid email or password.");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Invalid username or password.");
     } finally { setLoading(false); }
-  }
+    }
 
   return (
     <div className="min-h-screen grid place-items-center bg-ink text-white p-4 relative overflow-hidden">
@@ -37,7 +36,7 @@ function AdminLogin() {
       <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 20% 30%, white 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
       <form onSubmit={submit} className="relative w-full max-w-md rounded-2xl bg-white text-ink p-8 shadow-2xl">
         <div className="flex items-center gap-3">
-          <img src={logo.url} alt="" className="h-12 w-12" />
+          <img src={logo} alt="" className="h-12 w-12" />
           <div>
             <div className="font-display text-xl font-bold">Callas Admin</div>
             <div className="text-xs text-muted-foreground">Secure staff portal</div>
@@ -45,8 +44,8 @@ function AdminLogin() {
         </div>
         <div className="mt-8 space-y-4">
           <div>
-            <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Email</label>
-            <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:border-brand-blue" />
+            <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Username</label>
+            <input required value={username} onChange={(e) => setUsername(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-3 focus:outline-none focus:border-brand-blue" />
           </div>
           <div>
             <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Password</label>
@@ -56,7 +55,7 @@ function AdminLogin() {
           <button disabled={loading} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-brand-red hover:bg-brand-red-dark text-white px-6 py-3 font-semibold disabled:opacity-60">
             {loading ? "Signing in…" : <><LogIn className="h-4 w-4" /> Sign In</>}
           </button>
-          <p className="text-xs text-muted-foreground flex items-center gap-1.5"><Lock className="h-3 w-3" /> Sessions use secure httpOnly cookies. See <code>backend/</code>.</p>
+          <p className="text-xs text-muted-foreground flex items-center gap-1.5"><Lock className="h-3 w-3" /> Default dev login: <code>admin</code> / <code>ChangeMe123!</code></p>
         </div>
       </form>
     </div>

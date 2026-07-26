@@ -1,11 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { ArrowRight, Phone, ShieldAlert } from "lucide-react";
-import { Reveal } from "@/components/motion";
-import { news } from "@/data/content";
-import { site } from "@/data/site";
-import banner from "@/assets/photos/no-gbv-banner.asset.json";
-import missionPhoto from "@/assets/photos/unnamed-2.asset.json";
 
+import { Reveal, Counter } from "@/components/motion";
+import { api } from "@/lib/api";
+
+import { news, impactMetrics } from "@/data/content";
+import { site } from "@/data/site";
+
+import banner from "@/assets/images/home/no-gbv-banner.jpg";
+import missionPhoto from "@/assets/images/home/mission-photo.jpg";
 export const Route = createFileRoute("/_public/")({
   head: () => ({
     meta: [
@@ -22,6 +26,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <Impact />
       <Mission />
       <StoryVideo />
       <LatestNews />
@@ -34,7 +39,7 @@ function Hero() {
   return (
     <section className="relative bg-ink text-white overflow-hidden">
       <img
-        src={banner.url}
+        src={banner}
         alt="Callas Foundation community wearing No GBV shirts"
         className="absolute inset-0 h-full w-full object-cover opacity-40"
       />
@@ -67,7 +72,7 @@ function Mission() {
     <section className="bg-canvas border-y border-slate-200">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 grid gap-10 lg:grid-cols-2 items-center">
         <Reveal>
-          <img src={missionPhoto.url} alt="Callas Foundation team on the ground" className="w-full aspect-4/3 object-cover rounded-2xl shadow-lg" />
+          <img src={missionPhoto} alt="Callas Foundation team on the ground" className="w-full aspect-4/3 object-cover rounded-2xl shadow-lg" />
         </Reveal>
         <Reveal delay={0.1}>
           <div className="text-xs uppercase tracking-[0.22em] text-brand-red font-semibold">Our Mission</div>
@@ -150,6 +155,49 @@ function LatestNews() {
                 <h3 className="mt-2 font-display text-lg font-bold text-ink group-hover:text-brand-red leading-snug">{n.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{n.excerpt}</p>
               </Link>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+type ImpactRow = { id?: string; label: string; value: number; suffix?: string; sort?: number };
+
+function Impact() {
+  const fallback: ImpactRow[] = impactMetrics.map((m) => ({ label: m.label, value: m.value, suffix: m.suffix }));
+  const [items, setItems] = useState<ImpactRow[]>(fallback);
+  useEffect(() => {
+    let alive = true;
+    api.list<ImpactRow>("impact")
+      .then((rows) => {
+        if (!alive || !rows || rows.length === 0) return;
+        const sorted = [...rows].sort((a, b) => (a.sort ?? 0) - (b.sort ?? 0));
+        setItems(sorted.map((r) => ({ ...r, value: Number(r.value) || 0 })));
+      })
+      .catch(() => { /* keep fallback */ });
+    return () => { alive = false; };
+  }, []);
+  return (
+    <section className="bg-ink text-white">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
+        <Reveal>
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-xs uppercase tracking-[0.22em] text-brand-red font-semibold">Our Impact</div>
+            <h2 className="mt-3 font-display text-2xl sm:text-3xl font-bold">Lives touched by Callas Foundation.</h2>
+            <p className="mt-3 text-white/70">Every number below is a person, a family, or a community walking a safer road today.</p>
+          </div>
+        </Reveal>
+        <div className={`mt-10 grid gap-6 sm:grid-cols-2 ${items.length >= 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
+          {items.map((m, i) => (
+            <Reveal key={(m.id ?? m.label) + i} delay={i * 0.06}>
+              <div className="rounded-2xl bg-white/5 border border-white/10 p-6 text-center">
+                <div className="font-display text-4xl sm:text-5xl font-bold text-brand-red">
+                  <Counter to={m.value} suffix={m.suffix ?? ""} />
+                </div>
+                <div className="mt-2 text-sm uppercase tracking-wider text-white/70">{m.label}</div>
+              </div>
             </Reveal>
           ))}
         </div>
