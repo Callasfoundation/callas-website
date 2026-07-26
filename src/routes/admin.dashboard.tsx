@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { FileText, Calendar, Users, Image as ImageIcon, Mail } from "lucide-react";
+import { FileText, Calendar, Users, Image as ImageIcon, Mail, Handshake, BookOpen, Layers } from "lucide-react";
 import { api } from "@/lib/api";
 
 const resources = [
@@ -9,6 +9,9 @@ const resources = [
   { key: "team", label: "Team", icon: Users, to: "/admin/team" },
   { key: "gallery", label: "Gallery", icon: ImageIcon, to: "/admin/gallery" },
   { key: "contact", label: "Messages", icon: Mail, to: "/admin/messages" },
+  { key: "partners", label: "Partners", icon: Handshake, to: "/admin/partners" },
+  { key: "resources", label: "Resources", icon: BookOpen, to: "/admin/resources" },
+   { key: "programmes", label: "Programmes", icon: Layers, to: "/admin/programmes" },
 ] as const;
 
 export const Route = createFileRoute("/admin/dashboard")({

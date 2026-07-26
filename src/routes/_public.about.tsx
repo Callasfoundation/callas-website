@@ -1,8 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { api } from "@/lib/api";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/motion";
 import { ShieldAlert, Scale, HeartHandshake, Users, Sprout } from "lucide-react";
-import { team, uploadedPhotos } from "@/data/content";
+import { uploadedPhotos } from "@/data/content";
 
 export const Route = createFileRoute("/_public/about")({
   head: () => ({
@@ -15,6 +17,8 @@ export const Route = createFileRoute("/_public/about")({
   }),
   component: AboutPage,
 });
+
+type TeamMember = { id: number; name: string; role: string; bio: string; imageUrl: string };
 
 const pillars = [
   { icon: ShieldAlert, title: "Champion Human Rights", body: "Advocate fiercely for the rights of women, children and marginalised groups." },
@@ -34,11 +38,13 @@ const timeline = [
 ];
 
 function AboutPage() {
+  const [team, setTeam] = useState<TeamMember[]>([]);
+  useEffect(() => { api.list<TeamMember>("team").then(setTeam).catch(() => {}); }, []);
+
   return (
     <>
       <PageHeader eyebrow="About Callas" title="Three decades of grassroots activism. One integrated response." description="A community-driven NPO built on lived experience of the Cape Flats — where hunger, poverty and gender-based violence share a doorstep."
         crumbs={[{ label: "About" }]} image={uploadedPhotos[5]} />
-
       <section className="bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
           <Reveal>
@@ -55,7 +61,6 @@ function AboutPage() {
           </Reveal>
         </div>
       </section>
-
       <section className="bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 grid gap-16 lg:grid-cols-2 items-start">
           <Reveal>
@@ -77,7 +82,6 @@ function AboutPage() {
           </Reveal>
         </div>
       </section>
-
       <section className="bg-canvas border-y border-slate-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
           <Reveal>
@@ -99,7 +103,6 @@ function AboutPage() {
           </div>
         </div>
       </section>
-
       <section className="bg-white">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20">
           <Reveal>
@@ -122,7 +125,6 @@ function AboutPage() {
           </div>
         </div>
       </section>
-
       <section className="bg-canvas border-t border-slate-200">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20">
           <Reveal>
@@ -136,10 +138,10 @@ function AboutPage() {
           </Reveal>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {team.map((m, i) => (
-              <Reveal key={m.name} delay={i * 0.05}>
+              <Reveal key={m.id} delay={i * 0.05}>
                 <div className="group rounded-2xl overflow-hidden border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-xl">
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img src={m.image} alt={m.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={m.imageUrl} alt={m.name} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div className="p-5">
                     <div className="font-display text-lg font-bold text-ink">{m.name}</div>
@@ -149,6 +151,7 @@ function AboutPage() {
                 </div>
               </Reveal>
             ))}
+            {team.length === 0 && <p className="text-muted-foreground col-span-full">No team members added yet.</p>}
           </div>
         </div>
       </section>
