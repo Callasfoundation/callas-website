@@ -1,4 +1,4 @@
-﻿using Callas.API.Models;
+using Callas.API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Callas.API.Data;
@@ -20,6 +20,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Partner> Partners => Set<Partner>();
     public DbSet<Programme> Programmes => Set<Programme>();
     public DbSet<Resource> Resources => Set<Resource>();
+    public DbSet<Product> Products => Set<Product>();
     public DbSet<ImpactStatistic> ImpactStatistics => Set<ImpactStatistic>();
     public DbSet<User> Users => Set<User>();
     public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
