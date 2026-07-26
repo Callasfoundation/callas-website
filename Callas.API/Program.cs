@@ -11,21 +11,23 @@ using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// IMPORTANT: every builder.Services.* call must happen here, before builder.Build().
-// Once Build() runs, the service collection is locked and further registrations throw.
-
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        policy.WithOrigins("http://localhost:5173") // Your co-worker's local dev server URL
+        // Reads Cors:AllowedOrigins from appsettings / env; falls back to the two
+        // Vite dev-server ports so `bun run dev` works out of the box.
+        var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
+            ?? new[] { "http://localhost:5173", "http://localhost:3000" };
+
+        policy.WithOrigins(origins)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -77,7 +79,6 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -92,22 +93,27 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Dev-only convenience: seed a default admin so you have something to log in
-// with before a real user-management flow exists. Remove once you have one.
-/*
+// Dev-only: seed a default admin so there's something to log in with.
+// Change the password immediately after your first login.
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    if (!db.Users.Any())
+    db.Database.Migrate();
+
+    var existingAdmin = db.Users.FirstOrDefault(u => u.Username == "admin");
+    if (existingAdmin is null)
     {
         var hasher = new PasswordHasher<User>();
         var admin = new User { Username = "admin", DisplayName = "Admin", Role = "Admin" };
         admin.PasswordHash = hasher.HashPassword(admin, "ChangeMe123!");
         db.Users.Add(admin);
         db.SaveChanges();
+        Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!)");
+    }
+    else
+    {
+        Console.WriteLine("[seed] Admin user already exists — skipping seed.");
     }
 }
-*/
-
 app.Run();

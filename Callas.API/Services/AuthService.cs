@@ -46,6 +46,18 @@ public class AuthService : IAuthService
         };
     }
 
+    public async Task<bool> ChangePasswordAsync(int userId, ChangePasswordDto dto)
+    {
+        var user = await _userRepository.GetByIdAsync(userId);
+        if (user is null) return false;
+
+        var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.CurrentPassword);
+        if (result == PasswordVerificationResult.Failed) return false;
+
+        user.PasswordHash = _passwordHasher.HashPassword(user, dto.NewPassword);
+        return await _userRepository.SaveChangesAsync();
+    }
+
     private string GenerateToken(User user)
     {
         var jwtSection = _configuration.GetSection("Jwt");

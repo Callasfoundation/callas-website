@@ -14,4 +14,7 @@ public class Event
     public string Location { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
+
+    [MaxLength(500)]
+    public string ImageUrl { get; set; } = string.Empty;
 }

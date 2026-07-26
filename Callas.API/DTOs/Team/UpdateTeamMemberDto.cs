@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Callas.API.DTOs.Team
 {
@@ -13,5 +12,11 @@ namespace Callas.API.DTOs.Team
 
         [Required, EmailAddress]
         public string Email { get; set; } = string.Empty;
+
+        [MaxLength(1000)]
+        public string Bio { get; set; } = string.Empty;
+
+        [Url]
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

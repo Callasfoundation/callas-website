@@ -35,6 +35,8 @@ public class NewsService : INewsService
             Body = dto.Body,
             PublishedDate = dto.PublishedDate,
             Category = dto.Category,
+            Author = dto.Author,
+            ImageUrl = dto.ImageUrl,
         };
 
         await _newsRepository.AddNewsAsync(article);
@@ -53,6 +55,8 @@ public class NewsService : INewsService
         article.Body = dto.Body;
         article.PublishedDate = dto.PublishedDate;
         article.Category = dto.Category;
+        article.Author = dto.Author;
+        article.ImageUrl = dto.ImageUrl;
 
         return await _newsRepository.SaveChangesAsync();
     }
@@ -73,5 +77,7 @@ public class NewsService : INewsService
         Body = article.Body,
         PublishedDate = article.PublishedDate,
         Category = article.Category,
+        Author = article.Author,
+        ImageUrl = article.ImageUrl,
     };
 }

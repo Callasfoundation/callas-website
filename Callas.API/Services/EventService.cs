@@ -35,6 +35,7 @@ public class EventService : IEventService
             Time = dto.Time,
             Location = dto.Location,
             Description = dto.Description,
+            ImageUrl = dto.ImageUrl,
         };
 
         await _eventRepository.AddEventAsync(ev);
@@ -53,6 +54,7 @@ public class EventService : IEventService
         ev.Time = dto.Time;
         ev.Location = dto.Location;
         ev.Description = dto.Description;
+        ev.ImageUrl = dto.ImageUrl;
 
         return await _eventRepository.SaveChangesAsync();
     }
@@ -73,5 +75,6 @@ public class EventService : IEventService
         Time = ev.Time,
         Location = ev.Location,
         Description = ev.Description,
+        ImageUrl = ev.ImageUrl,
     };
 }

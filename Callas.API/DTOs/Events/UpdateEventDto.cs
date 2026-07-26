@@ -1,5 +1,4 @@
-﻿
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Callas.API.DTOs.Events
 {
@@ -19,5 +18,8 @@ namespace Callas.API.DTOs.Events
 
         [Required]
         public string Description { get; set; } = string.Empty;
+
+        [Url]
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

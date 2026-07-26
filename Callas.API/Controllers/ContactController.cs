@@ -1,7 +1,7 @@
 ﻿using Callas.API.DTOs.Contact;
 using Callas.API.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Callas.API.Controllers
 {
@@ -18,21 +18,18 @@ namespace Callas.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllMessages()
-        {
-            var messages = await _contactService.GetAllAsync();
-            return Ok(messages);
-        }
+        public async Task<IActionResult> GetAllMessages() =>
+            Ok(await _contactService.GetAllAsync());
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMessageById(int id)
         {
-            var message = await _contactService.GetByIdAsync(id);
-            return message is null ? NotFound() : Ok(message);
+            var msg = await _contactService.GetByIdAsync(id);
+            return msg is null ? NotFound() : Ok(msg);
         }
 
-        [HttpPost]
         [AllowAnonymous]
+        [HttpPost]
         public async Task<IActionResult> CreateMessage(CreateContactMessageDto dto)
         {
             var created = await _contactService.CreateAsync(dto);
@@ -42,15 +39,15 @@ namespace Callas.API.Controllers
         [HttpPatch("{id}/status")]
         public async Task<IActionResult> UpdateReadStatus(int id, UpdateContactMessageStatusDto dto)
         {
-            var updated = await _contactService.UpdateReadStatusAsync(id, dto);
-            return updated ? NoContent() : NotFound();
+            var ok = await _contactService.UpdateReadStatusAsync(id, dto);
+            return ok ? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMessage(int id)
         {
-            var deleted = await _contactService.DeleteAsync(id);
-            return deleted ? NoContent() : NotFound();
+            var ok = await _contactService.DeleteAsync(id);
+            return ok ? NoContent() : NotFound();
         }
     }
 }

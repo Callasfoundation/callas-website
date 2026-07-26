@@ -6,8 +6,7 @@ public class News
 {
     public int Id { get; set; }
 
-    [Required]
-    [MaxLength(200)]
+    [Required, MaxLength(200)]
     public string Title { get; set; } = string.Empty;
 
     [MaxLength(500)]
@@ -20,4 +19,10 @@ public class News
 
     [MaxLength(100)]
     public string Category { get; set; } = string.Empty;
+
+    [MaxLength(100)]
+    public string Author { get; set; } = string.Empty;
+
+    [MaxLength(500)]
+    public string ImageUrl { get; set; } = string.Empty;
 }

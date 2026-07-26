@@ -19,5 +19,11 @@ namespace Callas.API.DTOs.News
 
         [Required, MaxLength(50)]
         public string Category { get; set; } = string.Empty;
+        
+        [MaxLength(100)]
+        public string Author { get; set; } = string.Empty;
+
+        [Url]
+        public string ImageUrl { get; set; } = string.Empty;
     }
 }

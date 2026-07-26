@@ -2,7 +2,6 @@
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-
 namespace Callas.API.Controllers
 {
     [ApiController]
@@ -10,40 +9,37 @@ namespace Callas.API.Controllers
     public class EventsController : ControllerBase
     {
         private readonly IEventService _eventService;
-
         public EventsController(IEventService eventService)
         {
             _eventService = eventService;
         }
-
         [HttpGet]
         public async Task<IActionResult> GetEvents()
         {
             var events = await _eventService.GetAllAsync();
             return Ok(events);
         }
-
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEvent(int id)
         {
             var ev = await _eventService.GetByIdAsync(id);
             return ev is null ? NotFound() : Ok(ev);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateEvent(CreateEventDto dto)
         {
             var created = await _eventService.CreateAsync(dto);
             return CreatedAtAction(nameof(GetEvent), new { id = created.Id }, created);
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateEvent(int id, UpdateEventDto dto)
         {
             var updated = await _eventService.UpdateAsync(id, dto);
             return updated ? NoContent() : NotFound();
         }
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
