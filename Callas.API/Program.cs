@@ -95,20 +95,38 @@ app.MapControllers();
 
 // Dev-only: seed a default admin so there's something to log in with.
 // Change the password immediately after your first login.
+// Always apply database migrations
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+}
+
+// Dev-only: seed a default admin so there's something to log in with.
+// Change the password immediately after your first login.
 if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate();
 
     var existingAdmin = db.Users.FirstOrDefault(u => u.Username == "admin");
+
     if (existingAdmin is null)
     {
         var hasher = new PasswordHasher<User>();
-        var admin = new User { Username = "admin", DisplayName = "Admin", Role = "Admin" };
+
+        var admin = new User
+        {
+            Username = "admin",
+            DisplayName = "Admin",
+            Role = "Admin"
+        };
+
         admin.PasswordHash = hasher.HashPassword(admin, "ChangeMe123!");
+
         db.Users.Add(admin);
         db.SaveChanges();
+
         Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!)");
     }
     else
