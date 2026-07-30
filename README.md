@@ -23,7 +23,7 @@ The project follows a modern full-stack architecture with a React frontend and a
 | Team Member             | Role               |
 | ----------------------- | ------------------ |
 | **Njabulo Hope Makana** | Backend Developer  |
-| **Erykah**              | Frontend Developer |
+| **Erykah Wanga**        | Frontend Developer |
 
 ---
 
