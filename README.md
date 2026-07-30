@@ -53,6 +53,7 @@ The project follows a modern full-stack architecture with a React frontend and a
 * Git
 * GitHub
 * Railway (Backend Deployment)
+* Postman 
 
 ---
 
