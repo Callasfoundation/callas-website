@@ -22,8 +22,6 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
     {
-        // Reads Cors:AllowedOrigins from appsettings / env; falls back to the two
-        // Vite dev-server ports so `bun run dev` works out of the box.
         var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
             ?? new[] { "http://localhost:5173", "http://localhost:3000" };
 
@@ -97,8 +95,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Dev-only: seed a default admin so there's something to log in with.
-// Change the password immediately after your first login.
 // Always apply database migrations
 using (var scope = app.Services.CreateScope())
 {
@@ -106,18 +102,18 @@ using (var scope = app.Services.CreateScope())
     db.Database.Migrate();
 }
 
-// Dev-only: seed a default admin so there's something to log in with.
+// Seed a default admin so there's something to log in with — runs in every
+// environment (not just dev), but only if no admin exists yet.
 // Change the password immediately after your first login.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
     var existingAdmin = db.Users.FirstOrDefault(u => u.Username == "admin");
 
     if (existingAdmin is null)
     {
         var hasher = new PasswordHasher<User>();
+        var initialPassword = Environment.GetEnvironmentVariable("ADMIN_INITIAL_PASSWORD") ?? "ChangeMe123!";
 
         var admin = new User
         {
@@ -125,17 +121,17 @@ if (app.Environment.IsDevelopment())
             DisplayName = "Admin",
             Role = "Admin"
         };
-
-        admin.PasswordHash = hasher.HashPassword(admin, "ChangeMe123!");
+        admin.PasswordHash = hasher.HashPassword(admin, initialPassword);
 
         db.Users.Add(admin);
         db.SaveChanges();
 
-        Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!)");
+        Console.WriteLine("[seed] Created default admin user");
     }
     else
     {
         Console.WriteLine("[seed] Admin user already exists — skipping seed.");
     }
 }
+
 app.Run();
