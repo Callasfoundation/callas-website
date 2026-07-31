@@ -1,4 +1,4 @@
-﻿using Callas.API.DTOs.Gallery;
+using Callas.API.DTOs.Gallery;
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -30,6 +30,7 @@ namespace Callas.API.Controllers
             return image is null ? NotFound() : Ok(image);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> UploadImage(CreateGalleryImageDto dto)
         {
@@ -37,6 +38,7 @@ namespace Callas.API.Controllers
             return CreatedAtAction(nameof(GetImage), new { id = created.Id }, created);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateImage(int id, UpdateGalleryImageDto dto)
         {
@@ -44,6 +46,7 @@ namespace Callas.API.Controllers
             return updated ? NoContent() : NotFound();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteImage(int id)
         {
