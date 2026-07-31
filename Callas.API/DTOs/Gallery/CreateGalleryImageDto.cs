@@ -1,4 +1,4 @@
-﻿// DTOs/Gallery/CreateGalleryImageDto.cs
+// DTOs/Gallery/CreateGalleryImageDto.cs
 using System.ComponentModel.DataAnnotations;
 
 namespace Callas.API.DTOs.Gallery
@@ -10,5 +10,11 @@ namespace Callas.API.DTOs.Gallery
 
         [Required, MaxLength(200)]
         public string Caption { get; set; } = string.Empty;
+
+        [MaxLength(100)]
+        public string Category { get; set; } = "Uncategorised";
+
+        [MaxLength(10)]
+        public string MediaType { get; set; } = "image";
     }
 }
