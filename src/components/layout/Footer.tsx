@@ -94,6 +94,11 @@ export function Footer() {
             <span>Site inspired by the strength of every survivor we walk beside.</span>
           </p>
         </div>
+        <div className="border-t border-white/5">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 text-center text-[11px] tracking-wide text-white/35">
+            Crafted with care by Erykah Wanga &amp; Njabulo Hope Makana
+          </div>
+        </div>
       </div>
     </footer>
   );
