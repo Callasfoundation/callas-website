@@ -3,4 +3,6 @@ bin/
 obj/
 
 *.user
-*.suo
+*.suocallas.db
+callas.db-shm
+callas.db-wal

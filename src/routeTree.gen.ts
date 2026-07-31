@@ -13,6 +13,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as PublicRouteImport } from './routes/_public'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as PublicIndexRouteImport } from './routes/_public.index'
+import { Route as AdminVolunteersRouteImport } from './routes/admin.volunteers'
 import { Route as AdminTeamRouteImport } from './routes/admin.team'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminResourcesRouteImport } from './routes/admin.resources'
@@ -62,6 +63,11 @@ const PublicIndexRoute = PublicIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PublicRoute,
+} as any)
+const AdminVolunteersRoute = AdminVolunteersRouteImport.update({
+  id: '/volunteers',
+  path: '/volunteers',
+  getParentRoute: () => AdminRoute,
 } as any)
 const AdminTeamRoute = AdminTeamRouteImport.update({
   id: '/team',
@@ -243,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/admin/resources': typeof AdminResourcesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
+  '/admin/volunteers': typeof AdminVolunteersRoute
   '/admin/': typeof AdminIndexRoute
   '/news/$slug': typeof PublicNewsSlugRoute
   '/programmes/$slug': typeof PublicProgrammesSlugRoute
@@ -274,6 +281,7 @@ export interface FileRoutesByTo {
   '/admin/resources': typeof AdminResourcesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
+  '/admin/volunteers': typeof AdminVolunteersRoute
   '/': typeof PublicIndexRoute
   '/admin': typeof AdminIndexRoute
   '/news/$slug': typeof PublicNewsSlugRoute
@@ -311,6 +319,7 @@ export interface FileRoutesById {
   '/admin/resources': typeof AdminResourcesRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/admin/team': typeof AdminTeamRoute
+  '/admin/volunteers': typeof AdminVolunteersRoute
   '/_public/': typeof PublicIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/_public/news/$slug': typeof PublicNewsSlugRoute
@@ -349,6 +358,7 @@ export interface FileRouteTypes {
     | '/admin/resources'
     | '/admin/settings'
     | '/admin/team'
+    | '/admin/volunteers'
     | '/admin/'
     | '/news/$slug'
     | '/programmes/$slug'
@@ -380,6 +390,7 @@ export interface FileRouteTypes {
     | '/admin/resources'
     | '/admin/settings'
     | '/admin/team'
+    | '/admin/volunteers'
     | '/'
     | '/admin'
     | '/news/$slug'
@@ -416,6 +427,7 @@ export interface FileRouteTypes {
     | '/admin/resources'
     | '/admin/settings'
     | '/admin/team'
+    | '/admin/volunteers'
     | '/_public/'
     | '/admin/'
     | '/_public/news/$slug'
@@ -458,6 +470,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof PublicIndexRouteImport
       parentRoute: typeof PublicRoute
+    }
+    '/admin/volunteers': {
+      id: '/admin/volunteers'
+      path: '/volunteers'
+      fullPath: '/admin/volunteers'
+      preLoaderRoute: typeof AdminVolunteersRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/admin/team': {
       id: '/admin/team'
@@ -752,6 +771,7 @@ interface AdminRouteChildren {
   AdminResourcesRoute: typeof AdminResourcesRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   AdminTeamRoute: typeof AdminTeamRoute
+  AdminVolunteersRoute: typeof AdminVolunteersRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
@@ -767,6 +787,7 @@ const AdminRouteChildren: AdminRouteChildren = {
   AdminResourcesRoute: AdminResourcesRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   AdminTeamRoute: AdminTeamRoute,
+  AdminVolunteersRoute: AdminVolunteersRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 

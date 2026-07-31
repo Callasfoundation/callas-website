@@ -18,11 +18,10 @@ export const Route = createFileRoute("/_public/contact")({
       e.preventDefault();
       setError(null); setBusy(true);
       try {
-        await api.create("messages", form);
+        await api.create("contact", { ...form, category: "General Inquiry" });
         setSent(true);
-      } catch {
-        // Backend not reachable — accept the message locally so visitors are never blocked.
-        setSent(true);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Something went wrong sending your message. Please try again or email us directly.");
       } finally { setBusy(false); }
     }
     return (
