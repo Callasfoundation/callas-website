@@ -1,4 +1,4 @@
-﻿// Services/GalleryService.cs
+// Services/GalleryService.cs
 using Callas.API.DTOs.Gallery;
 using Callas.API.Interfaces;
 using Callas.API.Models;
@@ -33,6 +33,8 @@ public class GalleryService : IGalleryService
         {
             ImageUrl = dto.ImageUrl,
             Caption = dto.Caption,
+            Category = dto.Category,
+            MediaType = dto.MediaType,
         };
 
         await _galleryRepository.AddImageAsync(image);
@@ -48,6 +50,8 @@ public class GalleryService : IGalleryService
 
         image.ImageUrl = dto.ImageUrl;
         image.Caption = dto.Caption;
+        image.Category = dto.Category;
+        image.MediaType = dto.MediaType;
 
         return await _galleryRepository.SaveChangesAsync();
     }
@@ -65,5 +69,7 @@ public class GalleryService : IGalleryService
         Id = image.Id,
         ImageUrl = image.ImageUrl,
         Caption = image.Caption,
+        Category = image.Category,
+        MediaType = image.MediaType,
     };
 }
