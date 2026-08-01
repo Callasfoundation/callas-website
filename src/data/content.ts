@@ -4,6 +4,7 @@ import gallery3 from "@/assets/images/gallery/gallery-3.jpeg";
 import gallery4 from "@/assets/images/gallery/gallery-4.jpeg";
 import gallery5 from "@/assets/images/gallery/gallery-5.jpg";
 import gallery6 from "@/assets/images/gallery/gallery-6.jpg";
+import founderPhoto from "@/assets/images/team/founder.jpg";
 
 export const uploadedPhotos = [
   gallery1,
@@ -44,7 +45,7 @@ export const events: EventItem[] = [
 ];
 
 export const team = [
-  { name: "Caroline Peters", role: "Founder & Executive Director", bio: "African feminist and social justice advocate with three decades on the frontlines of the GBV response.", image: img("photo-1580489944761-15a19d654956") },
+  { name: "Caroline Peters", role: "Founder & Executive Director", bio: "African feminist and social justice advocate with three decades on the frontlines of the GBV response.", image: founderPhoto },
   { name: "Nadia Petersen", role: "Head of Programmes", bio: "Oversees the seven core programme pillars and community partnerships.", image: img("photo-1544005313-94ddf0286df2") },
   { name: "Thabo Mokoena", role: "Justice & Court Support Lead", bio: "Leads the court accompaniment team across Athlone and Wynberg magistrates' courts.", image: img("photo-1507003211169-0a1dd7228f2d") },
   { name: "Aisha Adams", role: "Kitchen Coordinator", bio: "Runs the daily rhythm of the 500+ meal Community Kitchen.", image: img("photo-1573497019940-1c28c88b4f3e") },

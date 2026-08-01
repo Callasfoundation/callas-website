@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/motion";
 import { Award, BookOpen, Users, ArrowRight } from "lucide-react";
+import founderPhoto from "@/assets/images/team/founder.jpg";
 
 export const Route = createFileRoute("/_public/founder")({
   head: () => ({
@@ -26,7 +27,7 @@ function FounderPage() {
           <Reveal className="lg:col-span-2">
             <div className="relative">
               <div className="absolute -inset-3 bg-brand-blue/15 rounded-3xl blur-xl" />
-              <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=800&q=80" alt="Caroline Peters" className="relative w-full rounded-2xl object-cover aspect-[4/5]" />
+              <img src={founderPhoto} alt="Caroline Peters" className="relative w-full rounded-2xl object-cover aspect-[4/5]" />
             </div>
             <div className="mt-6 rounded-2xl bg-ink text-white p-6">
               <div className="text-xs uppercase tracking-[0.22em] text-brand-red font-semibold">National Leadership</div>
