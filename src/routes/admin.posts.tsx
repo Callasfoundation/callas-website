@@ -10,7 +10,7 @@ component: () => <ResourceCRUD resource="news" title="News Posts" fields={[
   { key: "category", label: "Category" },
   { key: "author", label: "Author" },
   { key: "publishedDate", label: "Published Date", type: "date" },
-  { key: "imageUrl", label: "Image URL", type: "url" },
+  { key: "imageUrl", label: "Image URL", type: "image" },
   { key: "excerpt", label: "Excerpt", type: "textarea" },
   { key: "body", label: "Body", type: "textarea" },
 ]} />,

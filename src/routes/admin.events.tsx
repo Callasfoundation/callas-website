@@ -8,7 +8,7 @@ export const Route = createFileRoute("/admin/events")({
     { key: "date", label: "Date", type: "date" },
     { key: "time", label: "Time" },
     { key: "location", label: "Location" },
-    { key: "imageUrl", label: "Image URL", type: "url" },
+    { key: "imageUrl", label: "Image URL", type: "image" },
     { key: "programmeSlug", label: "Programme Slug (optional — leave blank if general)" },
     { key: "description", label: "Description", type: "textarea" },
   ]} />,

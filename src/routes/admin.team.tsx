@@ -7,7 +7,7 @@ export const Route = createFileRoute("/admin/team")({
     { key: "name", label: "Name" },
     { key: "role", label: "Role" },
     { key: "email", label: "Email" },
-    { key: "imageUrl", label: "Photo URL", type: "url" },
+    { key: "imageUrl", label: "Photo URL", type: "image" },
     { key: "bio", label: "Bio", type: "textarea" },
   ]} />,
 });

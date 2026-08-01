@@ -8,8 +8,8 @@ export const Route = createFileRoute("/admin/programmes")({
     { key: "slug", label: "Slug (e.g. youth-mentorship, no spaces)" },
     { key: "short", label: "Short blurb (card description)" },
     { key: "startDate", label: "Start Date", type: "date" },
-    { key: "imageUrl", label: "Image URL", type: "url" },
-    { key: "videoUrl", label: "Video URL (optional)", type: "url" },
+    { key: "imageUrl", label: "Image URL", type: "image" },
+    { key: "videoUrl", label: "Video URL (optional)", type: "video" },
     { key: "description", label: "Full Description", type: "textarea" },
   ]} />,
 });
