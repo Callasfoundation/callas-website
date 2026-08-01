@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Plus, Pencil, Trash2, Save, X } from "lucide-react";
 import { api } from "@/lib/api";
+import { MediaUpload } from "@/components/admin/MediaUpload";
 
-type Field = { key: string; label: string; type?: "text" | "textarea" | "date" | "url" };
+type Field = { key: string; label: string; type?: "text" | "textarea" | "date" | "url" | "image" | "video" | "file" };
 
 export function ResourceCRUD({
   resource,
@@ -36,24 +37,16 @@ export function ResourceCRUD({
       else await api.create(resource, payload);
       setEditing(null); setCreating(false); refresh();
     } catch (e) {
-      if (e instanceof Error && e.message === "Unauthorized") {
-        navigate({ to: "/admin" });
-        return;
-      }
+      if (e instanceof Error && e.message === "Unauthorized") { navigate({ to: "/admin" }); return; }
       setError(e instanceof Error ? e.message : "Failed to save");
     }
   }
 
   async function remove(id: string) {
     if (!confirm("Delete this item?")) return;
-    try {
-      await api.remove(resource, id);
-      refresh();
-    } catch (e) {
-      if (e instanceof Error && e.message === "Unauthorized") {
-        navigate({ to: "/admin" });
-        return;
-      }
+    try { await api.remove(resource, id); refresh(); }
+    catch (e) {
+      if (e instanceof Error && e.message === "Unauthorized") { navigate({ to: "/admin" }); return; }
       setError(e instanceof Error ? e.message : "Failed to delete");
     }
   }
@@ -113,8 +106,12 @@ function RowForm({ fields, initial, onSave, onCancel }: { fields: Field[]; initi
           <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">{f.label}</label>
           {f.type === "textarea" ? (
             <textarea rows={4} value={values[f.key] ?? ""} onChange={(e) => setValues({ ...values, [f.key]: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:border-brand-blue" />
+          ) : f.type === "image" || f.type === "video" || f.type === "file" ? (
+            <div className="mt-1">
+              <MediaUpload value={values[f.key] ?? ""} onChange={(url) => setValues({ ...values, [f.key]: url })} accept={f.type === "file" ? "raw" : f.type} />
+            </div>
           ) : (
-            <input type={f.type || "text"} value={values[f.key] ?? ""} onChange={(e) => setValues({ ...values, [f.key]: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:border-brand-blue" />
+            <input type={f.type === "url" ? "url" : f.type || "text"} value={values[f.key] ?? ""} onChange={(e) => setValues({ ...values, [f.key]: e.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 focus:outline-none focus:border-brand-blue" />
           )}
         </div>
       ))}
