@@ -27,7 +27,7 @@ function GalleryAdmin() {
   }
   useEffect(() => { refresh(); }, []);
 
-  const categories = Array.from(new Set(items.map((i) => i.category).filter(Boolean))).sort();
+  const categories = Array.from(new Set(items.map((i) => i.category || "Uncategorised"))).sort();
 
   async function save(payload: GalleryItem) {
     try {
@@ -49,8 +49,7 @@ function GalleryAdmin() {
     }
   }
 
-  const active = editing ?? (creating ? ({ id: "", imageUrl: "", caption: "", category: "", mediaType: "image" } as GalleryItem) : null);
-
+  const active = editing ?? (creating ? ({ id: "", imageUrl: "", caption: "", category: "Uncategorised", mediaType: "image" } as GalleryItem) : null);
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -74,7 +73,7 @@ function GalleryAdmin() {
         <div key={cat} className="mb-8">
           <div className="text-xs uppercase tracking-wider text-brand-blue font-semibold mb-3">{cat}</div>
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-3">
-            {items.filter((i) => i.category === cat).map((item) => (
+            {items.filter((i) => (i.category || "Uncategorised") === cat).map((item) => (
               <div key={item.id} className="group relative rounded-lg overflow-hidden border border-slate-200 aspect-square">
                 {item.mediaType === "video" ? (
                   <video src={item.imageUrl} className="h-full w-full object-cover" />
