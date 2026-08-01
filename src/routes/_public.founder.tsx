@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_public/founder")({
   }),
   component: FounderPage,
 });
-
+//987
 function FounderPage() {
   return (
     <>
