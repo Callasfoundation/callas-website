@@ -1,4 +1,4 @@
-﻿using Callas.API.DTOs.Contact;
+using Callas.API.DTOs.Contact;
 using Callas.API.Interfaces;
 using Callas.API.Models;
 using Callas.API.Repositories;
@@ -8,10 +8,14 @@ namespace Callas.API.Services;
 public class ContactService : IContactService
 {
     private readonly IContactRepository _contactRepository;
+    private readonly IEmailService _emailService;
+    private readonly IConfiguration _config;
 
-    public ContactService(IContactRepository contactRepository)
+    public ContactService(IContactRepository contactRepository, IEmailService emailService, IConfiguration config)
     {
         _contactRepository = contactRepository;
+        _emailService = emailService;
+        _config = config;
     }
 
     public async Task<IEnumerable<ContactMessageDto>> GetAllAsync()
@@ -41,6 +45,18 @@ public class ContactService : IContactService
 
         await _contactRepository.AddMessageAsync(message);
         await _contactRepository.SaveChangesAsync();
+
+        var adminEmail = _config["AdminNotificationEmail"];
+        if (!string.IsNullOrWhiteSpace(adminEmail))
+        {
+            var body = $"""
+                <p><strong>{System.Net.WebUtility.HtmlEncode(message.Category)}</strong> from {System.Net.WebUtility.HtmlEncode(message.Name)} ({System.Net.WebUtility.HtmlEncode(message.Email)})</p>
+                <p><strong>Subject:</strong> {System.Net.WebUtility.HtmlEncode(message.Subject)}</p>
+                <p>{System.Net.WebUtility.HtmlEncode(message.Message).Replace("\n", "<br/>")}</p>
+                <p style="margin-top:16px;color:#666;font-size:13px;">Reply via the admin panel at /admin/messages</p>
+                """;
+            await _emailService.SendAsync(adminEmail, $"New message: {message.Subject}", body);
+        }
 
         return ToDto(message);
     }

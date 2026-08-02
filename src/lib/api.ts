@@ -85,5 +85,7 @@ export const api = {
     request(`/api/${resource}/${id}`, { method: "DELETE" }),
   markContactRead: (id: string, isRead: boolean) =>
     request(`/api/contact/${id}/status`, { method: "PATCH", body: JSON.stringify({ isRead }) }),
+  markVolunteerRead: (id: string, isRead: boolean) =>
+    request(`/api/volunteers/${id}/status`, { method: "PATCH", body: JSON.stringify({ isRead }) }),
   ping: () => request<{ ok: boolean }>("/api/health"),
 };

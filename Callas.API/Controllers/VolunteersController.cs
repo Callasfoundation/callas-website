@@ -1,4 +1,4 @@
-﻿using Callas.API.DTOs.Volunteers;
+using Callas.API.DTOs.Volunteers;
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +37,13 @@ namespace Callas.API.Controllers
         {
             var created = await _volunteerService.CreateAsync(dto);
             return CreatedAtAction(nameof(GetVolunteer), new { id = created.Id }, created);
+        }
+
+        [HttpPatch("{id}/status")]
+        public async Task<IActionResult> UpdateReadStatus(int id, UpdateVolunteerStatusDto dto)
+        {
+            var ok = await _volunteerService.UpdateReadStatusAsync(id, dto);
+            return ok ? NoContent() : NotFound();
         }
 
         [HttpDelete("{id}")]

@@ -57,6 +57,7 @@ builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 builder.Services.AddScoped<IPartnerService, PartnerService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
 builder.Services
@@ -78,8 +79,6 @@ builder.Services
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
-app.Urls.Add($"http://0.0.0.0:{port}");
 
 if (app.Environment.IsDevelopment())
 {
@@ -87,7 +86,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
 app.UseAuthentication();
@@ -95,43 +94,27 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Always apply database migrations
-using (var scope = app.Services.CreateScope())
+// Dev-only: seed a default admin so there's something to log in with.
+// Change the password immediately after your first login.
+if (app.Environment.IsDevelopment())
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
-}
 
-// Seed a default admin so there's something to log in with — runs in every
-// environment (not just dev), but only if no admin exists yet.
-// Change the password immediately after your first login.
-using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     var existingAdmin = db.Users.FirstOrDefault(u => u.Username == "admin");
-
     if (existingAdmin is null)
     {
         var hasher = new PasswordHasher<User>();
-        var initialPassword = Environment.GetEnvironmentVariable("ADMIN_INITIAL_PASSWORD") ?? "ChangeMe123!";
-
-        var admin = new User
-        {
-            Username = "admin",
-            DisplayName = "Admin",
-            Role = "Admin"
-        };
-        admin.PasswordHash = hasher.HashPassword(admin, initialPassword);
-
+        var admin = new User { Username = "admin", DisplayName = "Admin", Role = "Admin" };
+        admin.PasswordHash = hasher.HashPassword(admin, "ChangeMe123!");
         db.Users.Add(admin);
         db.SaveChanges();
-
-        Console.WriteLine("[seed] Created default admin user");
+        Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!)");
     }
     else
     {
         Console.WriteLine("[seed] Admin user already exists — skipping seed.");
     }
 }
-
 app.Run();

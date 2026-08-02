@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { AlertTriangle, LogOut, Phone, MessageSquare, ShieldAlert, MonitorOff } from "lucide-react";
+import { AlertTriangle, LogOut, Phone, MessageSquare, ShieldAlert, MonitorOff, HeartHandshake, FileWarning, Users2, Scale } from "lucide-react";
 import { Reveal } from "@/components/motion";
 import { site } from "@/data/site";
 import { api } from "@/lib/api";
@@ -168,6 +168,64 @@ function GetHelpPage() {
             </Reveal>
           </div>
         </div>
+
+        <Reveal delay={0.15}>
+          <div className="mt-12 rounded-2xl border border-slate-200 bg-white overflow-hidden">
+            <div className="bg-ink text-white px-6 sm:px-8 py-6">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-brand-red font-semibold"><ShieldAlert className="h-4 w-4" /> Safety guide</div>
+              <h2 className="mt-2 font-display text-2xl sm:text-3xl font-bold">If you or someone you know has been raped</h2>
+              <p className="mt-2 text-white/70 max-w-2xl">Your goal is to stay alive and get to a safe place as soon as possible. The steps below can help protect you and any evidence, whenever you feel ready.</p>
+            </div>
+
+            <div className="p-6 sm:p-8 space-y-6">
+              <div className="flex gap-4">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-blue/10 text-brand-blue"><Users2 className="h-5 w-5" /></div>
+                <div>
+                  <div className="font-display font-bold text-ink">Contact a friend or family member</div>
+                  <p className="mt-1 text-sm text-muted-foreground">The first person you tell is called the "first witness." They may need to make a statement to the police about your condition and, if possible, should accompany you to the hospital or police station.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-red/10 text-brand-red"><FileWarning className="h-5 w-5" /></div>
+                <div>
+                  <div className="font-display font-bold text-ink">What not to do</div>
+                  <p className="mt-1 text-sm text-muted-foreground">Try not to wash yourself or throw away your clothes, no matter how much you want to. There might be hair, blood or semen on your body or clothes that can be used as evidence. Put your clothes in a paper bag rather than plastic.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-blue/10 text-brand-blue"><HeartHandshake className="h-5 w-5" /></div>
+                <div>
+                  <div className="font-display font-bold text-ink">If you were drinking or using substances at the time</div>
+                  <p className="mt-1 text-sm text-muted-foreground">Don't let that stop you from reporting the matter and getting medical treatment. Being intoxicated is not a crime — rape is.</p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-brand-red/10 text-brand-red"><Scale className="h-5 w-5" /></div>
+                <div>
+                  <div className="font-display font-bold text-ink">Dealing with the police</div>
+                  <p className="mt-1 text-sm text-muted-foreground">Initially, only a brief statement is required. Read it over carefully before signing — you can add more detail later. Ask for a copy of your statement. If you fear retribution or intimidation from the person who assaulted you, tell the police and ask that they not be released on bail, or apply for a protection order.</p>
+                </div>
+              </div>
+
+              <div className="rounded-xl bg-canvas border border-slate-200 p-5">
+                <div className="font-display font-bold text-ink">At the police station, you have the right to:</div>
+                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                  <li>• Make your statement in a private room</li>
+                  <li>• Make your statement to a female officer, if one is available</li>
+                  <li>• Make your statement in your own language</li>
+                  <li>• Have a friend or family member with you for support</li>
+                </ul>
+                <p className="mt-3 text-sm text-muted-foreground">Ask for a copy of your statement — you're entitled to it by law. Write down the investigating officer's name, the case number, and the phone number for the police station so you can follow up on your case.</p>
+              </div>
+
+              <p className="text-sm font-semibold text-ink">Remember, you are not alone. Callas Foundation can walk this process with you — reach out using the form above or the emergency contacts alongside it.</p>
+              <p className="text-xs text-muted-foreground">Adapted with guidance from Rape Crisis Cape Town Trust (rapecrisis.org.za).</p>
+            </div>
+          </div>
+        </Reveal>
       </div>
     </div>
   );

@@ -14,6 +14,7 @@ export const site = {
     swiftCode: "NEDSZAJJ",
   },
   address: "32 Kiewiet Road, Bridgetown, Athlone, Cape Town, 7764",
+  hours: "Monday – Friday, 9:30 AM – 4:30 PM",
   phone: "+27 72 539 5113",
   whatsapp: "27725395113",
   emailGeneral: "admin@callasfoundation.org.za",

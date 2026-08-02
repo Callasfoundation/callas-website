@@ -1,4 +1,4 @@
-﻿// Repositories/VolunteerRepository.cs
+// Repositories/VolunteerRepository.cs
 using Callas.API.Data;
 using Callas.API.Models;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +14,8 @@ public class VolunteerRepository : IVolunteerRepository
         _context = context;
     }
 
-    public async Task<IEnumerable<Volunteer>> GetAllVolunteersAsync() => await _context.Volunteers.ToListAsync();
+    public async Task<IEnumerable<Volunteer>> GetAllVolunteersAsync() =>
+        await _context.Volunteers.OrderByDescending(v => v.DateSubmitted).ToListAsync();
 
     public async Task<Volunteer?> GetVolunteerByIdAsync(int id) => await _context.Volunteers.FindAsync(id);
 

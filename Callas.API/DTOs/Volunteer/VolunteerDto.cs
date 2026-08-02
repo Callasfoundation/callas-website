@@ -1,4 +1,4 @@
-﻿// DTOs/Volunteers/VolunteerDto.cs
+// DTOs/Volunteers/VolunteerDto.cs
 namespace Callas.API.DTOs.Volunteers
 {
     public class VolunteerDto
@@ -10,5 +10,7 @@ namespace Callas.API.DTOs.Volunteers
         public string Track { get; set; } = string.Empty;
         public string AvailableDays { get; set; } = string.Empty;
         public string Note { get; set; } = string.Empty;
+        public DateTime DateSubmitted { get; set; }
+        public bool IsRead { get; set; }
     }
 }

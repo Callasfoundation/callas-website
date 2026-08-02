@@ -5,6 +5,8 @@ import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/motion";
 import { ShieldAlert, Scale, HeartHandshake, Users, Sprout } from "lucide-react";
 import { uploadedPhotos } from "@/data/content";
+import { site } from "@/data/site";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/_public/about")({
   head: () => ({
@@ -35,6 +37,12 @@ const timeline = [
   { year: "2020", body: "The Community Kitchen opens in Bridgetown, serving hot meals daily." },
   { year: "2023", body: "First Responder training crosses 200 graduates across the Cape Flats." },
   { year: "2026", body: "Twelve active Human Rights Clubs; kitchen consistently above 500 meals per day." },
+];
+
+const faqs = [
+  { q: "What are your hours of operation?", a: `Callas Foundation is open ${site.hours}.` },
+  { q: "How can individuals benefit from our services?", a: "Our services help individuals navigate the legal system, receive emotional support during court proceedings, and gain access to counselling. Our community kitchen also provides nourishing meals for those facing food insecurity." },
+  { q: "What is Gender-Based Violence (GBV)?", a: "GBV is violence directed against a person because of their gender, or violence that affects people of a particular gender disproportionately. It's understood as a violation of human rights and a form of discrimination, and includes acts that result in — or are likely to result in — physical, sexual, psychological or economic harm or suffering. Although women and girls are the main victims of GBV, it also causes severe harm to families and communities." },
 ];
 
 function AboutPage() {
@@ -153,6 +161,24 @@ function AboutPage() {
             ))}
             {team.length === 0 && <p className="text-muted-foreground col-span-full">No team members added yet.</p>}
           </div>
+        </div>
+      </section>
+      <section className="bg-white border-t border-slate-200">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-20">
+          <Reveal>
+            <div className="text-xs uppercase tracking-[0.22em] text-brand-red font-semibold text-center">Questions</div>
+            <h2 className="mt-2 font-display text-4xl font-bold text-ink text-center">Frequently asked questions.</h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <Accordion type="single" collapsible className="mt-10">
+              {faqs.map((f) => (
+                <AccordionItem key={f.q} value={f.q}>
+                  <AccordionTrigger className="text-left font-display text-lg font-bold text-ink">{f.q}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">{f.a}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Reveal>
         </div>
       </section>
     </>

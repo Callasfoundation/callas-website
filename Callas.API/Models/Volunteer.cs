@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 namespace Callas.API.Models;
 
 public class Volunteer
@@ -16,4 +16,8 @@ public class Volunteer
     public string AvailableDays { get; set; } = string.Empty;
 
     public string Note { get; set; } = string.Empty;
+
+    public DateTime DateSubmitted { get; set; }
+
+    public bool IsRead { get; set; }
 }
