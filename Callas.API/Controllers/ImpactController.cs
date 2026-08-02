@@ -30,6 +30,7 @@ namespace Callas.API.Controllers
             return stat is null ? NotFound() : Ok(stat);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateStatistic(CreateImpactStatisticDto dto)
         {
@@ -37,6 +38,7 @@ namespace Callas.API.Controllers
             return CreatedAtAction(nameof(GetStatistic), new { id = created.Id }, created);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateStatistic(int id, UpdateImpactStatisticDto dto)
         {
@@ -44,6 +46,7 @@ namespace Callas.API.Controllers
             return updated ? NoContent() : NotFound();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStatistic(int id)
         {

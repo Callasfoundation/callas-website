@@ -15,7 +15,7 @@ export const Route = createFileRoute("/_public/founder")({
   }),
   component: FounderPage,
 });
-//987
+
 function FounderPage() {
   return (
     <>
@@ -42,11 +42,18 @@ function FounderPage() {
               </p>
               <h2 className="font-display text-3xl font-bold mt-10">Early Advocacy</h2>
               <p className="text-muted-foreground">
-                Caroline began her journey in the early 1990s as a rape crisis volunteer, sitting through the long nights and longer aftermaths beside survivors nobody else knew how to help.
+                Caroline began her journey in the early 1990s as a rape crisis volunteer, sitting through the long nights and longer aftermaths beside survivors nobody else knew how to help. In 1999 she started working at the Saartjie Baartman Centre for Women and Children in Manenberg from the year it was founded, and has since been active with Ilitha Labantu — the first women and children's centre founded in a township — and the 1000 Women Trust, an initiative supporting women and children's organisations across the country.
+              </p>
+              <p className="text-muted-foreground mt-4">
+                In 2014 Caroline made history as the first woman to start a running club in Cape Town, bringing a source of hope and physical freedom to women in a working-class neighbourhood with few support structures of its own.
               </p>
               <h2 className="font-display text-3xl font-bold mt-8">Legislative Impact</h2>
               <p className="text-muted-foreground">
-                Her grassroots expertise has informed national law. Caroline played a pivotal role in shaping crucial national legislation, contributing to discussions on the Domestic Violence Act and the Sexual Offences Bill.
+                Her grassroots expertise has informed national law. Caroline has given input at Parliament on gender-based violence legislation, and has trained magistrates, clinic staff and community leaders on sensitivity toward survivors of sexual violence — contributing to national conversations around the Domestic Violence Act and the Sexual Offences Bill.
+              </p>
+              <h2 className="font-display text-3xl font-bold mt-8">National & Provincial Roles</h2>
+              <p className="text-muted-foreground">
+                Beyond Callas, Caroline coordinates the Cape Flats Women's Movement and serves as Provincial Coordinator for South African Women in Dialogue. She works closely with the Women's Legal Centre and the Human Rights Defenders Programme, and coordinates a UNODC-backed programme on non-custodial measures for women in conflict with the law. In 2025 she was named a finalist in the Santam Women of the Future Awards, in the Social Entrepreneur category.
               </p>
               <h2 className="font-display text-3xl font-bold mt-8">Community Leadership</h2>
               <p className="text-muted-foreground">
@@ -57,7 +64,7 @@ function FounderPage() {
             <div className="mt-10 grid sm:grid-cols-3 gap-4">
               {[
                 { icon: BookOpen, label: "Policy contributions", value: "DVA · SOB" },
-                { icon: Award, label: "Years in the sector", value: "30+" },
+                { icon: Award, label: "2025 Santam Finalist", value: "Social Entrepreneur" },
                 { icon: Users, label: "Communities served", value: "9 Suburbs" },
               ].map((s) => (
                 <div key={s.label} className="rounded-xl border border-slate-200 p-5">

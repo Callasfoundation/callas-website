@@ -39,6 +39,7 @@ namespace Callas.API.Controllers
         /// <summary>
         /// Create a new news article.
         /// </summary>
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateNews(CreateNewsDto dto)
         {
@@ -49,6 +50,7 @@ namespace Callas.API.Controllers
         /// <summary>
         /// Update an existing news article.
         /// </summary>
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateNews(int id, UpdateNewsDto dto)
         {
@@ -59,6 +61,7 @@ namespace Callas.API.Controllers
         /// <summary>
         /// Delete a news article.
         /// </summary>
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteNews(int id)
         {
