@@ -43,22 +43,20 @@ function Hero() {
         alt="Callas Foundation community wearing No GBV shirts"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-ink/35" />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-        <div className="max-w-2xl">
-          <div className="text-xs uppercase tracking-[0.22em] text-white/90 font-semibold drop-shadow-[0_1px_3px_rgba(0,0,0,0.6)]">Callas Foundation · NPO {site.npo}</div>
-          <h1 className="mt-4 font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.55)]">
+        <div className="max-w-2xl rounded-2xl bg-ink/70 backdrop-blur-sm p-6 sm:p-8">
+          <div className="text-xs uppercase tracking-[0.22em] text-white/90 font-semibold">Callas Foundation · NPO {site.npo}</div>
+          <h1 className="mt-4 font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
             Standing with survivors of <span className="text-brand-red">gender-based violence</span>.
           </h1>
-          <p className="mt-5 text-base sm:text-lg text-white/95 leading-relaxed max-w-xl drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+          <p className="mt-5 text-base sm:text-lg text-white/95 leading-relaxed max-w-xl">
             A community-driven NPO on the Cape Flats — walking with survivors, feeding families, and rebuilding safety, one household at a time.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/donate" className="inline-flex items-center gap-2 rounded-full bg-brand-red hover:bg-brand-red-dark text-white px-6 py-3 text-sm font-semibold shadow-lg">
               Make a Donation <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/about" className="inline-flex items-center gap-2 rounded-full border border-white/60 hover:border-white bg-black/20 backdrop-blur-sm text-white px-6 py-3 text-sm font-semibold">
+            <Link to="/about" className="inline-flex items-center gap-2 rounded-full border border-white/60 hover:border-white text-white px-6 py-3 text-sm font-semibold">
               More About Us
             </Link>
           </div>
