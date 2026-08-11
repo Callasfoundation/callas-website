@@ -1,10 +1,10 @@
-#  Callas Foundation Website
+# Callas Foundation Website
 
 > A full-stack website developed for the **Callas Foundation**, a South African non-profit organization dedicated to supporting survivors of gender-based violence, strengthening communities, and providing social support services.
 
 ---
 
-##  About the Project
+## About the Project
 
 The Callas Foundation Website serves as the organization's online platform to:
 
@@ -18,23 +18,23 @@ The project follows a modern full-stack architecture with a React frontend and a
 
 ---
 
-#  Team
+# Team
 
-| Team Member             | Role               |
-| ----------------------- | ------------------ |
-| **Njabulo Hope Makana** | Backend Developer  |
-| **Erykah Wanga**        | Frontend Developer |
+| Team Member             | Role                                          |
+| ------------------------ | ---------------------------------------------- |
+| **Njabulo Hope Makana**  | Backend Developer                              |
+| **Erykah Wanga**         | Frontend Developer, Site Integrator & Deployment Lead |
 
 ---
 
-#  Technologies Used
+# Technologies Used
 
 ## Frontend
 
 * React
-* JavaScript
-* HTML5
-* CSS3
+* TypeScript
+* TanStack Router (file-based routing)
+* Tailwind CSS
 * REST API Integration
 
 ## Backend
@@ -42,9 +42,16 @@ The project follows a modern full-stack architecture with a React frontend and a
 * ASP.NET Core Web API
 * C#
 * Entity Framework Core
-* SQL Server
+* SQLite
 * JWT Authentication
 * Swagger/OpenAPI
+
+## Infrastructure & Deployment
+
+* Vercel (frontend hosting)
+* Railway (backend hosting)
+* Xneelo (domain & DNS management)
+* GitHub (version control & CI)
 
 ## Development Tools
 
@@ -52,29 +59,29 @@ The project follows a modern full-stack architecture with a React frontend and a
 * Visual Studio Code
 * Git
 * GitHub
-* Railway (Backend Deployment)
-* Postman 
+* Postman
 
 ---
 
-#  Features
+# Features
 
 ## Public Website
 
 * Homepage
 * About Callas Foundation
-* Programmes
+* Founder page
+* Programmes (7 static pillars + admin-managed programmes)
 * News
 * Events
 * Gallery
 * Resources
-* Team
+* Shop
+* Team & Board of Directors
 * Partners
 * Contact page
-* Volunteer information
-* Donation information
-
----
+* Get Help page (with survivor safety guidance)
+* Volunteer sign-up
+* Donation page (with banking details & QR code)
 
 ## Backend API
 
@@ -95,6 +102,7 @@ The backend exposes RESTful endpoints for managing website content.
 * Partners
 * Team
 * Resources
+* Products (Shop)
 * Volunteers
 * Donations
 * Contact messages
@@ -102,19 +110,21 @@ The backend exposes RESTful endpoints for managing website content.
 
 ---
 
-#  Security
+# Security
 
 The backend includes:
 
 * JWT Authentication
-* Protected administrative endpoints
+* Role-based authorization on all administrative write endpoints
 * DTO validation
 * Entity Framework data access
 * Secure API routing
+* Automated admin email notifications for new Contact and Volunteer submissions
+* Unread-message indicators in the admin dashboard
 
 ---
 
-#  Project Structure
+# Project Structure
 
 ```text
 Callas.API/
@@ -123,6 +133,7 @@ Callas.API/
 ├── DTOs/
 ├── Models/
 ├── Services/
+├── Repositories/
 ├── Data/
 ├── Migrations/
 ├── Program.cs
@@ -133,7 +144,7 @@ Frontend files are maintained separately and consume the backend API.
 
 ---
 
-#  Running the Project
+# Running the Project
 
 ## Backend
 
@@ -151,9 +162,19 @@ dotnet run
 
 Swagger will be available once the API starts.
 
+## Frontend
+
+```bash
+cd callas-website
+
+bun install
+
+bun run dev
+```
+
 ---
 
-#  API Overview
+# API Overview
 
 The API includes endpoints for:
 
@@ -166,36 +187,41 @@ The API includes endpoints for:
 * News
 * Partners
 * Programmes
+* Products (Shop)
 * Resources
 * Team
 * Volunteers
 
 ---
 
-# Future Improvements
+# Development Contributions
 
-The project roadmap includes enhancements requested by the Callas Foundation, such as:
+### Backend — Njabulo Hope Makana
 
-* Homepage redesign with stronger impact messaging
-* Impact statistics and visual counters
-* "Get Help Now" and "Donate" buttons throughout the site
-* Dedicated Support Our Work page
-* Corporate partnership information
-* Expanded programme pages
-* News and media sections
-* Events calendar
-* Governance and transparency pages
-* Mobile responsiveness improvements
-* SEO enhancements
-* Google Analytics integration
-* Improved performance and page loading
-* Consistent branding and additional impact photography
+* Designed and developed the ASP.NET Core Web API
+* Created RESTful API endpoints
+* Implemented JWT authentication
+* Built Entity Framework Core models and database integration
+* Developed CRUD operations for website content
+* Configured Swagger/OpenAPI documentation
 
-These improvements are based on stakeholder feedback and implementation priorities provided by the foundation.
+### Frontend, Integration & Deployment — Erykah Wanga
+
+* Designed and implemented the full React/TypeScript frontend, including all public pages and the admin dashboard
+* Diagnosed and fixed a critical routing bug that was silently breaking the Programmes page for every visitor
+* Audited every public-facing form (Contact, Volunteer, Get Help) end-to-end, found that submissions were not reaching the database or admin dashboard, and rebuilt each one with working backend integration
+* Identified that the Shop feature had a fully built frontend and admin UI with no backend behind it, and built the complete Product model, API, and database migration to make it functional
+* Found and closed five security vulnerabilities where admin-only actions (News, Gallery, Impact, Volunteers) were publicly writable with no authentication
+* Diagnosed a data-loss bug where the production database was being wiped on every deploy, and fixed it by migrating to persistent storage on Railway
+* Built email notifications and unread-count indicators for the admin dashboard, so staff are alerted to new messages and volunteer sign-ups in real time
+* Audited the live site against the organization's previous WordPress site, identified missing safety-critical content (a survivor safety guide, FAQ section, national GBV statistics) and real content that had been replaced with placeholder data (team/board members, news archive), then sourced, wrote, and migrated all of it back in
+* Replaced placeholder imagery and banking information with the organization's real content, including sourcing and processing a QR code and founder photo
+* Owned the full production deployment: configured custom domains and DNS across Xneelo, Vercel and Railway, migrated the organization's live domain from its previous WordPress host to the new site, and verified email (MX/SPF) records remained intact throughout the cutover
+* Tested, debugged and directed every fix in this document from first bug report through to production verification
 
 ---
 
-#  Contributing
+# Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -220,37 +246,13 @@ git push origin feature/new-feature
 
 ---
 
-#  Acknowledgements
+# Acknowledgements
 
 Special thanks to the **Callas Foundation** for the opportunity to contribute to a platform supporting survivors, families, and communities.
 
 ---
 
-#  Development Contributions
-
-### Backend : Njabulo Hope Makana
-
-* Designed and developed the ASP.NET Core Web API
-* Created RESTful API endpoints
-* Implemented JWT authentication
-* Built Entity Framework Core models and database integration
-* Developed CRUD operations for website content
-* Configured Swagger/OpenAPI documentation
-* Assisted with frontend-backend integration
-* Deployed the backend service
-* Produced backend documentation and technical change logs
-
-### Frontend : Erykah
-
-* Designed and implemented the user interface
-* Connected frontend components to backend APIs
-* Built responsive pages and navigation
-* Implemented the client-side user experience
-* Assisted with integration and overall website functionality
-
----
-
-#  License
+# License
 
 This project was developed for the Callas Foundation as part of a collaborative software development effort.
 
