@@ -15,7 +15,7 @@ export function PublicLayout() {
         src={logo}
         alt=""
         aria-hidden="true"
-        className="fixed bottom-4 right-4 h-20 w-20 sm:h-28 sm:w-28 opacity-[0.06] pointer-events-none select-none z-0"
+        className="fixed bottom-24 right-4 h-20 w-20 sm:h-28 sm:w-28 opacity-20 pointer-events-none select-none z-0"
       />
       <Navbar />
       <main className="flex-1 relative z-10">
