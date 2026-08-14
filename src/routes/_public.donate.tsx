@@ -4,7 +4,6 @@ import { Reveal } from "@/components/motion";
 import { ExternalLink, Landmark, Heart } from "lucide-react";
 import { site } from "@/data/site";
 import { uploadedPhotos } from "@/data/content";
-import qr from "@/assets/images/qr/donation-qr.png";
 
 export const Route = createFileRoute("/_public/donate")({
   head: () => ({
@@ -63,13 +62,18 @@ function DonatePage() {
           </div>
 
           <Reveal delay={0.2}>
-            <div className="mt-10 grid gap-6 md:grid-cols-[1fr_auto] items-center rounded-xl border border-slate-200 bg-canvas p-6">
-              <div>
-                <div className="flex items-center gap-2 text-brand-blue font-semibold text-sm"><Landmark className="h-4 w-4" /> Or scan to donate directly</div>
-                <p className="mt-2 text-sm text-muted-foreground">Scan the QR code with your phone camera to open our secure donation link.</p>
-                <p className="mt-3 text-xs text-muted-foreground">NPO {site.npo} · Section 18A tax certificate on request via <a href={`mailto:${site.emailGeneral}`} className="text-brand-blue hover:underline">{site.emailGeneral}</a>.</p>
-              </div>
-              <img src={qr} alt="Donation QR code" className="h-40 w-40 rounded-lg border border-slate-200 bg-white p-2 mx-auto" />
+            <div className="mt-10 rounded-xl border border-slate-200 bg-canvas p-6">
+              <div className="flex items-center gap-2 text-brand-blue font-semibold text-sm"><Landmark className="h-4 w-4" /> Direct bank transfer</div>
+              <dl className="mt-4 grid gap-x-6 gap-y-2 sm:grid-cols-2 text-sm">
+                <div><dt className="text-muted-foreground">Bank</dt><dd className="font-semibold text-ink">{site.banking.bank}</dd></div>
+                <div><dt className="text-muted-foreground">Account name</dt><dd className="font-semibold text-ink">{site.banking.accountName}</dd></div>
+                <div><dt className="text-muted-foreground">Account number</dt><dd className="font-semibold text-ink">{site.banking.accountNumber}</dd></div>
+                <div><dt className="text-muted-foreground">Account type</dt><dd className="font-semibold text-ink">{site.banking.accountType}</dd></div>
+                <div><dt className="text-muted-foreground">Branch code</dt><dd className="font-semibold text-ink">{site.banking.branchCode}</dd></div>
+                <div><dt className="text-muted-foreground">Branch name</dt><dd className="font-semibold text-ink">{site.banking.branchName}</dd></div>
+                <div><dt className="text-muted-foreground">SWIFT code</dt><dd className="font-semibold text-ink">{site.banking.swiftCode}</dd></div>
+              </dl>
+              <p className="mt-4 text-xs text-muted-foreground">NPO {site.npo} · Section 18A tax certificate on request via <a href={`mailto:${site.emailGeneral}`} className="text-brand-blue hover:underline">{site.emailGeneral}</a>.</p>
             </div>
           </Reveal>
         </div>
