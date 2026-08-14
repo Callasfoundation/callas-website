@@ -1,4 +1,5 @@
 using System.Text;
+using System.Threading.RateLimiting;
 using Callas.API.Data;
 using Callas.API.Interfaces;
 using Callas.API.Models;
@@ -6,6 +7,7 @@ using Callas.API.Repositories;
 using Callas.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -57,9 +59,25 @@ builder.Services.AddScoped<IPartnerRepository, PartnerRepository>();
 builder.Services.AddScoped<IPartnerService, PartnerService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddHttpClient();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
+var jwtKey = jwtSection["Key"];
+
+// Fail fast rather than silently run with a known, publicly-documented signing
+// key. If this ever fires in production it means the Jwt__Key environment
+// variable was not set on the host (Railway) — the app MUST NOT start in that
+// state, since anyone who knows the placeholder could forge valid admin tokens.
+const string KnownPlaceholderKey = "replace-this-with-a-long-random-secret-at-least-32-chars";
+if (!builder.Environment.IsDevelopment() &&
+    (string.IsNullOrWhiteSpace(jwtKey) || jwtKey == KnownPlaceholderKey || jwtKey.Length < 32))
+{
+    throw new InvalidOperationException(
+        "Refusing to start: Jwt:Key is missing, too short, or still set to the placeholder value. " +
+        "Set a real secret via the Jwt__Key environment variable before deploying.");
+}
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -72,11 +90,27 @@ builder.Services
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSection["Issuer"],
             ValidAudience = jwtSection["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSection["Key"]!)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!)),
         };
     });
 
 builder.Services.AddAuthorization();
+
+// Rate limit login attempts per client IP to slow down password-guessing —
+// 5 attempts per 5-minute window, then further attempts are rejected with 429.
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddPolicy("login", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 5,
+                Window = TimeSpan.FromMinutes(5),
+                QueueLimit = 0,
+            }));
+    options.RejectionStatusCode = 429;
+});
 
 var app = builder.Build();
 
@@ -89,32 +123,33 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseCors("AllowFrontend");
+app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-// Dev-only: seed a default admin so there's something to log in with.
-// Change the password immediately after your first login.
-if (app.Environment.IsDevelopment())
+// Always apply migrations on startup, in every environment — this used to be
+// gated to Development only, which meant production could silently fall
+// behind on schema changes unless someone remembered to run
+// `dotnet ef database update` by hand after every deploy.
+using (var scope = app.Services.CreateScope())
 {
-    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 
-    var existingAdmin = db.Users.FirstOrDefault(u => u.Username == "admin");
-    if (existingAdmin is null)
+    // Seed a default admin ONLY if the Users table is genuinely empty — safe
+    // in any environment, and won't recreate an account someone deliberately
+    // removed. Change this password immediately after first login.
+    if (!db.Users.Any())
     {
         var hasher = new PasswordHasher<User>();
         var admin = new User { Username = "admin", DisplayName = "Admin", Role = "Admin" };
         admin.PasswordHash = hasher.HashPassword(admin, "ChangeMe123!");
         db.Users.Add(admin);
         db.SaveChanges();
-        Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!)");
-    }
-    else
-    {
-        Console.WriteLine("[seed] Admin user already exists — skipping seed.");
+        Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!) — change this password immediately.");
     }
 }
+
 app.Run();
