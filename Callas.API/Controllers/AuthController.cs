@@ -1,8 +1,9 @@
-﻿using System.Security.Claims;
+using System.Security.Claims;
 using Callas.API.DTOs.Auth;
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Callas.API.Controllers
 {
@@ -17,6 +18,7 @@ namespace Callas.API.Controllers
             _authService = authService;
         }
 
+        [EnableRateLimiting("login")]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
