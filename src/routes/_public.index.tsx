@@ -5,7 +5,7 @@ import { ArrowRight, Phone, ShieldAlert } from "lucide-react";
 import { Reveal, Counter } from "@/components/motion";
 import { api } from "@/lib/api";
 
-import { news, impactMetrics } from "@/data/content";
+import { impactMetrics } from "@/data/content";
 import { site } from "@/data/site";
 
 import banner from "@/assets/images/home/no-gbv-banner.jpg";
@@ -50,11 +50,11 @@ function Hero() {
             Standing with survivors of <span className="text-brand-red">gender-based violence</span>.
           </h1>
           <p className="mt-5 text-base sm:text-lg text-white/95 leading-relaxed max-w-xl">
-            A community-driven NPO on the Cape Flats — walking with survivors, feeding families, and rebuilding safety, one household at a time.
+            Rooted in the Cape Flats, Callas Foundation walks alongside survivors, supports families, and works with communities to challenge violence, hunger and inequality.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Link to="/donate" className="inline-flex items-center gap-2 rounded-full bg-brand-red hover:bg-brand-red-dark text-white px-6 py-3 text-sm font-semibold shadow-lg">
-              Make a Donation <ArrowRight className="h-4 w-4" />
+              Support our work <ArrowRight className="h-4 w-4" />
             </Link>
             <Link to="/about" className="inline-flex items-center gap-2 rounded-full border border-white/60 hover:border-white text-white px-6 py-3 text-sm font-semibold">
               More About Us
@@ -131,8 +131,18 @@ function CrisisStrip() {
   );
 }
 
+type ApiNewsItem = { id: number; title: string; excerpt: string; category: string; publishedDate: string };
+
 function LatestNews() {
-  const latest = news.slice(0, 3);
+  const [latest, setLatest] = useState<ApiNewsItem[]>([]);
+  useEffect(() => {
+    api.list<ApiNewsItem>("news")
+      .then((rows) => setLatest([...rows].sort((a, b) => b.publishedDate.localeCompare(a.publishedDate)).slice(0, 3)))
+      .catch(() => setLatest([]));
+  }, []);
+
+  if (latest.length === 0) return null;
+
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16">
@@ -148,9 +158,9 @@ function LatestNews() {
         </Reveal>
         <div className="mt-8 grid gap-6 md:grid-cols-3">
           {latest.map((n, i) => (
-            <Reveal key={n.slug} delay={i * 0.08}>
-              <Link to="/news/$slug" params={{ slug: n.slug }} className="group block">
-                <div className="text-xs text-brand-blue font-semibold">{n.category} · {new Date(n.date).toLocaleDateString("en-ZA", { day: "numeric", month: "short", year: "numeric" })}</div>
+            <Reveal key={n.id} delay={i * 0.08}>
+              <Link to="/news/$id" params={{ id: String(n.id) }} className="group block">
+                <div className="text-xs text-brand-blue font-semibold">{n.category} · {new Date(n.publishedDate).toLocaleDateString("en-ZA", { day: "numeric", month: "short", year: "numeric" })}</div>
                 <h3 className="mt-2 font-display text-lg font-bold text-ink group-hover:text-brand-red leading-snug">{n.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{n.excerpt}</p>
               </Link>
