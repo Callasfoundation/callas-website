@@ -1,4 +1,3 @@
-// src/routes/_public.news.$slug.tsx  →  rename route param usage to $id (see note below)
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
@@ -6,7 +5,7 @@ import { api } from "@/lib/api";
 
 type NewsItem = { id: number; title: string; body: string; category: string; publishedDate: string; author: string; imageUrl: string };
 
-export const Route = createFileRoute("/_public/news/$slug")({
+export const Route = createFileRoute("/_public/news/$id")({
   component: NewsDetail,
 });
 
@@ -31,4 +30,4 @@ function NewsDetail() {
       </div></section>
     </>
   );
-} 
+}
