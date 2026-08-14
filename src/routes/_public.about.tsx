@@ -51,7 +51,7 @@ function AboutPage() {
 
   return (
     <>
-      <PageHeader eyebrow="About Callas" title="Three decades of grassroots activism. One integrated response." description="A community-driven NPO built on lived experience of the Cape Flats — where hunger, poverty and gender-based violence share a doorstep."
+      <PageHeader eyebrow="About Callas" title="Born from lived experience." description="Callas Foundation was established in 2018, building on more than three decades of grassroots activism. Based on the Cape Flats, we address the interconnected realities of gender-based violence, poverty, hunger and inequality through practical support, advocacy and community-led change."
         crumbs={[{ label: "About" }]} image={uploadedPhotos[5]} />
       <section className="bg-white">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12">
