@@ -1,5 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
-import { Menu, X, Facebook, Instagram, Twitter, Linkedin, MessageCircle, LifeBuoy } from "lucide-react";
+import { Menu, X, Facebook, Instagram, Twitter, Linkedin, MessageCircle, LifeBuoy, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/images/logo/callas-logo.png";
@@ -58,8 +58,8 @@ export function Navbar() {
               );
             })}
           </div>
-          <Link to="/donate" className="hidden sm:inline-flex items-center rounded-full border border-brand-blue/30 px-4 py-2 text-sm font-semibold text-brand-blue hover:bg-brand-blue hover:text-white transition-colors">
-            Donate
+          <Link to="/donate" className="inline-flex items-center gap-1.5 rounded-full bg-brand-blue px-3 py-2 text-sm font-semibold text-white shadow-lg shadow-brand-blue/25 hover:bg-brand-blue/90 transition-colors sm:px-4 sm:py-2.5">
+            <Heart className="h-4 w-4" /> Donate
           </Link>
           <Link to="/get-help" className="inline-flex items-center gap-2 rounded-full bg-brand-red px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-red/25 hover:bg-brand-red-dark animate-pulse-red">
             <LifeBuoy className="h-4 w-4" /> Get Help Now
@@ -79,6 +79,9 @@ export function Navbar() {
                   {l.label}
                 </Link>
               ))}
+              <Link to="/donate" className="mt-2 inline-flex items-center justify-center gap-2 rounded-full bg-brand-blue px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-blue/90">
+                <Heart className="h-4 w-4" /> Donate
+              </Link>
               <div className="mt-2 flex items-center gap-2 pt-3 border-t border-slate-200">
                 {site.socials.map((s) => {
                   const Icon = socialIcon[s.icon as keyof typeof socialIcon];
