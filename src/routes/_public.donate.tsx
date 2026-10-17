@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
 import { Reveal } from "@/components/motion";
-import { ExternalLink, Landmark, Heart } from "lucide-react";
+import { ExternalLink, Landmark, Heart, Globe } from "lucide-react";
 import { site } from "@/data/site";
 import { uploadedPhotos } from "@/data/content";
 
@@ -17,23 +17,53 @@ export const Route = createFileRoute("/_public/donate")({
   component: DonatePage,
 });
 
-const donationLinks = [
+type DonationLink = { name: string; tagline: string; url: string };
+
+// International / USA-friendly options come first.
+const internationalLinks: DonationLink[] = [
+  {
+    name: "GivenGain",
+    tagline: "Building Safer Communities Together campaign — international & USA donors",
+    url: "https://www.givengain.com/campaign/building-safer-communities-together-33402",
+  },
+];
+
+// South African options sit at the bottom.
+const southAfricaLinks: DonationLink[] = [
   {
     name: "PayFast",
     tagline: "Card, EFT & Instant EFT — via PayFast (South Africa)",
     url: "https://payment.payfast.io/eng/process/payment/09ef58da-eff0-4d23-b53a-e2f21caf35c7",
   },
   {
-    name: "GivenGain",
-    tagline: "Building Safer Communities Together campaign",
-    url: "https://www.givengain.com/campaign/building-safer-communities-together-33402",
-  },
-  {
     name: "BackaBuddy",
-    tagline: "Standing with Survivors of Gender-Based Violence",
+    tagline: "Standing with Survivors of Gender-Based Violence (South Africa)",
     url: "https://www.backabuddy.co.za/campaign/standing-with-survivors-of-gender-based-violence",
   },
 ];
+
+function LinkGroup({ title, links, startIndex = 0 }: { title: string; links: DonationLink[]; startIndex?: number }) {
+  return (
+    <div className="mt-8">
+      <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-brand-blue">
+        <Globe className="h-4 w-4" /> {title}
+      </h3>
+      <div className="mt-3 grid gap-4">
+        {links.map((d, i) => (
+          <Reveal key={d.name} delay={(startIndex + i) * 0.05}>
+            <a href={d.url} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 hover:border-brand-red hover:shadow-md transition-all">
+              <div>
+                <div className="font-display text-lg font-bold text-ink group-hover:text-brand-red">{d.name}</div>
+                <div className="text-sm text-muted-foreground">{d.tagline}</div>
+              </div>
+              <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-brand-red shrink-0" />
+            </a>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function DonatePage() {
   return (
@@ -47,19 +77,8 @@ function DonatePage() {
             <p className="mt-2 text-muted-foreground">Choose the platform you prefer — every option supports Callas Foundation directly.</p>
           </Reveal>
 
-          <div className="mt-8 grid gap-4">
-            {donationLinks.map((d, i) => (
-              <Reveal key={d.name} delay={i * 0.05}>
-                <a href={d.url} target="_blank" rel="noopener noreferrer" className="group flex items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white p-5 hover:border-brand-red hover:shadow-md transition-all">
-                  <div>
-                    <div className="font-display text-lg font-bold text-ink group-hover:text-brand-red">{d.name}</div>
-                    <div className="text-sm text-muted-foreground">{d.tagline}</div>
-                  </div>
-                  <ExternalLink className="h-5 w-5 text-muted-foreground group-hover:text-brand-red shrink-0" />
-                </a>
-              </Reveal>
-            ))}
-          </div>
+          <LinkGroup title="International & USA donors" links={internationalLinks} />
+          <LinkGroup title="South Africa" links={southAfricaLinks} startIndex={internationalLinks.length} />
 
           <Reveal delay={0.2}>
             <div className="mt-10 rounded-xl border border-slate-200 bg-canvas p-6">
