@@ -32,14 +32,39 @@ export const site = {
   ],
 };
 
-export const navLinks = [
+export type NavChild = { to: string; label: string; description?: string };
+export type NavItem = { label: string; to: string; children?: readonly NavChild[] };
+
+// Five top-level headings; everything else lives in dropdowns.
+export const navLinks: readonly NavItem[] = [
   { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
+  {
+    to: "/about",
+    label: "About",
+    children: [
+      { to: "/about", label: "About Us" },
+      { to: "/founder", label: "Our Founder" },
+      { to: "/partners", label: "Partners" },
+    ],
+  },
   { to: "/programmes", label: "Programmes" },
-  { to: "/news", label: "News" },
-  { to: "/events", label: "Events" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/resources", label: "Resources" },
-  { to: "/shop", label: "Shop" },
-  { to: "/contact", label: "Contact" },
-] as const;
+  {
+    to: "/news",
+    label: "Media",
+    children: [
+      { to: "/news", label: "News" },
+      { to: "/events", label: "Events" },
+      { to: "/gallery", label: "Gallery" },
+      { to: "/resources", label: "Resources" },
+    ],
+  },
+  {
+    to: "/volunteer",
+    label: "Get Involved",
+    children: [
+      { to: "/volunteer", label: "Volunteer" },
+      { to: "/shop", label: "Shop" },
+      { to: "/contact", label: "Contact Us" },
+    ],
+  },
+];
