@@ -21,17 +21,6 @@ export function Footer() {
           <p className="mt-5 text-sm text-white/70 leading-relaxed">
             Championing gender justice on the Cape Flats through grassroots outreach, trauma-informed care and legal empowerment.
           </p>
-          <div className="mt-5 flex gap-2">
-            {site.socials.map((s) => {
-              const Icon = iconMap[s.icon as keyof typeof iconMap];
-              return (
-                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}
-                   className="grid h-9 w-9 place-items-center rounded-full bg-white/10 hover:bg-brand-red transition-colors">
-                  <Icon className="h-4 w-4" />
-                </a>
-              );
-            })}
-          </div>
         </div>
 
         <div>
@@ -86,9 +75,20 @@ export function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs text-white/60">
           <p>© {year} Callas Foundation. All rights reserved.</p>
-          <p className="flex items-center gap-3">
+          <div className="flex items-center gap-2" aria-label="Follow us on social media">
+            {site.socials.map((s) => {
+              const Icon = iconMap[s.icon as keyof typeof iconMap];
+              return (
+                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.name}
+                   className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white hover:bg-brand-red transition-colors">
+                  <Icon className="h-[18px] w-[18px]" />
+                </a>
+              );
+            })}
+          </div>
+          <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center">
             <Link to="/cookies" className="hover:text-white">Cookie Policy</Link>
             <span className="opacity-40">·</span>
             <span>Site inspired by the strength of every survivor we walk beside.</span>
