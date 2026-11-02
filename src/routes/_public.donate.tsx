@@ -19,26 +19,26 @@ export const Route = createFileRoute("/_public/donate")({
 
 type DonationLink = { name: string; tagline: string; url: string };
 
-// International / USA-friendly options come first.
-const internationalLinks: DonationLink[] = [
-  {
-    name: "GivenGain",
-    tagline: "Building Safer Communities Together campaign — international & USA donors",
-    url: "https://www.givengain.com/campaign/building-safer-communities-together-33402",
-  },
-];
-
-// South African options sit at the bottom.
+// South African options come first — BackaBuddy is the top link (most donations come through it).
 const southAfricaLinks: DonationLink[] = [
+  {
+    name: "BackaBuddy",
+    tagline: "Standing with Survivors of Gender-Based Violence (South Africa)",
+    url: "https://www.backabuddy.co.za/campaign/standing-with-survivors-of-gender-based-violence",
+  },
   {
     name: "PayFast",
     tagline: "Card, EFT & Instant EFT — via PayFast (South Africa)",
     url: "https://payment.payfast.io/eng/process/payment/09ef58da-eff0-4d23-b53a-e2f21caf35c7",
   },
+];
+
+// International / USA-friendly options follow.
+const internationalLinks: DonationLink[] = [
   {
-    name: "BackaBuddy",
-    tagline: "Standing with Survivors of Gender-Based Violence (South Africa)",
-    url: "https://www.backabuddy.co.za/campaign/standing-with-survivors-of-gender-based-violence",
+    name: "GivenGain",
+    tagline: "Building Safer Communities Together campaign — international & USA donors",
+    url: "https://www.givengain.com/campaign/building-safer-communities-together-33402",
   },
 ];
 
@@ -77,8 +77,8 @@ function DonatePage() {
             <p className="mt-2 text-muted-foreground">Choose the platform you prefer — every option supports Callas Foundation directly.</p>
           </Reveal>
 
-          <LinkGroup title="International & USA donors" links={internationalLinks} />
-          <LinkGroup title="South Africa" links={southAfricaLinks} startIndex={internationalLinks.length} />
+          <LinkGroup title="South Africa" links={southAfricaLinks} />
+          <LinkGroup title="International & USA donors" links={internationalLinks} startIndex={southAfricaLinks.length} />
 
           <Reveal delay={0.2}>
             <div className="mt-10 rounded-xl border border-slate-200 bg-canvas p-6">
