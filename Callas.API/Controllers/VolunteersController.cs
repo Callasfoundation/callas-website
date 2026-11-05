@@ -2,6 +2,7 @@ using Callas.API.DTOs.Volunteers;
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace Callas.API.Controllers
 {
@@ -31,6 +32,7 @@ namespace Callas.API.Controllers
             return volunteer is null ? NotFound() : Ok(volunteer);
         }
 
+        [EnableRateLimiting("public-forms")]
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateVolunteer(CreateVolunteerDto dto)
