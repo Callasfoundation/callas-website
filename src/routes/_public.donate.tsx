@@ -29,7 +29,7 @@ const southAfricaLinks: DonationLink[] = [
   {
     name: "PayFast",
     tagline: "Card, EFT & Instant EFT — via PayFast (South Africa)",
-    url: "https://payment.payfast.io/eng/process/payment/09ef58da-eff0-4d23-b53a-e2f21caf35c7",
+    url: "https://payment.payfast.io/eng/process/payment/004215e9-ac41-48da-a87e-2d80f967829a",
   },
 ];
 
