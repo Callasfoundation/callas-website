@@ -1,6 +1,7 @@
 ﻿using Callas.API.DTOs.Contact;
 using Callas.API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Callas.API.Controllers
@@ -28,6 +29,7 @@ namespace Callas.API.Controllers
             return msg is null ? NotFound() : Ok(msg);
         }
 
+        [EnableRateLimiting("public-forms")]
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> CreateMessage(CreateContactMessageDto dto)
