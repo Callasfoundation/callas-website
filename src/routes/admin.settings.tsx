@@ -19,7 +19,7 @@ function SettingsPage() {
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setMsg(null);
-    if (next.length < 8) return setMsg({ kind: "err", text: "New password must be at least 8 characters." });
+    if (next.length < 10) return setMsg({ kind: "err", text: "New password must be at least 10 characters." });
     if (next !== confirm) return setMsg({ kind: "err", text: "New passwords don't match." });
     setBusy(true);
     try {
@@ -55,11 +55,11 @@ function SettingsPage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
             <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">New password</label>
-            <input type="password" required minLength={8} value={next} onChange={(e) => setNext(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
+            <input type="password" required minLength={10} value={next} onChange={(e) => setNext(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
           </div>
           <div>
             <label className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">Confirm new password</label>
-            <input type="password" required minLength={8} value={confirm} onChange={(e) => setConfirm(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
+            <input type="password" required minLength={10} value={confirm} onChange={(e) => setConfirm(e.target.value)} className="mt-1 w-full rounded-lg border border-slate-300 px-4 py-2.5" />
           </div>
         </div>
         {msg && <div className={`rounded-lg px-4 py-2 text-sm ${msg.kind === "ok" ? "bg-green-50 text-green-700" : "bg-brand-red/10 text-brand-red"}`}>{msg.text}</div>}
