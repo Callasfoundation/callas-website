@@ -3,7 +3,22 @@ import { Menu, X, LifeBuoy, Heart, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/images/logo/callas-logo.png";
-import { navLinks, type NavItem } from "@/data/site";
+import { navLinks as baseNavLinks, type NavItem } from "@/data/site";
+import { programmes } from "@/data/programmes";
+
+// Programmes gets a dropdown listing every programme, built from the programmes data
+// so new programmes appear in the menu automatically.
+const navLinks: readonly NavItem[] = baseNavLinks.map((l) =>
+  l.label === "Programmes"
+    ? {
+        ...l,
+        children: [
+          { to: "/programmes", label: "All Programmes" },
+          ...programmes.map((p) => ({ to: `/programmes/${p.slug}`, label: p.title })),
+        ],
+      }
+    : l,
+);
 
 function isActive(pathname: string, item: NavItem) {
   const targets = [item.to, ...(item.children?.map((c) => c.to) ?? [])];
@@ -30,7 +45,7 @@ function DesktopItem({ item, pathname }: { item: NavItem; pathname: string }) {
 
   useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current); }, []);
 
-  const base = "relative inline-flex items-center gap-1 px-3 py-2 text-[15px] font-medium text-ink/80 hover:text-brand-blue transition-colors";
+  const base = "relative inline-flex items-center gap-1 whitespace-nowrap px-3 py-2 text-[15px] font-medium text-ink/80 hover:text-brand-blue transition-colors";
   const underline = active && (
     <motion.span layoutId="nav-underline" className="absolute inset-x-3 -bottom-0.5 h-0.5 bg-brand-red" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
   );
@@ -68,7 +83,7 @@ function DesktopItem({ item, pathname }: { item: NavItem; pathname: string }) {
             transition={{ duration: 0.15 }}
             className="absolute left-0 top-full z-50 pt-2"
           >
-            <div className="min-w-[200px] rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl">
+            <div className="min-w-[240px] rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl">
               {item.children.map((c) => (
                 <Link key={c.to} to={c.to} role="menuitem" className="block rounded-lg px-3 py-2 text-sm font-medium text-ink/80 hover:bg-brand-blue/10 hover:text-brand-blue transition-colors">
                   {c.label}
@@ -131,12 +146,12 @@ export function Navbar() {
 
   return (
     <header className={`sticky top-0 z-50 transition-all ${scrolled ? "backdrop-blur-md bg-white/85 border-b border-slate-200/60 shadow-sm" : "bg-white/60 backdrop-blur"}`}>
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-24 sm:h-28 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link to="/" className="flex items-center gap-3 shrink-0">
-          <img src={logo} alt="Callas Foundation" className="h-16 w-16 sm:h-[72px] sm:w-[72px] object-contain" />
-          <div className="hidden sm:flex flex-col leading-tight">
-            <span className="font-display text-xl font-bold text-ink">Callas Foundation</span>
-            <span className="text-[10px] tracking-[0.22em] uppercase text-brand-blue">Helping In Our Way</span>
+          <img src={logo} alt="Callas Foundation" className="h-[72px] w-[72px] sm:h-24 sm:w-24 object-contain" />
+          <div className="hidden sm:flex lg:hidden xl:flex flex-col leading-tight">
+            <span className="font-display text-2xl font-bold text-ink">Callas Foundation</span>
+            <span className="text-[11px] tracking-[0.22em] uppercase text-brand-blue">Helping In Our Way</span>
           </div>
         </Link>
 
@@ -150,8 +165,8 @@ export function Navbar() {
           <Link to="/donate" className="inline-flex items-center gap-2 rounded-full bg-brand-blue px-5 py-3 text-base font-bold text-white shadow-lg shadow-brand-blue/30 hover:bg-brand-blue/90 transition-colors sm:px-7 sm:py-3.5 sm:text-lg">
             <Heart className="h-5 w-5" /> Donate
           </Link>
-          <Link to="/get-help" aria-label="Get Help Now" className="inline-flex items-center gap-2 rounded-full bg-brand-red p-3 text-sm font-semibold text-white shadow-lg shadow-brand-red/25 hover:bg-brand-red-dark animate-pulse-red sm:px-4 sm:py-2.5">
-            <LifeBuoy className="h-4 w-4" /> <span className="hidden sm:inline">Get Help Now</span>
+          <Link to="/get-help" aria-label="Get Help Now" className="inline-flex items-center gap-2 rounded-full bg-brand-red p-3 text-sm font-semibold text-white shadow-lg shadow-brand-red/25 hover:bg-brand-red-dark animate-pulse-red min-[1340px]:px-4 min-[1340px]:py-2.5">
+            <LifeBuoy className="h-4 w-4" /> <span className="hidden min-[1340px]:inline">Get Help Now</span>
           </Link>
           <button className="lg:hidden ml-1 grid h-10 w-10 place-items-center rounded-md text-ink hover:bg-slate-100" onClick={() => setOpen((o) => !o)} aria-label="Menu" aria-expanded={open}>
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
