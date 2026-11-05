@@ -6,14 +6,29 @@ using Callas.API.Models;
 using Callas.API.Repositories;
 using Callas.API.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+// The API runs behind a reverse proxy (Railway). Without this, every request
+// appears to come from the proxy's IP, so IP-based rate limits would be shared
+// by ALL visitors (one person's failed logins could lock everyone out).
+builder.Services.Configure<ForwardedHeadersOptions>(o =>
+{
+    o.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    o.KnownNetworks.Clear();
+    o.KnownProxies.Clear();
+});
+
+// Tracks tokens invalidated by logout until they would have expired anyway.
+builder.Services.AddSingleton<TokenRevocationService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -88,9 +103,24 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
+            ClockSkew = TimeSpan.FromSeconds(30),
             ValidIssuer = jwtSection["Issuer"],
             ValidAudience = jwtSection["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey!)),
+        };
+
+        // Reject tokens that were revoked by an explicit logout.
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = context =>
+            {
+                var revocation = context.HttpContext.RequestServices.GetRequiredService<TokenRevocationService>();
+                var jti = (context.SecurityToken as JwtSecurityToken)?.Id
+                          ?? (context.SecurityToken as Microsoft.IdentityModel.JsonWebTokens.JsonWebToken)?.Id;
+                if (revocation.IsRevoked(jti))
+                    context.Fail("Token has been revoked.");
+                return Task.CompletedTask;
+            },
         };
     });
 
@@ -109,6 +139,18 @@ builder.Services.AddRateLimiter(options =>
                 Window = TimeSpan.FromMinutes(5),
                 QueueLimit = 0,
             }));
+
+    // Public forms (contact / volunteer / donation records): stop spam floods
+    // without getting in the way of real visitors — 10 submissions per 10 minutes per IP.
+    options.AddPolicy("public-forms", httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
+            factory: _ => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 10,
+                Window = TimeSpan.FromMinutes(10),
+                QueueLimit = 0,
+            }));
     options.RejectionStatusCode = 429;
 });
 
@@ -119,6 +161,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseForwardedHeaders();
+
+app.Use(async (context, next) =>
+{
+    var h = context.Response.Headers;
+    h["X-Content-Type-Options"] = "nosniff";
+    h["X-Frame-Options"] = "DENY";
+    h["Referrer-Policy"] = "no-referrer";
+    h["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()";
+    await next();
+});
 
 app.UseHttpsRedirection();
 
@@ -138,17 +192,34 @@ using (var scope = app.Services.CreateScope())
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     db.Database.Migrate();
 
-    // Seed a default admin ONLY if the Users table is genuinely empty — safe
-    // in any environment, and won't recreate an account someone deliberately
-    // removed. Change this password immediately after first login.
+    // Seed the first admin ONLY if the Users table is genuinely empty. The
+    // password comes from the Admin__InitialPassword environment variable (min
+    // 12 chars) and is never logged. There is NO built-in password outside
+    // Development, so a fresh production deploy can't start with a guessable login.
     if (!db.Users.Any())
     {
-        var hasher = new PasswordHasher<User>();
-        var admin = new User { Username = "admin", DisplayName = "Admin", Role = "Admin" };
-        admin.PasswordHash = hasher.HashPassword(admin, "ChangeMe123!");
-        db.Users.Add(admin);
-        db.SaveChanges();
-        Console.WriteLine("[seed] Created default admin user (admin / ChangeMe123!) — change this password immediately.");
+        var initialUsername = builder.Configuration["Admin:InitialUsername"];
+        if (string.IsNullOrWhiteSpace(initialUsername)) initialUsername = "admin";
+
+        var initialPassword = builder.Configuration["Admin:InitialPassword"];
+        if (string.IsNullOrWhiteSpace(initialPassword) && app.Environment.IsDevelopment())
+            initialPassword = "ChangeMe123!"; // local development only
+
+        if (string.IsNullOrWhiteSpace(initialPassword) ||
+            (!app.Environment.IsDevelopment() && initialPassword.Length < 12))
+        {
+            Console.WriteLine("[seed] No admin user exists and no valid Admin__InitialPassword (min 12 chars) is set. " +
+                              "Set it and restart to create the first admin.");
+        }
+        else
+        {
+            var hasher = new PasswordHasher<User>();
+            var admin = new User { Username = initialUsername, DisplayName = "Admin", Role = "Admin" };
+            admin.PasswordHash = hasher.HashPassword(admin, initialPassword);
+            db.Users.Add(admin);
+            db.SaveChanges();
+            Console.WriteLine($"[seed] Created initial admin user '{initialUsername}'. Change the password after first login.");
+        }
     }
 }
 
