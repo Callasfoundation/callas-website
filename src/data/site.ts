@@ -56,6 +56,7 @@ export const navLinks: readonly NavItem[] = [
       { to: "/events", label: "Events" },
       { to: "/gallery", label: "Gallery" },
       { to: "/resources", label: "Resources" },
+      { to: "/publications", label: "Publications" },
     ],
   },
   {
