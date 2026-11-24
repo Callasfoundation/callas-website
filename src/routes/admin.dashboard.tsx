@@ -11,6 +11,7 @@ const resources = [
   { key: "contact", label: "Messages", icon: Mail, to: "/admin/messages" },
   { key: "partners", label: "Partners", icon: Handshake, to: "/admin/partners" },
   { key: "resources", label: "Resources", icon: BookOpen, to: "/admin/resources" },
+  { key: "Publications", label: "Publications", icon: FileText, to: "/admin/publications" },
    { key: "programmes", label: "Programmes", icon: Layers, to: "/admin/programmes" },
 ] as const;
 
