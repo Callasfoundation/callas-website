@@ -11,6 +11,7 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<News> News => Set<News>();
+    public DbSet<Publication> Publications => Set<Publication>();
     public DbSet<Event> Events => Set<Event>();
     public DbSet<Donation> Donations => Set<Donation>();
     public DbSet<Volunteer> Volunteers => Set<Volunteer>();
