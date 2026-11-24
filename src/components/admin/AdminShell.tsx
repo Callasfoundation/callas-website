@@ -14,6 +14,7 @@ const items = [
   { to: "/admin/volunteers", label: "Volunteers", icon: HeartHandshake, countResource: "volunteers" },
   { to: "/admin/partners", label: "Partners", icon: Handshake },
   { to: "/admin/resources", label: "Resources", icon: BookOpen },
+  { to: "/admin/publications", label: "Publications", icon: FileText },
   { to: "/admin/shop", label: "Shop", icon: ShoppingBag },
   { to: "/admin/programmes", label: "Programmes", icon: Layers },
   { to: "/admin/settings", label: "Settings", icon: Settings },
