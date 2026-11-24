@@ -1,4 +1,5 @@
 using Callas.API.Models;
+using Callas.API.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace Callas.API.Repositories;
